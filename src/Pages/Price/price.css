@@ -1,0 +1,43 @@
+.training {
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+    justify-content: center;
+    padding: 7% 0%;
+}
+
+.personally p {
+    text-align: left;
+}
+
+
+.subscription,
+.personally {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    color: white;
+    width: 400px;
+    height: 250px;
+    border-radius: 5px;
+    padding: 30px;
+    font-size: 20px;
+    background: linear-gradient(130deg, #000000 30%, rgba(125, 186, 232, 0) 100%), url('../../img/black-red.png') top right, #121212;
+}
+
+#head-price {
+    display: flex;
+    justify-content: space-between;
+}
+
+#head-price h4 {
+    background-color: rgba(192, 192, 192, 0.47);
+    padding: 10px;
+    border: 5px;
+}
+
+#month-price {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}

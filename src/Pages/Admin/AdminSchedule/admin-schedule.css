@@ -1,0 +1,90 @@
+/* schedule-editor.css */
+.schedule-editor-content {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-editor-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.schedule-editor-content th,
+.schedule-editor-content td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.schedule-editor-content table td {
+    border: none;
+}
+
+.schedule-editor-content th {
+    background-color: #e3070e;
+    color: white;
+    font-weight: bold;
+}
+
+.schedule-editor-content td:first-child {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.schedule-editor-content input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.schedule-editor-content button {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 24px;
+    background-color: #e3070e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.schedule-editor-content button:hover {
+    background-color: #e3070e;
+}
+
+.schedule-editor-content button:active {
+    background-color: #e3070e;
+}
+
+.schedule-editor-content button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.schedule-editor-header {
+    background-color: #e3070e;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 8px 8px 0 0;
+}
+
+.schedule-editor-footer {
+    background-color: #e3070e;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 0 0 8px 8px;
+}

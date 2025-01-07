@@ -1,0 +1,202 @@
+ul.navigation li ul {
+    display: none;
+}
+
+ul.navigation li {
+    list-style: none;
+}
+
+ul.navigation li:hover>ul {
+    display: block;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+ul.navigation li {
+    background-color: #ffffff;
+    float: left;
+    height: 50px;
+    list-style: none;
+    padding: 0px 3px 0px 3px;
+}
+
+ul.navigation li a {
+    text-decoration: none;
+    display: block;
+    padding: 15px 5px 10px 5px;
+}
+
+ul.navigation li ul {
+    display: none;
+}
+
+ul.navigation li:hover {
+    position: relative;
+    z-index: 1;
+}
+
+ul.navigation li:hover>ul {
+    display: block;
+    position: absolute;
+    top: 50px;
+    left: 0px;
+}
+
+ul.navigation li ul li {
+    line-height: 2;
+    height: auto;
+    width: 200%;
+}
+
+ul.navigation li ul li {
+    position: relative;
+    border-top: 1px solid rgba(0, 0, 0, 0.171);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.171);
+}
+
+ul.navigation li ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background-color: red;
+    transition: width 0.3s ease-in-out;
+}
+
+ul.navigation li ul li:hover::before {
+    width: 5px;
+}
+
+.first-li {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.last-li {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.first-li:hover {
+    border-bottom-left-radius: 0px;
+}
+
+a {
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: red;
+}
+
+ul.navigation li ul li:last-child {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+@media(min-width:320px) and (max-width:1200px) {
+    ul {
+        display: flex;
+        flex-direction: column;
+        color: white;
+        font-weight: 600;
+    }
+
+    ul.navigation li ul {
+        display: none;
+    }
+
+    ul.navigation li {
+        list-style: none;
+    }
+
+    ul.navigation li:hover>ul {
+        display: block;
+        background: white;
+        color: black;
+        border-radius: 5px;
+    }
+
+    ul.navigation li:hover>ul {
+        display: block;
+        position: absolute;
+        top: 40px;
+        left: 0px;
+        
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul.navigation li {
+        background-color: transparent;
+        float: left;
+        height: 50px;
+        list-style: none;
+        padding: 0px 5px 0px 5px;
+    }
+
+    ul.navigation li a {
+        text-decoration: none;
+        display: block;
+    }
+
+    ul.navigation li ul {
+        display: none;
+    }
+
+    ul.navigation li:hover {
+        position: relative;
+        z-index: 1;
+    }
+
+
+
+    ul.navigation li ul li {
+        line-height: 2;
+        height: auto;
+        width: 160%;
+    }
+
+    ul.navigation li ul li {
+        position: relative;
+        border-top: 1px solid rgba(0, 0, 0, 0.171);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.171);
+    }
+
+    ul.navigation li ul li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 0;
+        height: 100%;
+        background-color: red;
+        transition: width 0.3s ease-in-out;
+    }
+
+    ul.navigation li ul li:hover::before {
+        width: 5px;
+    }
+
+    .first-li {
+        border-bottom-left-radius: 0px;
+        border-top-left-radius: 0px;
+    }
+
+    .last-li {
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    .first-li:hover {
+        border-bottom-left-radius: 0px;
+    }
+}
