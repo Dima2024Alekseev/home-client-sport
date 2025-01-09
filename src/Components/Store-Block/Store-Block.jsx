@@ -14,7 +14,7 @@ const StoreBlock = () => {
     useEffect(() => {
         const fetchItems = async () => {
             try {
-                const response = await axios.get('https://www.hooligamma.ru/api/products');
+                const response = await axios.get('/api/products');
                 setItems(response.data);
             } catch (error) {
                 console.error('Ошибка при получении продуктов:', error);
