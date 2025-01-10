@@ -18,7 +18,7 @@ const AdminPrice = () => {
     useEffect(() => {
         const fetchPrices = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/prices');
+                const response = await axios.get('/api/prices');
                 setPriceData(response.data);
             } catch (error) {
                 console.error('Ошибка при получении цен:', error);

@@ -13,7 +13,7 @@ const Store = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/products');
+                const response = await axios.get('/api/products');
                 setProducts(response.data);
             } catch (error) {
                 console.error('Ошибка при получении продуктов:', error);
@@ -49,9 +49,9 @@ const Store = () => {
             <main className="store-grid">
                 {products.map(product => (
                     <div key={product._id} className="store-card">
-                        <div className="store-image-wrapper" onClick={() => openModal(`http://localhost:5000${product.image}`)}>
+                        <div className="store-image-wrapper" onClick={() => openModal(product.image)}>
                             <img
-                                src={`http://localhost:5000${product.image}`}
+                                src={product.image}
                                 alt={product.text}
                                 className="store-image"
                             />

@@ -85,7 +85,7 @@ const Schedule = () => {
   useEffect(() => {
     const fetchSchedule = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/schedule');
+        const response = await axios.get('/api/schedule');
         setScheduleData(response.data);
       } catch (error) {
         console.error('Ошибка при получении расписания:', error);
