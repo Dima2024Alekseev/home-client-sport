@@ -34,7 +34,7 @@ const Waiting = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/applications/submit-application', {
+      const response = await fetch('/api/applications/submit-application', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
