@@ -115,7 +115,7 @@ const Header = ({ title, icon, innerTitle, linkText, showVideoHomePages, showGra
         <div>
           <div className={nav ? ["header-flex", "active"].join(" ") : ["header-flex"]}>
             
-            <Link to="/home">
+            <Link to="/">
               <div>
                 <img className="logo-header" alt="" src={logo} />
               </div>
@@ -170,7 +170,7 @@ const Header = ({ title, icon, innerTitle, linkText, showVideoHomePages, showGra
         </div>
         <div className="links">
           <div style={{ borderRight: '1px solid white', paddingRight: '10px' }}>
-            <Link to="/home">Главная</Link>
+            <Link to="/">Главная</Link>
           </div>
           <div>
             <Link to="#" style={{ color: 'white', paddingLeft: '10px' }}></Link>

@@ -48,7 +48,7 @@ const StoreBlock = () => {
                 {items.map((item, index) => (
                     <SwiperSlide key={index}>
                         <div className='content-store'>
-                            <img src={`http://localhost:5000${item.image}`} alt={item.text} />
+                            <img src={item.image} alt={item.text} />
                             <p>{item.text}<br /><strong>{item.price} ₽</strong></p>
                         </div>
                     </SwiperSlide>
