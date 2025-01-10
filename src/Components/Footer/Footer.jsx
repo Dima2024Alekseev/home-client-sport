@@ -13,6 +13,7 @@ class Footer extends React.Component {
                         <div className="kinds-of-sports">
                             <div>
                                 <Link to="/" className="type-of-fight">Академия</Link>
+                                
                             </div>
                             <div>
                                 <Link to="/about" className="type-of-fight">об Академии</Link>

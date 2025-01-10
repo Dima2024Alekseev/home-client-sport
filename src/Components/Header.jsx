@@ -171,6 +171,7 @@ const Header = ({ title, icon, innerTitle, linkText, showVideoHomePages, showGra
         <div className="links">
           <div style={{ borderRight: '1px solid white', paddingRight: '10px' }}>
             <Link to="/">Главная</Link>
+            
           </div>
           <div>
             <Link to="#" style={{ color: 'white', paddingLeft: '10px' }}></Link>

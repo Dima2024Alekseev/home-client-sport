@@ -17,6 +17,7 @@ const MobileMenu = ({ nav, setNav }) => {
     return (
         <div className="position-mobile-logo-and-menu">
             <Link to="/">
+                
                 <div className="logo-mobile">
                     <img className="logo-header" alt="" src={logo}/>
                 </div>
