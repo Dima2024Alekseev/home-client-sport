@@ -14,7 +14,7 @@ const Authorization = () => {
 
   const handleSubmit = async (formData) => {
     try {
-      const response = await axios.post('/api/admin/login', formData);
+      const response = await axios.post('/api/admin/login', formData, { withCredentials: true });
       const { token } = response.data;
       localStorage.setItem('token', token);
       localStorage.setItem('isAuthenticated', 'true');
