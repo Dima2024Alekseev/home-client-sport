@@ -18,7 +18,7 @@ const EditorProduct = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/products');
+                const response = await axios.get('/api/products');
                 setProducts(response.data);
             } catch (error) {
                 console.error('Ошибка при получении продуктов:', error);
@@ -44,13 +44,13 @@ const EditorProduct = () => {
                 formData.append('image', selectedFile);
             }
 
-            await axios.put(`http://localhost:5000/api/products/${productId}`, formData, {
+            await axios.put(`/api/products/${productId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
 
-            const response = await axios.get('http://localhost:5000/api/products');
+            const response = await axios.get('/api/products');
             setProducts(response.data);
             setEditingProductId(null);
             setSelectedFile(null);
@@ -63,8 +63,8 @@ const EditorProduct = () => {
 
     const handleDeleteClick = async (productId) => {
         try {
-            await axios.delete(`http://localhost:5000/api/products/${productId}`);
-            const response = await axios.get('http://localhost:5000/api/products');
+            await axios.delete(`/api/products/${productId}`);
+            const response = await axios.get('/api/products');
             setProducts(response.data);
             toast.success('Продукт успешно удален');
         } catch (error) {
@@ -82,13 +82,13 @@ const EditorProduct = () => {
                 formData.append('image', newProductFile);
             }
 
-            await axios.post('http://localhost:5000/api/products', formData, {
+            await axios.post('/api/products', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
 
-            const response = await axios.get('http://localhost:5000/api/products');
+            const response = await axios.get('/api/products');
             setProducts(response.data); // Обновляем список продуктов
             setNewProductName('');
             setNewProductPrice('');
@@ -121,7 +121,7 @@ const EditorProduct = () => {
                     <div key={product._id} className="product-card">
                         <div className={`product-image-wrapper ${editingProductId === product._id ? 'editing' : ''}`}>
                             <img
-                                src={`http://localhost:5000${product.image}`}
+                                src={product.image}
                                 alt={product.text}
                                 className="product-image"
                             />

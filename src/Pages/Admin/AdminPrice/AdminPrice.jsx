@@ -40,10 +40,10 @@ const AdminPrice = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/api/prices', { prices: [newPrice] });
+            const response = await axios.post('/api/prices', { prices: [newPrice] });
             console.log('Данные успешно добавлены:', response.data);
             // Обновляем данные после добавления новой записи
-            const updatedPriceData = await axios.get('http://localhost:5000/api/prices');
+            const updatedPriceData = await axios.get('/api/prices');
             setPriceData(updatedPriceData.data);
             setNewPrice({
                 category: '',
@@ -61,7 +61,7 @@ const AdminPrice = () => {
     const handleUpdate = async (index) => {
         const updatedPrice = priceData[index];
         try {
-            const response = await axios.put('http://localhost:5000/api/prices', { price: updatedPrice });
+            const response = await axios.put('/api/prices', { price: updatedPrice });
             console.log('Данные успешно обновлены:', response.data);
             const updatedPriceData = [...priceData];
             updatedPriceData[index] = response.data.price;
@@ -75,10 +75,10 @@ const AdminPrice = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:5000/api/prices/${id}`);
+            const response = await axios.delete(`/api/prices/${id}`);
             console.log('Данные успешно удалены:', response.data);
             // Обновляем данные после удаления записи
-            const updatedPriceData = await axios.get('http://localhost:5000/api/prices');
+            const updatedPriceData = await axios.get('/api/prices');
             setPriceData(updatedPriceData.data);
             toast.success('Прайс-лист успешно удален');
         } catch (error) {
