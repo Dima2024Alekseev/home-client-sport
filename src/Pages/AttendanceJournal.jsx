@@ -222,44 +222,46 @@ const AttendanceJournal = () => {
 
   const renderAttendanceTable = () => {
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>№</th>
-            <th>ФИО</th>
-            {daysToDisplay.map((day) => (
-              <th key={day}>{day}</th>
-            ))}
-            {isAdmin && <th>Действия</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {attendanceData.map((entry, index) => (
-            <tr key={entry._id}>
-              <td className='element-center'>{index + 1}</td>
-              <td>{isAdmin ? <input value={entry.studentName} onChange={(e) => handleChange(index, 'studentName', e.target.value)} /> : entry.studentName}</td>
+      <div className='table-container'>
+        <table>
+          <thead>
+            <tr>
+              <th>№</th>
+              <th>ФИО</th>
               {daysToDisplay.map((day) => (
-                <td key={day} className='element-center'>
-                  {isAdmin ? (
-                    <input
-                      type="checkbox"
-                      checked={entry.attendance[day] || false}
-                      onChange={(e) => handleChange(index, `attendance.${day}`, e.target.checked)}
-                    />
-                  ) : (
-                    entry.attendance[day] ? '✔' : ''
-                  )}
-                </td>
+                <th key={day}>{day}</th>
               ))}
-              {isAdmin && (
-                <td className='element-center'>
-                  <button onClick={() => handleDeleteEntry(entry._id)}>Удалить</button>
-                </td>
-              )}
+              {isAdmin && <th>Действия</th>}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {attendanceData.map((entry, index) => (
+              <tr key={entry._id}>
+                <td className='element-center'>{index + 1}</td>
+                <td>{isAdmin ? <input value={entry.studentName} onChange={(e) => handleChange(index, 'studentName', e.target.value)} /> : entry.studentName}</td>
+                {daysToDisplay.map((day) => (
+                  <td key={day} className='element-center'>
+                    {isAdmin ? (
+                      <input
+                        type="checkbox"
+                        checked={entry.attendance[day] || false}
+                        onChange={(e) => handleChange(index, `attendance.${day}`, e.target.checked)}
+                      />
+                    ) : (
+                      entry.attendance[day] ? '✔' : ''
+                    )}
+                  </td>
+                ))}
+                {isAdmin && (
+                  <td className='element-center'>
+                    <button onClick={() => handleDeleteEntry(entry._id)}>Удалить</button>
+                  </td>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     );
   };
 
