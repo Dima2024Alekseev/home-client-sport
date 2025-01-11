@@ -84,7 +84,6 @@
     opacity: 0;
     transition: opacity 0.3s;
     border-radius: 10px;
-    z-index: 1;
     pointer-events: none;
 }
 
