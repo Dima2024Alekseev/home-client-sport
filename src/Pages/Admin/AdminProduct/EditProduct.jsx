@@ -121,7 +121,7 @@ const EditorProduct = () => {
                     <div key={product._id} className="product-card">
                         <div className={`product-image-wrapper ${editingProductId === product._id ? 'editing' : ''}`}>
                             <img
-                                src={product.image}
+                                src={`https://www.hooliganmma${product.image}`}
                                 alt={product.text}
                                 className="product-image"
                             />
