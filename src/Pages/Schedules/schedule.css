@@ -104,7 +104,8 @@ select:focus .schedule {
 
     .shedules td,
     .shedules th {
-        padding: 15px 10px;
         font-size: 14px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 }
