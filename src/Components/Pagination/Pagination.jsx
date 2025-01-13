@@ -8,11 +8,6 @@ const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
     pageNumbers.push(i);
   }
 
-  // Логика для отображения или скрытия пагинации
-  if (totalItems <= itemsPerPage) {
-    return null;
-  }
-
   return (
     <nav className='number'>
       <ul className="pagination">

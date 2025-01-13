@@ -18,7 +18,7 @@ const Posts = ({ filterTag }) => {
 
     const fetchPosts = useCallback(() => {
         setLoading(true);
-        axios.get('http://localhost:5000/api/posts')
+        axios.get('/api/posts')
             .then(response => {
                 const sortedPosts = response.data.sort((a, b) => b.id - a.id);
                 const filteredPosts = sortedPosts.filter(post => {
@@ -43,20 +43,14 @@ const Posts = ({ filterTag }) => {
 
     useEffect(() => {
         fetchPosts();
-    }, [fetchPosts]);
-
-    useEffect(() => {
-        if (posts.length > itemsPerPage) {
-            setCurrentPage(1);
-        }
-    }, [posts, itemsPerPage]);
+    }, [fetchPosts, currentPage]);
 
     const handleReload = () => {
         window.location.reload();
     };
 
     const handleGoHome = () => {
-        navigate('/home');
+        navigate('/');
     };
 
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -86,6 +80,7 @@ const Posts = ({ filterTag }) => {
                         <button onClick={handleReload}>Попробовать снова</button>
                     </div>
                 </div>
+
             ) : (
                 <>
                     <main ref={mainRef}>
