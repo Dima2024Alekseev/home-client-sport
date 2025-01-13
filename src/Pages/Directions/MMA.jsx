@@ -11,6 +11,7 @@ const Mma = () => {
                 showBlock={true}
                 title="MMA"
                 innerTitle="MMA"
+                homeRoute="/"
                 linkText="MMA"
                 videoBackgroundDirections={true}
                 videoSrc={mmaVideo}

@@ -10,7 +10,7 @@ import { FaTelegram } from "react-icons/fa";
 import { FaVk } from "react-icons/fa6";
 import useTitle from './UseTitle';
 
-const Header = ({ title, icon, innerTitle, linkText, showVideoHomePages, showGradient, showBlock, videoBackgroundDirections, videoSrc, onLogout }) => {
+const Header = ({ title, icon, innerTitle, linkText, showVideoHomePages, showGradient, showBlock, videoBackgroundDirections, videoSrc, onLogout, homeRoute }) => {
   useTitle(title, icon, innerTitle, linkText);
 
   const [nav, setNav] = useState(false);
@@ -114,7 +114,7 @@ const Header = ({ title, icon, innerTitle, linkText, showVideoHomePages, showGra
         {showVideoHomePages && <div className="overlay"></div>}
         <div>
           <div className={nav ? ["header-flex", "active"].join(" ") : ["header-flex"]}>
-            
+
             <Link to="/">
               <div>
                 <img className="logo-header" alt="" src={logo} />
@@ -170,8 +170,7 @@ const Header = ({ title, icon, innerTitle, linkText, showVideoHomePages, showGra
         </div>
         <div className="links">
           <div style={{ borderRight: '1px solid white', paddingRight: '10px' }}>
-            <Link to="/">Главная</Link>
-            
+            <Link to={homeRoute}>Главная</Link>
           </div>
           <div>
             <Link to="#" style={{ color: 'white', paddingLeft: '10px' }}></Link>

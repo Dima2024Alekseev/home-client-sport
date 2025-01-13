@@ -11,6 +11,7 @@ const Hand = () => {
                 showBlock={true}
                 title="Рукопашный бой"
                 innerTitle="Рукопашный бой"
+                homeRoute="/"
                 linkText="Рукопашный бой"
             />
             <main className="content_directions">

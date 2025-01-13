@@ -13,6 +13,7 @@ const Karate = () => {
                 showBlock={true}
                 title="Каратэ"
                 innerTitle="Каратэ"
+                homeRoute="/"
                 linkText="Каратэ"
             />
             <main className="content_directions">

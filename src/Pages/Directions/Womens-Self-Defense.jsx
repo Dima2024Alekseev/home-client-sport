@@ -11,6 +11,7 @@ const Women = () => {
                 showBlock={true}
                 title="Женская самооборона"
                 innerTitle="Женская самооборона"
+                homeRoute="/"
                 linkText="Женская самооборона"
             />
             <main className="content_directions">

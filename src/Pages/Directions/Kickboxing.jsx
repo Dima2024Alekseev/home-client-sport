@@ -13,6 +13,7 @@ const Kickboxing = () => {
                 showBlock={true}
                 title="Кикбоксинг"
                 innerTitle="Кикбоксинг"
+                homeRoute="/"
                 linkText="Кикбоксинг"
             />
             <main className="content_directions">

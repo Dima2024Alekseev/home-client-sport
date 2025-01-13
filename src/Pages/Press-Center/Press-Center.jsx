@@ -11,6 +11,7 @@ const Press = () => {
                 title="Пресс-центр"
                 showBlock={true}
                 innerTitle="Пресс-центр"
+                homeRoute="/"
                 linkText="Пресс-центр"
                 showGradient={true}
             />

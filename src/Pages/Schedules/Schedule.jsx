@@ -110,6 +110,7 @@ const Schedule = () => {
         title='Расписание'
         showBlock={true}
         innerTitle='расписание тренировок'
+        homeRoute="/"
         linkText='Расписание'
       />
       <main className="schedule-content">

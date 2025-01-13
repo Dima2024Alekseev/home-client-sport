@@ -13,6 +13,7 @@ const Grappling = () => {
                 showBlock={true}
                 title="Грэпплинг"
                 innerTitle="Грэпплинг"
+                homeRoute="/"
                 linkText="Грэпплинг"
             />
             <main className="content_directions">

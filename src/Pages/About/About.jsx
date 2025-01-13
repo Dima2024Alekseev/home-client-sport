@@ -12,6 +12,7 @@ const About = () => {
                 title="об Академии"
                 showBlock={true}
                 innerTitle="об Академии"
+                homeRoute="/"
                 linkText="об Академии"
                 showGradient={true}
             />

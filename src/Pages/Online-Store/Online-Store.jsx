@@ -44,6 +44,7 @@ const Store = () => {
                 showBlock={true}
                 title="Интернет-магазин"
                 innerTitle="Интернет-магазин"
+                homeRoute="/"
                 linkText="Интернет-магазин"
             />
             <main className="store-grid">

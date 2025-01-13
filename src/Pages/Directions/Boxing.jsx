@@ -13,6 +13,7 @@ const Boxing = () => {
                 showBlock={true}
                 title="Бокс"
                 innerTitle="Бокс"
+                homeRoute="/"
                 linkText="Бокс"
             />
             <main className="content_directions">

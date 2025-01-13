@@ -11,6 +11,7 @@ const PageContact = () => {
                 showBlock={true}
                 title='Контакты'
                 innerTitle='Контактная информация'
+                homeRoute="/"
                 linkText='Контакты' />
             <main>
                 <Contact />

@@ -291,6 +291,7 @@ const AttendanceJournal = () => {
         title='Журнал посещаемости студентов'
         showBlock={true}
         innerTitle="Журнал посещаемости"
+        homeRoute="/"
         linkText="Журнал посещаемости"
         showGradient={true}
         onLogout={handleLogout}

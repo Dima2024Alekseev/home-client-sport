@@ -102,6 +102,7 @@ const AdminPrice = () => {
                 title='Изменение прайс-листа'
                 showBlock={true}
                 innerTitle='Редактирование прайс-листа'
+                homeRoute="/admin-dashboard"
                 linkText='Редактирование прайс-листа'
             />
             <main className="admin-price-main">

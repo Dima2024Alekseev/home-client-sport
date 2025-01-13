@@ -11,6 +11,7 @@ const AdminDashboard = () => {
                 title='Панель администратора'
                 showBlock={true}
                 innerTitle="Панель администратора"
+                homeRoute="/"
                 linkText="Панель администратора"
                 showGradient={true}
             />

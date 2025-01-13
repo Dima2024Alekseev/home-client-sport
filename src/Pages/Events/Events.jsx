@@ -12,6 +12,7 @@ const Events = () => {
                 showBlock={true}
                 showGradient={true}
                 innerTitle="События Академии"
+                homeRoute="/"
                 linkText="События"
             />
             <main className="events-container">

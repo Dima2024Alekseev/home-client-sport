@@ -115,6 +115,7 @@ const EditorProduct = () => {
                 title='Изменение интернет-магазина'
                 showBlock={true}
                 innerTitle='Редактирование интернет-магазина'
+                homeRoute="/admin-dashboard"
                 linkText='Редактирование интернет-магазина' />
             <div className="product-grid">
                 {products.map((product, index) => (
