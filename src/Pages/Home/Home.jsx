@@ -6,7 +6,7 @@ import StoreBlock from "../../Components/Store-Block/Store-Block";
 import Contact from "../../Components/Contact-Information/Contact-Information";
 import Footer from "../../Components/Footer/Footer";
 import postsData from "../../data/posts.json";
-import home_page_video from "../../video/club_2.mp4";
+import home_page_video from "../../video/club_3.mp4";
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
