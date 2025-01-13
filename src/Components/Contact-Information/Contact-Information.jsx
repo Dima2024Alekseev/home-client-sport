@@ -31,23 +31,26 @@ const Contact = () => {
           width="100%"
           height="500px"
           title="Yandex Map"
+          aria-label="Карта Яндекс"
         ></iframe>
       </div>
       {isMobile && (
         <div
           className={`contact-circle ${isOpen ? "open" : ""}`}
           onClick={toggleContactInfo}
+          role="button"
+          aria-pressed={isOpen}
         >
-          <MdContactSupport className={`contact-icon ${!isOpen ? "animate" : ""}`} />
+          <MdContactSupport className={`contact-icon ${!isOpen ? "animate" : ""}`} aria-label="Контактная информация" />
         </div>
       )}
       <div className={`contact ${isOpen || !isMobile ? "fade-in" : "fade-out"}`}>
         <div className="info-contact">
           <h2 className="contact-title">Контакты</h2>
           <p className="contact-number-club">+7 (999) 445-12-03</p>
-          <p className="address">г. Канск, улица 40 лет Октября, 62 ст 4, 2 этаж</p>
+          <p className="address">Адрес: г. Канск, улица 40 лет Октября, 62 ст 4, 2 этаж</p>
           <h2 className="operating-mode">Режим работы Академии</h2>
-          <p className="mon-schedule">Понедельник - Cуббота: с 7:00 до 24:00</p>
+          <p className="mon-schedule">Понедельник - Суббота: с 7:00 до 24:00</p>
           <p className="sun-schedule">Воскресенье: с 9:00 до 22:00</p>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaTelegram } from "react-icons/fa";
 import { FaVk } from "react-icons/fa6";
 import "./style.css";
+
 class Footer extends React.Component {
     render() {
         return (
@@ -12,11 +13,10 @@ class Footer extends React.Component {
                     <div className="tipe-sport">
                         <div className="kinds-of-sports">
                             <div>
-                                <Link to="/" className="type-of-fight">Академия</Link>
-                                
+                                <Link to="/home" className="type-of-fight">Академия</Link>
                             </div>
                             <div>
-                                <Link to="/about" className="type-of-fight">об Академии</Link>
+                                <Link to="/about" className="type-of-fight">Об Академии</Link>
                             </div>
                             <div>
                                 <Link to="/schedule" className="type-of-fight">Расписание</Link>
@@ -66,33 +66,33 @@ class Footer extends React.Component {
                         </div>
                     </div>
                     <div className="contact-number">
-                        <a className="contact-footer" href="tel:+79994451203">
+                        <a className="contact-footer" href="tel:+79994451203" aria-label="Позвонить в Академию">
                             <div>
                                 <p>+7 (999) 445-12-03</p>
                             </div>
                         </a>
-                        <Link to="/waiting-list" className="list">
+                        <Link to="/waiting-list" className="list" aria-label="Записаться в клуб">
                             <div>
                                 <p>Записаться в клуб</p>
                             </div>
                         </Link>
                         <div className="icons">
-                            <a target="_blank" rel="noopener noreferrer" href="https://vk.com/mmakansk">
+                            <a target="_blank" rel="noopener noreferrer" href="https://vk.com/mmakansk" aria-label="ВКонтакте">
                                 <FaVk className="footer_icons" size={24} fill="rgba(193, 193, 193, 0.628)" />
                             </a>
-                            <a target="_blank" rel="noopener noreferrer" href="https://t.me/mmakansk">
+                            <a target="_blank" rel="noopener noreferrer" href="https://t.me/mmakansk" aria-label="Telegram">
                                 <FaTelegram className="footer_icons" size={24} fill="rgba(193, 193, 193, 0.628)" />
                             </a>
                         </div>
                     </div>
                 </div>
                 <div className="generalization">
-                    <img className="logo-club" alt="" src={logo} />
-                    <span className="description">&#169;Академия  боевых единоборств ХУЛИГАН, 2024</span>
+                    <img className="logo-club" alt="Логотип Академии боевых единоборств ХУЛИГАН" src={logo} />
+                    <span className="description">&#169;Академия боевых единоборств ХУЛИГАН, 2024</span>
                 </div>
             </footer>
         )
     }
 }
 
-export default Footer
+export default Footer;

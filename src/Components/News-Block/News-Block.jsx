@@ -26,12 +26,10 @@ class NewsBlock extends Component {
         if (cleanedText.length <= maxLength) {
             return cleanedText;
         }
-        return cleanedText.slice(0, maxLength) + '... <a href="/press-center"><strong>Читать далее</strong></a>';
+        return `${cleanedText.slice(0, maxLength)}... <a href="/press-center"><strong>Читать далее</strong></a>`;
     };
 
     renderSwiper = (posts) => {
-        // const hasEnoughSlides = posts.length > 1;
-
         return (
             <Swiper
                 spaceBetween={30}
@@ -54,14 +52,13 @@ class NewsBlock extends Component {
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}
                 className="mySwiper"
-                // loop={hasEnoughSlides} // Включаем режим цикла только если достаточно слайдов
             >
                 {posts.map(post => (
                     <SwiperSlide key={post.id}>
                         <div className="content-news">
-                            <img src={post.photoUrls[0]} alt="" style={{ margin: '10px 0' }} />
+                            <img src={post.photoUrls[0]} alt={post.title} style={{ margin: '10px 0' }} />
                             <div>
-                               <p dangerouslySetInnerHTML={{ __html: this.truncateText(post.text, 190) }}></p>
+                                <p dangerouslySetInnerHTML={{ __html: this.truncateText(post.text, 190) }}></p>
                             </div>
                         </div>
                     </SwiperSlide>
@@ -91,6 +88,7 @@ class NewsBlock extends Component {
                         <button
                             className={`button-club ${this.state.activeButton === 'club' ? 'active' : ''}`}
                             onClick={() => this.handleButtonClick('club')}
+                            aria-pressed={this.state.activeButton === 'club'}
                         >
                             НОВОСТИ АКАДЕМИИ
                         </button>
@@ -99,6 +97,7 @@ class NewsBlock extends Component {
                         <button
                             className={`button-victory ${this.state.activeButton === 'victory' ? 'active' : ''}`}
                             onClick={() => this.handleButtonClick('victory')}
+                            aria-pressed={this.state.activeButton === 'victory'}
                         >
                             НАШИ ПОБЕДЫ
                         </button>

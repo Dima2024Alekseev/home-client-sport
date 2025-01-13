@@ -1,7 +1,22 @@
-.modal {
+:root {
+    --modal-bg-color: rgba(0, 0, 0, 0.4);
+    --modal-content-bg-color: white;
+    --modal-content-padding: 20px;
+    --modal-content-border-radius: 12px;
+    --modal-content-width: 250px;
+    --modal-content-height: 300px;
+    --modal-transition: 0.5s;
+    --modal-content-transition: 0.4s;
+    --modal-scale: 1.2;
+    --modal-content-scale: 1.2;
+    --close-btn-color: #000;
+    --close-btn-font-size: 24px;
+  }
+  
+  .modal {
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: var(--modal-bg-color);
     position: fixed;
     top: 0;
     left: 0;
@@ -10,46 +25,48 @@
     justify-content: center;
     opacity: 0;
     pointer-events: none;
-    transform: scale(1.2);
-    transition: 0.5s;
-}
-
-.modal.active {
+    transform: scale(var(--modal-scale));
+    transition: opacity var(--modal-transition), transform var(--modal-transition);
+  }
+  
+  .modal.active {
     opacity: 1;
     pointer-events: all;
-}
-
-.modal_content {
-    padding: 20px;
-    border-radius: 12px;
-    background-color: white;
-    width: 250px;
-    height: 300px;
+    transform: scale(var(--modal-scale)); /* Исправлено значение */
+  }
+  
+  .modal_content {
+    padding: var(--modal-content-padding);
+    border-radius: var(--modal-content-border-radius);
+    background-color: var(--modal-content-bg-color);
+    width: var(--modal-content-width);
+    height: var(--modal-content-height);
     transform: scale(0);
-    transition: 0.4s all;
+    transition: transform var(--modal-content-transition);
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.modal_content.active {
-    transform: scale(1.2);
-}
-
-.modal_image {
+  }
+  
+  .modal_content.active {
+    transform: scale(var(--modal-content-scale));
+  }
+  
+  .modal_image {
     max-width: 100%;
     max-height: 100%;
     width: auto;
     height: auto;
     display: block;
     margin: auto;
-}
-
-.close-btn {
+  }
+  
+  .close-btn {
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 24px;
+    font-size: var(--close-btn-font-size);
     cursor: pointer;
-    color: #000;
-}
+    color: var(--close-btn-color);
+  }
+  
