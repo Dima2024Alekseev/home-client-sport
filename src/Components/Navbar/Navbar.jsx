@@ -7,7 +7,7 @@ const Navbar = () => {
         <nav aria-label="Main navigation">
             <ul className="navigation" role="menubar">
                 <li className="first-li" role="none">
-                    <Link to="/home" role="menuitem">Академия</Link>
+                    <Link to="/" role="menuitem">Академия</Link>
                     <ul role="menu">
                         <li role="none"><Link to="/about" role="menuitem">Об Академии</Link></li>
                         <li role="none"><Link to="/contact" role="menuitem">Контакты</Link></li>
