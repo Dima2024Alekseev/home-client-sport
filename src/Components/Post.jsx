@@ -43,14 +43,20 @@ const Posts = ({ filterTag }) => {
 
     useEffect(() => {
         fetchPosts();
-    }, [fetchPosts, currentPage]);
+    }, [fetchPosts]);
+
+    useEffect(() => {
+        if (posts.length > itemsPerPage) {
+            setCurrentPage(1);
+        }
+    }, [posts, itemsPerPage]);
 
     const handleReload = () => {
         window.location.reload();
     };
 
     const handleGoHome = () => {
-        navigate('/');
+        navigate('/home');
     };
 
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -80,7 +86,6 @@ const Posts = ({ filterTag }) => {
                         <button onClick={handleReload}>Попробовать снова</button>
                     </div>
                 </div>
-
             ) : (
                 <>
                     <main ref={mainRef}>
