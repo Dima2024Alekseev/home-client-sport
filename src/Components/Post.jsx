@@ -18,7 +18,7 @@ const Posts = ({ filterTag }) => {
 
     const fetchPosts = useCallback(() => {
         setLoading(true);
-        axios.get('http://localhost:5000/api/posts')
+        axios.get('/api/posts')
             .then(response => {
                 const sortedPosts = response.data.sort((a, b) => b.id - a.id);
                 const filteredPosts = sortedPosts.filter(post => {
