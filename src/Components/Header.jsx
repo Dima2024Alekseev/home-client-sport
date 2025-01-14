@@ -115,9 +115,9 @@ const Header = ({ title, icon, innerTitle, linkText, showVideoHomePages, showGra
         <div>
           <div className={nav ? ["header-flex", "active"].join(" ") : ["header-flex"]}>
 
-            <Link to="/">
+            <Link to="/" aria-label="Home">
               <div>
-                <img className="logo-header" alt="" src={logo} />
+                <img className="logo-header" alt="Logo" src={logo} />
               </div>
             </Link>
             <Navbar />
@@ -133,28 +133,28 @@ const Header = ({ title, icon, innerTitle, linkText, showVideoHomePages, showGra
                 </div>
               </Link>
               <div className="header-icons">
-                <a className="header-icons_1" target="_blank" rel="noopener noreferrer" href="https://vk.com/mmakansk">
+                <a className="header-icons_1" target="_blank" rel="noopener noreferrer" href="https://vk.com/mmakansk" aria-label="VK">
                   <FaVk className="social-network" size={24} />
                 </a>
-                <a className="header-icons_1" target="_blank" rel="noopener noreferrer" href="https://t.me/mmakansk">
+                <a className="header-icons_1" target="_blank" rel="noopener noreferrer" href="https://t.me/mmakansk" aria-label="Telegram">
                   <FaTelegram className="social-network" size={24} />
                 </a>
               </div>
             </div>
             {isAuthenticated && location.pathname === '/admin-dashboard' && (
-              <div className="personal-area" onClick={handleLogout}>
+              <div className="personal-area" onClick={handleLogout} aria-label="Logout">
                 <TbLogout className="profile-icon" size={45} color="white" />
               </div>
             )}
             {isAuthenticated && location.pathname !== '/admin-dashboard' && (
-              <Link to="/admin-dashboard">
+              <Link to="/admin-dashboard" aria-label="Admin Dashboard">
                 <div className="personal-area">
                   <TbUserSquareRounded className="profile-icon" size={45} color="white" />
                 </div>
               </Link>
             )}
             {!isAuthenticated && (
-              <Link to="/authorization-account">
+              <Link to="/authorization-account" aria-label="Authorization">
                 <div className="personal-area">
                   <TbUserSquareRounded className="profile-icon" size={45} color="white" />
                 </div>
@@ -170,10 +170,10 @@ const Header = ({ title, icon, innerTitle, linkText, showVideoHomePages, showGra
         </div>
         <div className="links">
           <div style={{ borderRight: '1px solid white', paddingRight: '10px' }}>
-            <Link to={homeRoute}>Главная</Link>
+            <Link to={homeRoute} aria-label="Home">Главная</Link>
           </div>
           <div>
-            <Link to="#" style={{ color: 'white', paddingLeft: '10px' }}></Link>
+            <Link to="#" style={{ color: 'white', paddingLeft: '10px' }} aria-label="Link"></Link>
           </div>
         </div>
       </div>}

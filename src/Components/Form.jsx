@@ -92,7 +92,7 @@ const Form = ({ showFields, formTitle, title_button, onSubmit, recaptchaSiteKey 
     <div className="content-registration">
       <Toaster position="bottom-right" />
       <form onSubmit={handleSubmit}>
-        <p className="form-title">{formTitle}</p>
+        <h1 className="form-title">{formTitle}</h1>
         {showFields.name && (
           <label>
             <input
@@ -102,6 +102,8 @@ const Form = ({ showFields, formTitle, title_button, onSubmit, recaptchaSiteKey 
               required
               value={formData.name}
               onChange={handleChange}
+              aria-label="Имя"
+              aria-describedby="name-description"
             />
             <span>Имя</span>
           </label>
@@ -115,6 +117,8 @@ const Form = ({ showFields, formTitle, title_button, onSubmit, recaptchaSiteKey 
               required
               value={formData.lastname}
               onChange={handleChange}
+              aria-label="Фамилия"
+              aria-describedby="lastname-description"
             />
             <span>Фамилия</span>
           </label>
@@ -134,7 +138,7 @@ const Form = ({ showFields, formTitle, title_button, onSubmit, recaptchaSiteKey 
                 }
               }}
             >
-              {(inputProps) => <input {...inputProps} id="phone" type="tel" placeholder="+7" required />}
+              {(inputProps) => <input {...inputProps} id="phone" type="tel" placeholder="+7" required aria-label="Телефон" aria-describedby="phone-description" />}
             </InputMask>
             <span>Телефон</span>
             {errors.phone && <p className="error">{errors.phone}</p>}
@@ -149,6 +153,8 @@ const Form = ({ showFields, formTitle, title_button, onSubmit, recaptchaSiteKey 
               required
               value={formData.age}
               onChange={handleChange}
+              aria-label="Возраст"
+              aria-describedby="age-description"
             />
             <span>Возраст</span>
             {errors.age && <p className="error">{errors.age}</p>}
@@ -161,6 +167,8 @@ const Form = ({ showFields, formTitle, title_button, onSubmit, recaptchaSiteKey 
               required
               value={formData.direction}
               onChange={handleChange}
+              aria-label="Направление"
+              aria-describedby="direction-description"
             >
               <option value="" disabled>Выберите направление</option>
               <option value="Мма">Мма</option>
@@ -182,6 +190,8 @@ const Form = ({ showFields, formTitle, title_button, onSubmit, recaptchaSiteKey 
               required
               value={formData.login}
               onChange={handleChange}
+              aria-label="Логин"
+              aria-describedby="login-description"
             />
             <span>Логин</span>
           </label>
@@ -195,6 +205,8 @@ const Form = ({ showFields, formTitle, title_button, onSubmit, recaptchaSiteKey 
               required
               value={formData.password}
               onChange={handleChange}
+              aria-label="Пароль"
+              aria-describedby="password-description"
             />
             <span>Пароль</span>
           </label>

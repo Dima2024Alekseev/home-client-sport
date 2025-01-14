@@ -16,31 +16,30 @@ const MobileMenu = ({ nav, setNav }) => {
 
     return (
         <div className="position-mobile-logo-and-menu">
-            <Link to="/">
-                
+            <Link to="/" aria-label="Home">
                 <div className="logo-mobile">
-                    <img className="logo-header" alt="" src={logo}/>
+                    <img className="logo-header" alt="Logo" src={logo} />
                 </div>
             </Link>
             <div className="profile-menu-number">
                 <div className="menu-profile-flex">
-                    <div onClick={() => setNav(!nav)} className="mobile_btn">
+                    <div onClick={() => setNav(!nav)} className="mobile_btn" aria-label="Toggle Menu">
                         {nav ? <AiOutlineClose color="white" size={40} /> : <AiOutlineMenu color="white" size={40} />}
                     </div>
                     {isAuthenticated && location.pathname === '/admin-dashboard' && (
-                        <div className="mobile-profile" onClick={handleLogout}>
+                        <div className="mobile-profile" onClick={handleLogout} aria-label="Logout">
                             <TbLogout color="white" size={40} />
                         </div>
                     )}
                     {isAuthenticated && location.pathname !== '/admin-dashboard' && (
-                        <Link to="/admin-dashboard">
+                        <Link to="/admin-dashboard" aria-label="Admin Dashboard">
                             <div className="mobile-profile">
                                 <TbUserSquareRounded color="white" size={40} />
                             </div>
                         </Link>
                     )}
                     {!isAuthenticated && (
-                        <Link to="/authorization-account">
+                        <Link to="/authorization-account" aria-label="Authorization">
                             <div className="mobile-profile">
                                 <TbUserSquareRounded color="white" size={40} />
                             </div>

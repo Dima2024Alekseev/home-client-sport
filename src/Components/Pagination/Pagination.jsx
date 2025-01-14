@@ -14,13 +14,14 @@ const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
   }
 
   return (
-    <nav className='number'>
+    <nav className='number' aria-label="Page navigation">
       <ul className="pagination">
         {pageNumbers.map(number => (
           <li key={number} className="page-item">
             <button
               onClick={() => paginate(number)}
               className={`page-link ${number === currentPage ? 'active' : ''}`}
+              aria-current={number === currentPage ? 'page' : undefined}
             >
               {number}
             </button>

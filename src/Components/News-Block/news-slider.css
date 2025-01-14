@@ -11,8 +11,8 @@
     --news-button-gap: 20px;
     --news-button-margin-top: 50px;
     --swiper-navigation-size: 27px;
-    --swiper-navigation-top-offset: 50%;
-    --swiper-pagination-bullet-active-bg: rgb(255, 0, 0);
+    --swiper-navigation-top-offset: 40%;
+    --swiper-pagination-bullet-news-active-bg: rgb(255, 0, 0);
     --swiper-pagination-bullet-active-opacity: 1;
     --content-news-img-height: 350px;
     --content-news-img-border-radius: 5px;
@@ -103,9 +103,6 @@
 .swiper-button-next {
     position: absolute;
     top: var(--swiper-navigation-top-offset);
-    width: calc(var(--swiper-navigation-size) / 44 * 27);
-    height: var(--swiper-navigation-size);
-    margin-top: calc(0px - (var(--swiper-navigation-size) / 2));
     z-index: 10;
     cursor: pointer;
     display: flex;
@@ -122,7 +119,7 @@
 
 .swiper-pagination-bullet-active {
     opacity: var(--swiper-pagination-bullet-active-opacity);
-    background: var(--swiper-pagination-bullet-active-bg);
+    background: var(--swiper-pagination-bullet-news-active-bg);
 }
 
 .content-news {

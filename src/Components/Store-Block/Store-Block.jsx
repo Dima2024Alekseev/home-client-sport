@@ -14,7 +14,7 @@ const StoreBlock = () => {
     useEffect(() => {
         const fetchItems = async () => {
             try {
-                const response = await axios.get('/api/products');
+                const response = await axios.get('http://localhost:5000/api/products');
                 setItems(response.data);
             } catch (error) {
                 console.error('Ошибка при получении продуктов:', error);
@@ -27,7 +27,7 @@ const StoreBlock = () => {
     const hasEnoughSlides = items.length >= 3;
 
     return (
-        <div className="online-store">
+        <section className="online-store">
             <Swiper
                 breakpoints={{
                     320: {
@@ -48,7 +48,7 @@ const StoreBlock = () => {
                 {items.map((item, index) => (
                     <SwiperSlide key={index}>
                         <div className='content-store'>
-                            <img src={item.image} alt={item.text} />
+                            <img src={`http://localhost:5000${item.image}`} alt={item.text} />
                             <p>{item.text}<br /><strong>{item.price} ₽</strong></p>
                         </div>
                     </SwiperSlide>
@@ -61,7 +61,7 @@ const StoreBlock = () => {
                     </div>
                 </Link>
             </div>
-        </div>
+        </section>
     );
 };
 
