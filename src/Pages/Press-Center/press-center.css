@@ -101,32 +101,37 @@
     background: rgb(214, 8, 8);
 }
 
-@media (max-width: 480px){
-    .news{
+@media (max-width: 480px) {
+    .news {
         flex-direction: column-reverse;
         padding: 0px;
         width: auto;
         box-shadow: none;
         margin: 40px 10px;
         gap: 0px;
-        border: 1px solid black;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         padding: 30px 0px;
         background: #f4f0f0;
     }
 
-    .news-container{
+    .news-container {
         padding: 0px;
     }
 
-    .news-image-container{
+    .news-image-container {
         background: none;
     }
 
-    .news-text{
+    .news-text {
         background: none;
+        padding: 15px 20px;
     }
 
-    .news-image-container{
+    .news-image-container {
         height: 280px;
-    }    
+    }
+
+    .news img {
+        width: 90%;
+    }
 }
