@@ -12,7 +12,7 @@ const ScheduleEditor = () => {
     const fetchSchedule = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:5000/api/schedule', {
+        const response = await axios.get('/api/schedule', {
           headers: {
             'Authorization': token
           }
@@ -36,7 +36,7 @@ const ScheduleEditor = () => {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put('http://localhost:5000/api/schedule', { schedule: scheduleData }, {
+      await axios.put('/api/schedule', { schedule: scheduleData }, {
         headers: {
           'Authorization': token
         }
