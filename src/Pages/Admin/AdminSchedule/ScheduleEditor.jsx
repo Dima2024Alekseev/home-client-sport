@@ -12,7 +12,7 @@ const ScheduleEditor = () => {
     const fetchSchedule = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('/api/schedule', {
+        const response = await axios.get('http://localhost:5000/api/schedule', {
           headers: {
             'Authorization': token
           }
@@ -36,7 +36,7 @@ const ScheduleEditor = () => {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put('/api/schedule', { schedule: scheduleData }, {
+      await axios.put('http://localhost:5000/api/schedule', { schedule: scheduleData }, {
         headers: {
           'Authorization': token
         }
@@ -54,34 +54,35 @@ const ScheduleEditor = () => {
         title='Редактирование расписания'
         showBlock={true}
         innerTitle="Редактирование расписания"
-        homeRoute="/admin-dashboard"
         linkText="Редактирование расписания"
         showGradient={true} />
       <main className="schedule-editor-content">
-        <table>
-          <tbody>
-            <tr>
-              <th>Время</th>
-              <th>ПН</th>
-              <th>ВТ</th>
-              <th>СР</th>
-              <th>ЧТ</th>
-              <th>ПТ</th>
-              <th>СБ</th>
-            </tr>
-            {scheduleData.map((row, index) => (
-              <tr key={index}>
-                <td><input value={row.time} onChange={(e) => handleChange(index, 'time', e.target.value)} /></td>
-                <td><input value={row.pn} onChange={(e) => handleChange(index, 'pn', e.target.value)} /></td>
-                <td><input value={row.vt} onChange={(e) => handleChange(index, 'vt', e.target.value)} /></td>
-                <td><input value={row.sr} onChange={(e) => handleChange(index, 'sr', e.target.value)} /></td>
-                <td><input value={row.ct} onChange={(e) => handleChange(index, 'ct', e.target.value)} /></td>
-                <td><input value={row.pt} onChange={(e) => handleChange(index, 'pt', e.target.value)} /></td>
-                <td><input value={row.sb} onChange={(e) => handleChange(index, 'sb', e.target.value)} /></td>
+        <div className="table-container">
+          <table>
+            <tbody>
+              <tr>
+                <th>Время</th>
+                <th>ПН</th>
+                <th>ВТ</th>
+                <th>СР</th>
+                <th>ЧТ</th>
+                <th>ПТ</th>
+                <th>СБ</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+              {scheduleData.map((row, index) => (
+                <tr key={index}>
+                  <td><input value={row.time} onChange={(e) => handleChange(index, 'time', e.target.value)} /></td>
+                  <td><input value={row.pn} onChange={(e) => handleChange(index, 'pn', e.target.value)} /></td>
+                  <td><input value={row.vt} onChange={(e) => handleChange(index, 'vt', e.target.value)} /></td>
+                  <td><input value={row.sr} onChange={(e) => handleChange(index, 'sr', e.target.value)} /></td>
+                  <td><input value={row.ct} onChange={(e) => handleChange(index, 'ct', e.target.value)} /></td>
+                  <td><input value={row.pt} onChange={(e) => handleChange(index, 'pt', e.target.value)} /></td>
+                  <td><input value={row.sb} onChange={(e) => handleChange(index, 'sb', e.target.value)} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         <button onClick={handleSave}>Сохранить</button>
       </main>
       <Footer />

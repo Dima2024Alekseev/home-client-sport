@@ -1,20 +1,17 @@
-/* adminprice.css */
-
-/* Стили для основного контента */
 .admin-price-main {
     padding: 20px;
     background-color: #fff;
     margin: 20px auto;
-    max-width: 1000px;
+    max-width: 1200px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Стили для кнопки добавления */
 .admin-price-add-button {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 10px;
     padding: 10px 20px;
     background-color: #e3070e;
     color: white;
@@ -31,12 +28,10 @@
 }
 
 .admin-price-add-button span {
-    margin-right: 10px;
-    font-size: 24px;
+    font-size: 16px;
     font-weight: bold;
 }
 
-/* Стили для формы */
 .admin-price-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -84,7 +79,6 @@
     background-color: #c82333;
 }
 
-/* Стили для секций с ценами */
 .admin-price-subscriptions {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(307px, 1fr));
@@ -149,4 +143,10 @@
 
 .admin-price-subscription-delete:hover {
     background-color: #c82333;
+}
+
+@media (max-width: 480px){
+    .admin-price-form{
+        display: flex;
+    }
 }

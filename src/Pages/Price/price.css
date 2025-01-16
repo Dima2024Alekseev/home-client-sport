@@ -1,23 +1,17 @@
 .training {
-    display: flex;
+    display: grid;
     gap: 20px;
-    flex-direction: row;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     justify-content: center;
-    padding: 7% 0%;
+    padding: 30px;
 }
 
-.personally p {
-    text-align: left;
-}
-
-
-.subscription,
-.personally {
+.subscription {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     color: white;
-    width: 400px;
+    width: auto;
     height: 250px;
     border-radius: 5px;
     padding: 30px;

@@ -1,3 +1,24 @@
+:root {
+  --primary-color: #EE0007;
+  --primary-color-hover: #e3070e;
+  --background-color: #1a1a1a;
+  --text-color: #fff;
+  --input-background: #333;
+  --input-border: rgba(105, 105, 105, 0.397);
+  --input-color: rgba(255, 255, 255, 0.5);
+  --input-color-focus: rgba(255, 255, 255, 1);
+  --form-padding: 50px;
+  --form-padding-mobile: 50px 30px;
+  --form-width: 500px;
+  --form-width-mobile: 100%;
+  --form-title-size: 28px;
+  --form-title-size-mobile: 24px;
+  --input-padding: 15px 10px;
+  --input-padding-mobile: 10px;
+  --submit-padding: 15px 10px;
+  --submit-padding-mobile: 10px;
+}
+
 #inner {
   display: flex;
   flex-direction: column;
@@ -24,26 +45,26 @@ form {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  max-width: 500px;
-  width: 500px;
+  max-width: var(--form-width);
+  width: var(--form-width);
   height: auto;
-  padding: 50px;
+  padding: var(--form-padding);
   border-radius: 5px;
   position: relative;
-  background-color: #1a1a1a;
-  color: #fff;
+  background-color: var(--background-color);
+  color: var(--text-color);
   border: 1px solid #333;
   box-sizing: border-box;
 }
 
 .form-title {
-  font-size: 28px;
+  font-size: var(--form-title-size);
   font-weight: 600;
   position: relative;
   display: flex;
   align-items: center;
   padding-left: 30px;
-  color: #EE0007;
+  color: var(--primary-color);
 }
 
 .form-title::before {
@@ -65,7 +86,7 @@ form {
   width: 16px;
   border-radius: 50%;
   left: 0px;
-  background-color: #EE0007;
+  background-color: var(--primary-color);
 }
 
 .message,
@@ -79,7 +100,7 @@ form {
 }
 
 .signin a {
-  color: #EE0007;
+  color: var(--primary-color);
 }
 
 form label {
@@ -87,22 +108,22 @@ form label {
 }
 
 form label input {
-  background-color: #333;
-  color: #fff;
+  background-color: var(--input-background);
+  color: var(--text-color);
   width: 100%;
-  padding: 15px 10px 15px 10px;
+  padding: var(--input-padding);
   outline: 0;
-  border: 1px solid rgba(105, 105, 105, 0.397);
+  border: 1px solid var(--input-border);
   border-radius: 5px;
   box-sizing: border-box;
 }
 
 form label #indentation {
-  padding: 15px 10px 15px 10px;
+  padding: var(--input-padding);
 }
 
 form label input+span {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--input-color);
   position: absolute;
   left: 10px;
   top: 0px;
@@ -118,7 +139,7 @@ form label input:placeholder-shown+span {
 
 form label input:focus+span,
 form label input:valid+span {
-  color: #ffffff;
+  color: var(--text-color);
   top: 0px;
   font-size: 0.7em;
   font-weight: 600;
@@ -131,48 +152,48 @@ input {
 .submit {
   border: none;
   outline: none;
-  padding: 15px 10px;
+  padding: var(--submit-padding);
   border-radius: 5px;
-  color: #fff;
+  color: var(--text-color);
   font-size: 16px;
   transition: all 0.3s ease;
-  background-color: #EE0007;
+  background-color: var(--primary-color);
   text-align: center;
   width: 100%;
 }
 
 a:hover {
-  color: #e3070e;
+  color: var(--primary-color-hover);
 }
 
 .submit:hover {
-  background-color: #c4080e;
+  background-color: var(--primary-color-hover);
 }
 
 select {
   appearance: none;
   -webkit-appearance: none;
-  background-color: #333;
-  color: rgba(255, 255, 255, 0.5);
+  background-color: var(--input-background);
+  color: var(--input-color);
   width: 100%;
-  padding: 15px 10px 15px 10px;
+  padding: var(--input-padding);
   outline: 0;
-  border: 1px solid rgba(105, 105, 105, 0.397);
+  border: 1px solid var(--input-border);
   border-radius: 5px;
 }
 
 select::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--input-color);
 }
 
 select:focus,
 select:active {
-  color: rgb(255, 255, 255);
+  color: var(--input-color-focus);
 }
 
 option {
-  background-color: #333;
-  color: rgba(255, 255, 255, 0.5);
+  background-color: var(--input-background);
+  color: var(--input-color);
 }
 
 @keyframes pulse {
@@ -195,20 +216,20 @@ option {
   }
 
   form {
-    width: 100%;
+    width: var(--form-width-mobile);
     height: auto;
-    padding: 50px 30px;
+    padding: var(--form-padding-mobile);
   }
 
   .form-title {
-    font-size: 24px;
+    font-size: var(--form-title-size-mobile);
   }
 
   form label input {
-    padding: 10px;
+    padding: var(--input-padding-mobile);
   }
 
   .submit {
-    padding: 10px;
+    padding: var(--submit-padding-mobile);
   }
 }

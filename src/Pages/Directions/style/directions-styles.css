@@ -18,3 +18,14 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 20px 0;
 }
+
+@media (max-width: 768px){
+    .content_directions {
+        padding: 0;
+    }
+
+    .box{
+        padding: 30px 20px;
+        margin: 0;
+    }
+}
