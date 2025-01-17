@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import "./about.css";
 import Header from "../../Components/Header";
 import photo_founder from "../../img/founder.jpg";
@@ -8,18 +9,22 @@ import Footer from "../../Components/Footer/Footer";
 const About = () => {
     return (
         <>
+            <Helmet>
+                <title>Об Академии боевых единоборств "Хулиган"</title>
+                <meta name="description" content="Узнайте больше о основателе и тренерах Академии боевых единоборств 'Хулиган'." />
+                <meta name="keywords" content="Академия боевых единоборств, Хулиган, Сергей Бычков, Антон Бычков, ММА, карате, рукопашный бой" />
+            </Helmet>
             <Header
-                title="об Академии"
+                title="Об Академии"
                 showBlock={true}
-                innerTitle="об Академии"
-                homeRoute="/"
-                linkText="об Академии"
+                innerTitle="Об Академии"
+                linkText="Об Академии"
                 showGradient={true}
             />
             <main className="content_about_us">
                 <section>
                     <div className="position-title-photo">
-                        <img src={photo_founder} alt="Фото основателя" />
+                        <img src={photo_founder} alt="Фото основателя Бычкова Сергея Валерьевича" />
                         <div>
                             <h2>Бычков Сергей Валерьевич</h2>
                             <h3>Главный тренер и основатель Академии боевых единоборств "Хулиган"</h3>
@@ -39,7 +44,7 @@ const About = () => {
                 </section>
                 <section>
                     <div className="position-title-photo">
-                        <img src={coach} alt="Фото главного тренера" />
+                        <img src={coach} alt="Фото главного тренера Бычкова Антона Сергеевича" />
                         <div>
                             <h2>Бычков Антон Сергеевич</h2>
                             <h3>Тренер</h3>
