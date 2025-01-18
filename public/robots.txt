@@ -1,3 +1,3 @@
 User-agent: *
 Disallow:
-Sitemap: https://hooliganmma.ru/sitemap.xml
+Sitemap: https://www.hooliganmma.ru/sitemap.xml
