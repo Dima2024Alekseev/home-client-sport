@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import "./home.css";
 import Header from "../../Components/Header";
 import NewsBlock from "../../Components/News-Block/News-Block";
@@ -10,6 +11,7 @@ import home_page_video from "../../video/club_3.mp4";
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
+
     useEffect(() => {
         const fetchPosts = async () => {
             try {
@@ -21,12 +23,17 @@ const Home = () => {
 
         fetchPosts();
     }, []);
+
     return (
         <>
+            <Helmet>
+                <title>Хулиган. Академия боевых единоборств</title>
+                <meta name="description" content="Добро пожаловать в Академию боевых единоборств 'Хулиган'. Узнайте о наших новостях, магазине и контактной информации." />
+                <meta name="keywords" content="Хулиган, Академия боевых единоборств, боевые искусства, новости, магазин, контакты" />
+            </Helmet>
             <Header
                 showVideoHomePages={true}
                 videoSrc={home_page_video}
-                title="Хулиган. Академия боевых единоборств"
             />
             <main>
                 <NewsBlock posts={posts} />

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import { Helmet } from "react-helmet";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer/Footer";
 import "../styles/attendance-journal.css";
@@ -222,7 +223,7 @@ const AttendanceJournal = () => {
 
   const renderAttendanceTable = () => {
     return (
-      <div className='table-container'>
+      <article className="table-container">
         <table>
           <thead>
             <tr>
@@ -261,7 +262,7 @@ const AttendanceJournal = () => {
             ))}
           </tbody>
         </table>
-      </div>
+      </article>
     );
   };
 
@@ -287,11 +288,15 @@ const AttendanceJournal = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Журнал посещаемости - Академия боевых единоборств "Хулиган"</title>
+        <meta name="description" content="Журнал посещаемости студентов Академии боевых единоборств 'Хулиган'." />
+        <meta name="keywords" content="Журнал посещаемости, Академия боевых единоборств, Хулиган, студенты, посещаемость" />
+      </Helmet>
       <Header
         title='Журнал посещаемости студентов'
         showBlock={true}
         innerTitle="Журнал посещаемости"
-        homeRoute="/"
         linkText="Журнал посещаемости"
         showGradient={true}
         onLogout={handleLogout}

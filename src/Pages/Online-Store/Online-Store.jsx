@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import { Helmet } from "react-helmet";
 import "./online-store.css";
 import Header from "../../Components/Header";
 import Footer from "../../Components/Footer/Footer";
@@ -39,33 +40,36 @@ const Store = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Интернет-магазин - Академия боевых единоборств "Хулиган"</title>
+                <meta name="description" content="Посетите наш интернет-магазин и приобретите товары для боевых единоборств в Академии 'Хулиган'." />
+                <meta name="keywords" content="Интернет-магазин, Академия боевых единоборств, Хулиган, боевые искусства, товары, спорт" />
+            </Helmet>
             <Header
                 showGradient={true}
                 showBlock={true}
-                title="Интернет-магазин"
                 innerTitle="Интернет-магазин"
-                homeRoute="/"
                 linkText="Интернет-магазин"
             />
             <main className="store-grid">
                 {products.map(product => (
-                    <div key={product._id} className="store-card">
-                        <div className="store-image-wrapper" onClick={() => openModal(product.image)}>
+                    <article key={product._id} className="store-card">
+                        <figure className="store-image-wrapper" onClick={() => openModal(`http://localhost:5000${product.image}`)}>
                             <img
                                 src={product.image}
                                 alt={product.text}
                                 className="store-image"
                             />
-                            <div className="store-image-overlay">
+                            <figcaption className="store-image-overlay">
                                 <span>Увеличить</span>
-                            </div>
-                        </div>
-                        <div className="store-details">
-                            <p className="store-name">{product.text}</p>
+                            </figcaption>
+                        </figure>
+                        <section className="store-details">
+                            <h3 className="store-name">{product.text}</h3>
                             <p className="store-price">{product.price} ₽</p>
                             <button className="store-order-button" onClick={OrderClick}>Заказать</button>
-                        </div>
-                    </div>
+                        </section>
+                    </article>
                 ))}
             </main>
             <Footer />

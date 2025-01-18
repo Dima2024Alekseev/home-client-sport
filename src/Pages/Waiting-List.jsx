@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from "react-helmet";
 import Header from "../Components/Header";
 import Form from "../Components/Form";
 import Footer from "../Components/Footer/Footer";
@@ -57,6 +58,11 @@ const Waiting = () => {
 
   return (
     <div id="inner">
+      <Helmet>
+        <title>Лист ожидания - Академия боевых единоборств "Хулиган"</title>
+        <meta name="description" content="Заполните форму для подачи заявки на участие в Академии боевых единоборств 'Хулиган'." />
+        <meta name="keywords" content="Лист ожидания, Академия боевых единоборств, Хулиган, заявка, форма" />
+      </Helmet>
       <Toaster position="bottom-right" />
       <Header title='Лист ожидания' />
       <main>

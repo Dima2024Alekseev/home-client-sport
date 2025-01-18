@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import { Helmet } from "react-helmet";
 import Header from "../../Components/Header";
 import Footer from "../../Components/Footer/Footer";
 import "./price.css";
@@ -22,28 +23,31 @@ const UserPrice = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Цены - Академия боевых единоборств "Хулиган"</title>
+        <meta name="description" content="Узнайте о ценах на абонементы и услуги в Академии боевых единоборств 'Хулиган'." />
+        <meta name="keywords" content="Цены, Академия боевых единоборств, Хулиган, абонементы, услуги, спорт" />
+      </Helmet>
       <Header
         showGradient={true}
-        title='Цены'
         showBlock={true}
         innerTitle='Абонемент'
-        homeRoute="/"
         linkText='Цены'
       />
       <main className="training">
         {priceData.map((price, index) => (
-          <section key={index} className="subscription">
-            <div id="head-price">
+          <article key={index} className="subscription">
+            <section id="head-price">
               <h1>{price.price} ₽</h1>
               <h4>{price.category}</h4>
-            </div>
-            <div id="month-price">
+            </section>
+            <section id="month-price">
               <h4>{price.duration}</h4>
-            </div>
-            <div>
+            </section>
+            <section>
               <p>{price.description}</p>
-            </div>
-          </section>
+            </section>
+          </article>
         ))}
       </main>
       <Footer />

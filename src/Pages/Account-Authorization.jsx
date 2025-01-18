@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../Components/NotificationContext';
+import { Helmet } from "react-helmet";
 import "../styles/profile.css";
 import Header from "../Components/Header";
 import Form from "../Components/Form";
@@ -14,7 +15,7 @@ const Authorization = () => {
 
   const handleSubmit = async (formData) => {
     try {
-      const response = await axios.post('/api/admin/login', formData, { withCredentials: true });
+      const response = await axios.post('/api/admin/login', formData);
       const { token } = response.data;
       localStorage.setItem('token', token);
       localStorage.setItem('isAuthenticated', 'true');
@@ -28,6 +29,11 @@ const Authorization = () => {
 
   return (
     <div id="inner" className="authorization-page">
+      <Helmet>
+        <title>Авторизация - Академия боевых единоборств "Хулиган"</title>
+        <meta name="description" content="Авторизуйтесь для доступа к административной панели Академии боевых единоборств 'Хулиган'." />
+        <meta name="keywords" content="Авторизация, Академия боевых единоборств, Хулиган, административная панель, вход" />
+      </Helmet>
       <Header title='Авторизация аккаунта' />
       <main className="form-authorization">
         <Form
