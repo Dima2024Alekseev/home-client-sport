@@ -34,7 +34,7 @@ const Authorization = () => {
         <meta name="description" content="Авторизуйтесь для доступа к административной панели Академии боевых единоборств 'Хулиган'." />
         <meta name="keywords" content="Авторизация, Академия боевых единоборств, Хулиган, административная панель, вход" />
       </Helmet>
-      <Header title='Авторизация аккаунта' />
+      <Header />
       <main className="form-authorization">
         <Form
           showFields={{ login: true, password: true }}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import Header from "../../../Components/Header";
 import Footer from "../../../Components/Footer/Footer";
 import "./admin-dashboard.css";
@@ -7,8 +8,14 @@ import "./admin-dashboard.css";
 const AdminDashboard = () => {
     return (
         <>
+            <Helmet>
+                <title>Панель администратора - Академия боевых единоборств "Хулиган"</title>
+                <meta name="description" content="Панель администратора для управления расписанием, журналом посещаемости, прайс-листом и интернет-магазином Академии боевых единоборств 'Хулиган'." />
+                <meta name="keywords" content="Панель администратора, Академия боевых единоборств, Хулиган, управление, расписание, журнал посещаемости, прайс-лист, интернет-магазин" />
+                <meta name="robots" content="noindex, nofollow" />
+
+            </Helmet>
             <Header
-                title='Панель администратора'
                 showBlock={true}
                 innerTitle="Панель администратора"
                 homeRoute="/"

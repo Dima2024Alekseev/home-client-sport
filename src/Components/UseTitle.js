@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 
-const useTitle = (title, icon, innerTitle, linkText) => {
+const useTitle = (icon, innerTitle, linkText) => {
   useEffect(() => {
-    document.title = title;
     if (icon) {
       const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
       link.type = 'image/x-icon';
@@ -11,7 +10,7 @@ const useTitle = (title, icon, innerTitle, linkText) => {
       document.getElementsByTagName('head')[0].appendChild(link);
     }
     if (innerTitle) {
-      const contentTitle = document.querySelector('.content .title h1');
+      const contentTitle = document.querySelector('.content .innerTitle h1');
       if (contentTitle) {
         contentTitle.textContent = innerTitle;
       }
@@ -22,7 +21,7 @@ const useTitle = (title, icon, innerTitle, linkText) => {
         linkElement.textContent = linkText;
       }
     }
-  }, [title, icon, innerTitle, linkText]);
+  }, [icon, innerTitle, linkText]);
 };
 
 export default useTitle;

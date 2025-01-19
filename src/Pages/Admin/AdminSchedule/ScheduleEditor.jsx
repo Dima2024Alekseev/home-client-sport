@@ -3,6 +3,7 @@ import axios from 'axios';
 import Header from "../../../Components/Header";
 import Footer from "../../../Components/Footer/Footer";
 import { toast } from 'react-hot-toast';
+import { Helmet } from 'react-helmet';
 import "./admin-schedule.css";
 
 const ScheduleEditor = () => {
@@ -50,8 +51,12 @@ const ScheduleEditor = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Редактирование расписания</title>
+        <meta name="description" content="Редактирование расписания" />
+        <meta name="keywords" content="расписание, редактирование, администрирование" />
+      </Helmet>
       <Header
-        title='Редактирование расписания'
         showBlock={true}
         innerTitle="Редактирование расписания"
         homeRoute="/admin-dashboard"

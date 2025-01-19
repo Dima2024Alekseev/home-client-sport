@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { Helmet } from 'react-helmet';
 import Header from '../../../Components/Header';
 import Footer from '../../../Components/Footer/Footer';
 import './adminproduct.css';
@@ -110,9 +111,13 @@ const EditorProduct = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Изменение интернет-магазина</title>
+                <meta name="description" content="Редактирование интернет-магазина" />
+                <meta name="keywords" content="интернет-магазин, редактирование, продукты" />
+            </Helmet>
             <Header
                 showGradient={true}
-                title='Изменение интернет-магазина'
                 showBlock={true}
                 innerTitle='Редактирование интернет-магазина'
                 homeRoute="/admin-dashboard"

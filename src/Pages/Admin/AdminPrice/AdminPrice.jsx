@@ -3,6 +3,7 @@ import axios from 'axios';
 import Header from "../../../Components/Header";
 import Footer from "../../../Components/Footer/Footer";
 import { toast, Toaster } from 'react-hot-toast';
+import { Helmet } from 'react-helmet';
 import "./adminprice.css";
 
 const AdminPrice = () => {
@@ -96,10 +97,14 @@ const AdminPrice = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Изменение прайс-листа</title>
+                <meta name="description" content="Редактирование прайс-листа" />
+                <meta name="keywords" content="прайс-лист, редактирование, администрирование" />
+            </Helmet>
             <Toaster position="bottom-right" />
             <Header
                 showGradient={true}
-                title='Изменение прайс-листа'
                 showBlock={true}
                 innerTitle='Редактирование прайс-листа'
                 homeRoute="/admin-dashboard"

@@ -96,7 +96,7 @@ const AnimatedRoutes = () => {
 };
 
 export default function App() {
-  useTitle("Хулиган. Академия боевых единоборств", logo_title);
+  useTitle(logo_title);
 
   return (
     <NotificationProvider>

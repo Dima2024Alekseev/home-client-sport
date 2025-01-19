@@ -10,8 +10,8 @@ import { FaTelegram } from "react-icons/fa";
 import { FaVk } from "react-icons/fa6";
 import useTitle from './UseTitle';
 
-const Header = ({ title, icon, innerTitle, linkText, showVideoHomePages, showGradient, showBlock, videoBackgroundDirections, videoSrc, onLogout, homeRoute }) => {
-  useTitle(title, icon, innerTitle, linkText);
+const Header = ({icon, innerTitle, linkText, showVideoHomePages, showGradient, showBlock, videoBackgroundDirections, videoSrc, onLogout, homeRoute }) => {
+  useTitle(icon, innerTitle, linkText);
 
   const [nav, setNav] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated') === 'true');
@@ -165,7 +165,7 @@ const Header = ({ title, icon, innerTitle, linkText, showVideoHomePages, showGra
         </div>
       </header>
       {showBlock && <div className="content">
-        <div className="title">
+        <div className="innerTitle">
           <h1>Title Header</h1>
         </div>
         <div className="links">

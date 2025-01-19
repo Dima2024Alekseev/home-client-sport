@@ -294,7 +294,6 @@ const AttendanceJournal = () => {
         <meta name="keywords" content="Журнал посещаемости, Академия боевых единоборств, Хулиган, студенты, посещаемость" />
       </Helmet>
       <Header
-        title='Журнал посещаемости студентов'
         showBlock={true}
         innerTitle="Журнал посещаемости"
         linkText="Журнал посещаемости"
