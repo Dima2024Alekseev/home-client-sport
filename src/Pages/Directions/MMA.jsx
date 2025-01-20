@@ -15,6 +15,7 @@ const Mma = () => {
             </Helmet>
             <Header
                 showBlock={true}
+                homeRoute="/"
                 innerTitle="MMA"
                 linkText="MMA"
                 videoBackgroundDirections={true}

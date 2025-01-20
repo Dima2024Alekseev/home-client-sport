@@ -17,6 +17,7 @@ const Boxing = () => {
                 videoBackgroundDirections={true}
                 videoSrc={boxing_and_kickboxing_video}
                 showBlock={true}
+                homeRoute="/"
                 innerTitle="Бокс"
                 linkText="Бокс"
             />

@@ -48,6 +48,7 @@ const Store = () => {
             <Header
                 showGradient={true}
                 showBlock={true}
+                homeRoute="/"
                 innerTitle="Интернет-магазин"
                 linkText="Интернет-магазин"
             />

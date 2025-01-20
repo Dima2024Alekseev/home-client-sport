@@ -15,7 +15,7 @@ const About = () => {
                 <meta name="keywords" content="Академия боевых единоборств, Хулиган, Сергей Бычков, Антон Бычков, ММА, карате, рукопашный бой" />
             </Helmet>
             <Header
-                title="Об Академии"
+                homeRoute="/"
                 showBlock={true}
                 innerTitle="Об Академии"
                 linkText="Об Академии"

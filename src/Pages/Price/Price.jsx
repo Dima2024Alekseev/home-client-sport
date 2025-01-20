@@ -31,6 +31,7 @@ const UserPrice = () => {
       <Header
         showGradient={true}
         showBlock={true}
+        homeRoute="/"
         innerTitle='Абонемент'
         linkText='Цены'
       />

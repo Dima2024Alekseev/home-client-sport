@@ -15,6 +15,7 @@ const Hand = () => {
             <Header
                 showGradient={true}
                 showBlock={true}
+                homeRoute="/"
                 innerTitle="Рукопашный бой"
                 linkText="Рукопашный бой"
             />

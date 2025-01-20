@@ -15,6 +15,7 @@ const Women = () => {
             <Header
                 showGradient={true}
                 showBlock={true}
+                homeRoute="/"
                 innerTitle="Женская самооборона"
                 linkText="Женская самооборона"
             />

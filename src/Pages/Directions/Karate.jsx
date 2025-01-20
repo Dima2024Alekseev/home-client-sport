@@ -17,6 +17,7 @@ const Karate = () => {
                 videoBackgroundDirections={true}
                 videoSrc={karate_video}
                 showBlock={true}
+                homeRoute="/"
                 innerTitle="Каратэ"
                 linkText="Каратэ"
             />

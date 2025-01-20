@@ -115,8 +115,8 @@ const Schedule = () => {
       </Helmet>
       <Header
         showGradient={true}
-        title='Расписание'
         showBlock={true}
+        homeRoute="/"
         innerTitle='расписание тренировок'
         linkText='Расписание'
       />

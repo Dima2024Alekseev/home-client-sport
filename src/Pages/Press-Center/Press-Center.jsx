@@ -15,6 +15,7 @@ const Press = () => {
             </Helmet>
             <Header
                 showBlock={true}
+                homeRoute="/"
                 innerTitle="Пресс-центр"
                 linkText="Пресс-центр"
                 showGradient={true}

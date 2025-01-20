@@ -15,6 +15,7 @@ const PageContact = () => {
             <Header
                 showGradient={true}
                 showBlock={true}
+                homeRoute="/"
                 innerTitle='Контактная информация'
                 linkText='Контакты'
             />

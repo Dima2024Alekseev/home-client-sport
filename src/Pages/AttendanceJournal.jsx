@@ -295,6 +295,7 @@ const AttendanceJournal = () => {
       </Helmet>
       <Header
         showBlock={true}
+        homeRoute="/"
         innerTitle="Журнал посещаемости"
         linkText="Журнал посещаемости"
         showGradient={true}
