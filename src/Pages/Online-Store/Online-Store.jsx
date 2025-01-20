@@ -55,7 +55,7 @@ const Store = () => {
             <main className="store-grid">
                 {products.map(product => (
                     <article key={product._id} className="store-card">
-                        <figure className="store-image-wrapper" onClick={() => openModal(`http://localhost:5000${product.image}`)}>
+                        <figure className="store-image-wrapper" onClick={() => openModal(product.image)}>
                             <img
                                 src={product.image}
                                 alt={product.text}
