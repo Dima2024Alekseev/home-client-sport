@@ -55,12 +55,12 @@ class NewsBlock extends Component {
             >
                 {posts.map(post => (
                     <SwiperSlide key={post.id}>
-                        <div className="content-news">
+                        <article className="content-news">
                             <img src={post.photoUrls[0]} alt={post.title} style={{ margin: '10px 0' }} />
                             <div>
                                 <p dangerouslySetInnerHTML={{ __html: this.truncateText(post.text, 190) }}></p>
                             </div>
-                        </div>
+                        </article>
                     </SwiperSlide>
                 ))}
             </Swiper>
@@ -82,47 +82,41 @@ class NewsBlock extends Component {
         );
 
         return (
-            <div className="news-and-victory">
-                <div className="news_button">
-                    <div>
-                        <button
-                            className={`button-club ${this.state.activeButton === 'club' ? 'active' : ''}`}
-                            onClick={() => this.handleButtonClick('club')}
-                            aria-pressed={this.state.activeButton === 'club'}
-                        >
-                            НОВОСТИ АКАДЕМИИ
-                        </button>
-                    </div>
-                    <div>
-                        <button
-                            className={`button-victory ${this.state.activeButton === 'victory' ? 'active' : ''}`}
-                            onClick={() => this.handleButtonClick('victory')}
-                            aria-pressed={this.state.activeButton === 'victory'}
-                        >
-                            НАШИ ПОБЕДЫ
-                        </button>
-                    </div>
-                </div>
+            <section className="news-and-victory">
+                <nav className="news_button">
+                    <button
+                        className={`button-club ${this.state.activeButton === 'club' ? 'active' : ''}`}
+                        onClick={() => this.handleButtonClick('club')}
+                        aria-pressed={this.state.activeButton === 'club'}
+                    >
+                        НОВОСТИ АКАДЕМИИ
+                    </button>
+                    <button
+                        className={`button-victory ${this.state.activeButton === 'victory' ? 'active' : ''}`}
+                        onClick={() => this.handleButtonClick('victory')}
+                        aria-pressed={this.state.activeButton === 'victory'}
+                    >
+                        НАШИ ПОБЕДЫ
+                    </button>
+                </nav>
                 <div className="content">
                     {this.state.activeButton === 'club' && (
-                        <div className="container-news">
+                        <section className="container-news">
                             {this.renderSwiper(filteredPosts)}
-                        </div>
+                        </section>
                     )}
                     {this.state.activeButton === 'victory' && (
-                        <div className="container-victory">
+                        <section className="container-victory">
                             {this.renderSwiper(victoryPosts)}
-                        </div>
+                        </section>
                     )}
                     <div className="button-all">
-                        <Link to="/press-center">
-                            <div className="button-style">
-                                <p>Посмотреть все</p>
-                            </div>
+                        <Link to="/press-center" className="button-style">
+                            <p>Посмотреть все</p>
                         </Link>
                     </div>
                 </div>
-            </div>
+            </section>
         )
     }
 }

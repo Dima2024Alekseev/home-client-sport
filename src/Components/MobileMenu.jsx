@@ -23,9 +23,9 @@ const MobileMenu = ({ nav, setNav }) => {
             </Link>
             <div className="profile-menu-number">
                 <div className="menu-profile-flex">
-                    <div onClick={() => setNav(!nav)} className="mobile_btn" aria-label="Toggle Menu">
+                    <button onClick={() => setNav(!nav)} className="mobile_btn" aria-label="Toggle Menu">
                         {nav ? <AiOutlineClose color="white" size={40} /> : <AiOutlineMenu color="white" size={40} />}
-                    </div>
+                    </button>
                     {isAuthenticated && location.pathname === '/admin-dashboard' && (
                         <div className="mobile-profile" onClick={handleLogout} aria-label="Logout">
                             <TbLogout color="white" size={40} />
@@ -40,9 +40,9 @@ const MobileMenu = ({ nav, setNav }) => {
                     )}
                     {!isAuthenticated && (
                         <Link to="/authorization-account" aria-label="Authorization">
-                            <div className="mobile-profile">
+                            <button className="mobile-profile">
                                 <TbUserSquareRounded color="white" size={40} />
-                            </div>
+                            </button>
                         </Link>
                     )}
                 </div>

@@ -73,6 +73,13 @@ header .logo-header {
     display: none;
 }
 
+.personal-area,
+.mobile_btn{
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
 /* -----------шапка сайта---------- */
 
 .button-style {

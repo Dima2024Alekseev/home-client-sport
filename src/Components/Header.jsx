@@ -10,7 +10,7 @@ import { FaTelegram } from "react-icons/fa";
 import { FaVk } from "react-icons/fa6";
 import useTitle from './UseTitle';
 
-const Header = ({icon, innerTitle, linkText, showVideoHomePages, showGradient, showBlock, videoBackgroundDirections, videoSrc, onLogout, homeRoute }) => {
+const Header = ({ icon, innerTitle, linkText, showVideoHomePages, showGradient, showBlock, videoBackgroundDirections, videoSrc, onLogout, homeRoute }) => {
   useTitle(icon, innerTitle, linkText);
 
   const [nav, setNav] = useState(false);
@@ -84,7 +84,7 @@ const Header = ({icon, innerTitle, linkText, showVideoHomePages, showGradient, s
   };
 
   return (
-    <div id={showGradient ? "inner" : ""} style={videoBackgroundDirections ? {
+    <section id={showGradient ? "inner" : ""} style={videoBackgroundDirections ? {
       position: 'relative',
       zIndex: 2
     } : {}}>
@@ -142,9 +142,9 @@ const Header = ({icon, innerTitle, linkText, showVideoHomePages, showGradient, s
               </div>
             </div>
             {isAuthenticated && location.pathname === '/admin-dashboard' && (
-              <div className="personal-area" onClick={handleLogout} aria-label="Logout">
+              <button className="personal-area" onClick={handleLogout} aria-label="Logout">
                 <TbLogout className="profile-icon" size={45} color="white" />
-              </div>
+              </button>
             )}
             {isAuthenticated && location.pathname !== '/admin-dashboard' && (
               <Link to="/admin-dashboard" aria-label="Admin Dashboard">
@@ -168,16 +168,16 @@ const Header = ({icon, innerTitle, linkText, showVideoHomePages, showGradient, s
         <div className="innerTitle">
           <h1>Title Header</h1>
         </div>
-        <div className="links">
+        <nav className="links">
           <div style={{ borderRight: '1px solid white', paddingRight: '10px' }}>
             <Link to={homeRoute} aria-label="Home">Главная</Link>
           </div>
           <div>
             <Link to="#" style={{ color: 'white', paddingLeft: '10px' }} aria-label="Link"></Link>
           </div>
-        </div>
+        </nav>
       </div>}
-    </div>
+    </section>
   );
 };
 

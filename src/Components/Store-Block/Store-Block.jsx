@@ -27,7 +27,7 @@ const StoreBlock = () => {
     const hasEnoughSlides = items.length >= 3;
 
     return (
-        <section className="online-store">
+        <section className="online-store" aria-label="Интернет-магазин">
             <Swiper
                 breakpoints={{
                     320: {
@@ -47,18 +47,16 @@ const StoreBlock = () => {
             >
                 {items.map((item, index) => (
                     <SwiperSlide key={index}>
-                        <div className='content-store'>
+                        <article className='content-store'>
                             <img src={item.image} alt={item.text} />
                             <p>{item.text}<br /><strong>{item.price} ₽</strong></p>
-                        </div>
+                        </article>
                     </SwiperSlide>
                 ))}
             </Swiper>
             <div className="store-button">
-                <Link to="/online-store">
-                    <div className="button-style">
-                        <p>В магазин</p>
-                    </div>
+                <Link to="/online-store" className="button-style" aria-label="Перейти в магазин">
+                    <p>В магазин</p>
                 </Link>
             </div>
         </section>

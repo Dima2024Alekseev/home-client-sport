@@ -78,33 +78,33 @@ const Posts = ({ filterTag }) => {
             {loading ? (
                 <ContentLoader />
             ) : error ? (
-                <div className='error'>
+                <section className='error'>
                     <h2>Произошла ошибка</h2>
                     <p>Пожалуйста, попробуйте снова или перейдите на главную страницу.</p>
                     <div className='position-error-button'>
                         <button onClick={handleGoHome} aria-label="Go to Home">На главную</button>
                         <button onClick={handleReload} aria-label="Reload Page">Попробовать снова</button>
                     </div>
-                </div>
+                </section>
             ) : (
                 <>
                     <main ref={mainRef}>
                         {currentItems.map(post => (
-                            <div className='news' key={post.id}>
+                            <article className='news' key={post.id}>
                                 <div className='news-text-container'>
                                     <h2 className='news-title'>{post.title}</h2>
                                     <pre className='news-text'>{post.text}</pre>
                                 </div>
                                 {post.photoUrls && (
-                                    <div className='news-image-container'>
+                                    <figure className='news-image-container'>
                                         <img
                                             src={post.photoUrls[0]}
                                             alt={`Image for post ${post.id}`}
                                             onClick={() => openModal(post.photoUrls[0])}
                                         />
-                                    </div>
+                                    </figure>
                                 )}
-                            </div>
+                            </article>
                         ))}
                     </main>
                     <Pagination
