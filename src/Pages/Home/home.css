@@ -162,6 +162,8 @@ header .logo-header {
         position: relative;
         top: 20px;
         z-index: 10;
+        border: none;
+        background: transparent;
     }
 
     svg.social {

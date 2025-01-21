@@ -30,6 +30,7 @@
   width: var(--contact-circle-size);
   height: var(--contact-circle-size);
   background: var(--contact-circle-bg-color);
+  border: none;
   border-radius: 50%;
   display: flex;
   align-items: center;
