@@ -3,7 +3,7 @@ import logo from "../../img/footer-logo.png";
 import { Link } from 'react-router-dom';
 import { FaTelegram } from "react-icons/fa";
 import { FaVk } from "react-icons/fa6";
-import "./style.css";
+import "./footer-style.css";
 
 class Footer extends React.Component {
     render() {

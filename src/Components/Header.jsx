@@ -9,6 +9,7 @@ import { TbUserSquareRounded, TbLogout } from "react-icons/tb";
 import { FaTelegram } from "react-icons/fa";
 import { FaVk } from "react-icons/fa6";
 import useTitle from './UseTitle';
+import blackRedImage from "../img/black-red.png"; // Импорт изображения
 
 const Header = ({ icon, innerTitle, linkText, showVideoHomePages, showGradient, showBlock, videoBackgroundDirections, videoSrc, onLogout, homeRoute }) => {
   useTitle(icon, innerTitle, linkText);
@@ -20,29 +21,31 @@ const Header = ({ icon, innerTitle, linkText, showVideoHomePages, showGradient, 
   useEffect(() => {
     if (showGradient) {
       const inner = document.getElementById('inner');
-      let angle = 50;
-      let direction = 1; // 1 для увеличения, -1 для уменьшения
+      if (inner) {
+        let angle = 50;
+        let direction = 1; // 1 для увеличения, -1 для уменьшения
 
-      function updateGradient() {
-        angle += direction;
+        function updateGradient() {
+          angle += direction;
 
-        // Изменяем направление, когда угол достигает 150 или 50 градусов
-        if (angle >= 250) {
-          direction = -0.5;
-        } else if (angle <= 50) {
-          direction = 0.5;
+          // Изменяем направление, когда угол достигает 150 или 50 градусов
+          if (angle >= 250) {
+            direction = -0.5;
+          } else if (angle <= 50) {
+            direction = 0.5;
+          }
+
+          inner.style.background = `linear-gradient(${angle}deg, rgb(0, 0, 0) 50%, rgba(125, 186, 232, 0) 100%), url(${blackRedImage}) right top, rgb(18, 18, 18)`;
+          requestAnimationFrame(updateGradient);
         }
 
-        inner.style.background = `linear-gradient(${angle}deg, rgb(0, 0, 0) 50%, rgba(125, 186, 232, 0) 100%), url('https://img.freepik.com/premium-vector/black-red-geometric-abstract-background_1027691-512.jpg?w=360') right top, rgb(18, 18, 18)`;
-        requestAnimationFrame(updateGradient);
+        updateGradient();
+
+        // Очистка анимации при размонтировании компонента
+        return () => {
+          cancelAnimationFrame(updateGradient);
+        };
       }
-
-      updateGradient();
-
-      // Очистка анимации при размонтировании компонента
-      return () => {
-        cancelAnimationFrame(updateGradient);
-      };
     }
   }, [showGradient]);
 
