@@ -15,7 +15,7 @@ const Authorization = () => {
 
   const handleSubmit = async (formData) => {
     try {
-      const response = await axios.post('/api/admin/login', formData);
+      const response = await axios.post('http://localhost:5000/api/admin/login', formData);
       const { token } = response.data;
       localStorage.setItem('token', token);
       localStorage.setItem('isAuthenticated', 'true');
@@ -24,6 +24,24 @@ const Authorization = () => {
     } catch (error) {
       setError(error.response?.data?.error || '');
       showNotification('Ошибка авторизации', 'error');
+    }
+  };
+
+  const refreshAccessToken = async () => {
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (!refreshToken) {
+      showNotification('Ошибка обновления токена', 'error');
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/admin/refresh-token', { refreshToken });
+      const { token, refreshToken: newRefreshToken } = response.data;
+      localStorage.setItem('token', token);
+      localStorage.setItem('refreshToken', newRefreshToken);
+      showNotification('Токен обновлен', 'success');
+    } catch (error) {
+      showNotification('Ошибка обновления токена', 'error');
     }
   };
 
