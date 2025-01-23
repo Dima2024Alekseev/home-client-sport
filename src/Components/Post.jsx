@@ -56,7 +56,7 @@ const Posts = ({ filterTag }) => {
     };
 
     const handleGoHome = () => {
-        navigate('/home');
+        navigate('/');
     };
 
     const indexOfLastItem = currentPage * itemsPerPage;
