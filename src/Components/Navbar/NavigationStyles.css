@@ -1,129 +1,156 @@
 :root {
-    --nav-bg-color: #ffffff;
-    --nav-hover-bg-color: red;
-    --nav-item-height: 50px;
-    --nav-item-padding: 0px 3px;
-    --nav-link-padding: 15px 5px 10px 5px;
-    --nav-link-hover-color: red;
-    --nav-submenu-width: 200%;
-    --nav-submenu-border-color: rgba(0, 0, 0, 0.171);
-    --nav-submenu-hover-width: 5px;
-    --nav-transition: 0.3s ease;
-    --nav-border-radius: 5px;
-    --nav-mobile-submenu-width: 160%;
-  }
-  
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  
+  --nav-bg-color: #ffffff;
+  --nav-hover-bg-color: red;
+  --nav-item-height: 50px;
+  --nav-item-padding: 0px 3px;
+  --nav-link-padding: 15px 10px 10px 5px;
+  --nav-link-hover-color: red;
+  --nav-submenu-width: 200%;
+  --nav-submenu-border-color: rgba(0, 0, 0, 0.171);
+  --nav-submenu-hover-width: 4px;
+  --nav-transition: 0.3s ease;
+  --nav-border-radius: 5px;
+  --nav-mobile-submenu-width: 160%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.navigation {
+  display: flex;
+  z-index: 1;
+}
+
+ul.navigation>li {
+  background-color: var(--nav-bg-color);
+  float: left;
+  height: var(--nav-item-height);
+  padding: var(--nav-item-padding);
+  position: relative;
+}
+
+ul.navigation>li>a {
+  text-decoration: none;
+  display: block;
+  padding: var(--nav-link-padding);
+  position: relative;
+  transition: color var(--nav-transition);
+}
+
+ul.navigation>li>a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 3px;
+  background-color: var(--nav-link-hover-color);
+  transition: width var(--nav-transition);
+}
+
+ul.navigation>li>a:hover::after {
+  width: 100%;
+}
+
+ul.navigation li ul {
+  display: none;
+  position: absolute;
+  top: var(--nav-item-height);
+  left: 0;
+  background-color: var(--nav-bg-color);
+  border-radius: var(--nav-border-radius);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+ul.navigation li:hover>ul {
+  display: block;
+}
+
+ul.navigation li ul li {
+  padding-left: 5px;
+  line-height: 2;
+  height: auto;
+  width: var(--nav-submenu-width);
+  position: relative;
+  border-top: 1px solid var(--nav-submenu-border-color);
+  border-bottom: 1px solid var(--nav-submenu-border-color);
+  background: white;
+}
+
+ul.navigation li ul li a {
+  text-decoration: none;
+  display: block;
+  padding: var(--nav-link-padding);
+  transition: color var(--nav-transition);
+}
+
+ul.navigation li ul li a:hover {
+  color: var(--nav-link-hover-color);
+}
+
+ul.navigation li ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  background-color: var(--nav-hover-bg-color);
+  transition: width var(--nav-transition);
+}
+
+ul.navigation li ul li:hover::before {
+  width: var(--nav-submenu-hover-width);
+}
+
+.first-li {
+  border-bottom-left-radius: var(--nav-border-radius);
+  border-top-left-radius: var(--nav-border-radius);
+}
+
+.last-li {
+  border-top-right-radius: var(--nav-border-radius);
+  border-bottom-right-radius: var(--nav-border-radius);
+}
+
+.first-li:hover {
+  border-bottom-left-radius: 0;
+}
+
+ul.navigation li ul li:last-child {
+  border-bottom-left-radius: var(--nav-border-radius);
+  border-bottom-right-radius: var(--nav-border-radius);
+}
+
+@media (min-width: 320px) and (max-width: 1200px) {
   ul.navigation {
-    display: flex;
+    flex-direction: column;
+    color: white;
+    font-weight: 600;
   }
-  
+
   ul.navigation li {
-    background-color: var(--nav-bg-color);
-    float: left;
-    height: var(--nav-item-height);
-    padding: var(--nav-item-padding);
-    position: relative;
+    background-color: transparent;
+    padding: 0px 5px;
   }
-  
-  ul.navigation li a {
-    text-decoration: none;
-    display: block;
-    padding: var(--nav-link-padding);
-    transition: color var(--nav-transition);
-  }
-  
-  ul.navigation li a:hover {
-    color: var(--nav-link-hover-color);
-  }
-  
-  ul.navigation li ul {
-    display: none;
-    position: absolute;
-    top: var(--nav-item-height);
-    left: 0;
-    background-color: var(--nav-bg-color);
+
+  ul.navigation li:hover>ul {
+    background: white;
+    color: black;
     border-radius: var(--nav-border-radius);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1;
   }
-  
-  ul.navigation li:hover > ul {
-    display: block;
-  }
-  
+
   ul.navigation li ul li {
-    line-height: 2;
-    height: auto;
-    width: var(--nav-submenu-width);
-    position: relative;
-    border-top: 1px solid var(--nav-submenu-border-color);
-    border-bottom: 1px solid var(--nav-submenu-border-color);
+    width: var(--nav-mobile-submenu-width);
+    background: transparent;
   }
-  
-  ul.navigation li ul li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 0;
-    height: 100%;
-    background-color: var(--nav-hover-bg-color);
-    transition: width var(--nav-transition);
-  }
-  
-  ul.navigation li ul li:hover::before {
-    width: var(--nav-submenu-hover-width);
-  }
-  
-  .first-li {
-    border-bottom-left-radius: var(--nav-border-radius);
-    border-top-left-radius: var(--nav-border-radius);
-  }
-  
+
+  .first-li,
   .last-li {
-    border-top-right-radius: var(--nav-border-radius);
-    border-bottom-right-radius: var(--nav-border-radius);
+    border-radius: 0;
   }
-  
-  .first-li:hover {
-    border-bottom-left-radius: 0;
-  }
-  
-  ul.navigation li ul li:last-child {
-    border-bottom-left-radius: var(--nav-border-radius);
-    border-bottom-right-radius: var(--nav-border-radius);
-  }
-  
-  @media (min-width: 320px) and (max-width: 1200px) {
-    ul.navigation {
-      flex-direction: column;
-      color: white;
-      font-weight: 600;
-    }
-  
-    ul.navigation li {
-      background-color: transparent;
-      padding: 0px 5px;
-    }
-  
-    ul.navigation li:hover > ul {
-      background: white;
-      color: black;
-      border-radius: var(--nav-border-radius);
-      z-index: 1;
-    }
-  
-    ul.navigation li ul li {
-      width: var(--nav-mobile-submenu-width);
-    }
-  
-    .first-li, .last-li {
-      border-radius: 0;
-    }
-  }
-  
+}
