@@ -142,6 +142,7 @@ ul.navigation li ul li:last-child {
     color: black;
     border-radius: var(--nav-border-radius);
     z-index: 1;
+    width: 100%;
   }
 
   ul.navigation li ul li {
