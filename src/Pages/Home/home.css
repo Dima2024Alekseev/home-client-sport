@@ -224,6 +224,7 @@ header .logo-header {
 
     .active {
         left: 0;
+        overflow: hidden;
     }
 
     .generalization {
