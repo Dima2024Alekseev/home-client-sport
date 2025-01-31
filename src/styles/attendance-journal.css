@@ -1,4 +1,3 @@
-/* Общие стили */
 .attendance-journal-content {
   padding: 40px;
   margin: 0 auto;
@@ -33,20 +32,14 @@
   border-radius: 5px;
   overflow: hidden;
   min-width: 600px;
-  /* Минимальная ширина таблицы */
 }
 
 .attendance-journal-section th,
 .attendance-journal-section td {
   border: 1px solid #ddd;
   padding: 12px;
-  text-align: left;
-  /* Выравнивание текста по левому краю */
   white-space: nowrap;
-  /* Предотвращает перенос текста на новую строку */
   min-width: 100px;
-  /* Минимальная ширина ячейки */
-  text-align: center;
 }
 
 .attendance-journal-section th {
@@ -137,6 +130,10 @@
 
 .element-center {
   text-align: center;
+}
+
+.text-left {
+  text-align: left;
 }
 
 .group,

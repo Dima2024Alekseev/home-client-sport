@@ -228,9 +228,11 @@ const AttendanceJournal = () => {
           <thead>
             <tr>
               <th>№</th>
-              <th>ФИО</th>
+              <th className='text-left'>ФИО</th>
               {daysToDisplay.map((day) => (
-                <th key={day}>{day}</th>
+                <th key={day} className='element-center'>
+                  {day}
+                </th>
               ))}
               {isAdmin && <th>Действия</th>}
             </tr>
@@ -239,7 +241,16 @@ const AttendanceJournal = () => {
             {attendanceData.map((entry, index) => (
               <tr key={entry._id}>
                 <td className='element-center'>{index + 1}</td>
-                <td>{isAdmin ? <input value={entry.studentName} onChange={(e) => handleChange(index, 'studentName', e.target.value)} /> : entry.studentName}</td>
+                <td className='text-left'>
+                  {isAdmin ? (
+                    <input
+                      value={entry.studentName}
+                      onChange={(e) => handleChange(index, 'studentName', e.target.value)}
+                    />
+                  ) : (
+                    entry.studentName
+                  )}
+                </td>
                 {daysToDisplay.map((day) => (
                   <td key={day} className='element-center'>
                     {isAdmin ? (
