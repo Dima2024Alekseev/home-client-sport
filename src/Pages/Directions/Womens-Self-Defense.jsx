@@ -11,6 +11,7 @@ const Women = () => {
                 <title>Женская самооборона - Академия боевых единоборств "Хулиган"</title>
                 <meta name="description" content="Узнайте больше о женской самообороне, ее техниках и стратегиях в Академии боевых единоборств 'Хулиган'." />
                 <meta name="keywords" content="Женская самооборона, Академия боевых единоборств, Хулиган, боевые искусства, самооборона, тренировки, спорт" />
+                <link rel="canonical" href="https://hooliganmma.ru/womens-self-defense" />
             </Helmet>
             <Header
                 showGradient={true}

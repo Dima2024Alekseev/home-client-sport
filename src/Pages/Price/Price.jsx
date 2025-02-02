@@ -27,6 +27,7 @@ const UserPrice = () => {
         <title>Цены - Академия боевых единоборств "Хулиган"</title>
         <meta name="description" content="Узнайте о ценах на абонементы и услуги в Академии боевых единоборств 'Хулиган'." />
         <meta name="keywords" content="Цены, Академия боевых единоборств, Хулиган, абонементы, услуги, спорт" />
+        <link rel="canonical" href="https://hooliganmma.ru/price" />
       </Helmet>
       <Header
         showGradient={true}

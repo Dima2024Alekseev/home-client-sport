@@ -62,6 +62,7 @@ const Waiting = () => {
         <title>Лист ожидания - Академия боевых единоборств "Хулиган"</title>
         <meta name="description" content="Заполните форму для подачи заявки на участие в Академии боевых единоборств 'Хулиган'." />
         <meta name="keywords" content="Лист ожидания, Академия боевых единоборств, Хулиган, заявка, форма" />
+        <link rel="canonical" href="https://hooliganmma.ru/waiting-list" />
       </Helmet>
       <Toaster position="bottom-right" />
       <Header title='Лист ожидания' />

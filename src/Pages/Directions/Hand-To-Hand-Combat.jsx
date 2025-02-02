@@ -11,6 +11,7 @@ const Hand = () => {
                 <title>Рукопашный бой - Академия боевых единоборств "Хулиган"</title>
                 <meta name="description" content="Узнайте больше о рукопашном бое, его истории, техниках и тренировках в Академии боевых единоборств 'Хулиган'." />
                 <meta name="keywords" content="Рукопашный бой, Академия боевых единоборств, Хулиган, боевые искусства, самооборона, тренировки, спорт" />
+                <link rel="canonical" href="https://hooliganmma.ru/hand-to-hand-combat" />
             </Helmet>
             <Header
                 showGradient={true}

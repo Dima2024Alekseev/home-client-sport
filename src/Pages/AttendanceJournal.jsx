@@ -303,6 +303,7 @@ const AttendanceJournal = () => {
         <title>Журнал посещаемости - Академия боевых единоборств "Хулиган"</title>
         <meta name="description" content="Журнал посещаемости студентов Академии боевых единоборств 'Хулиган'." />
         <meta name="keywords" content="Журнал посещаемости, Академия боевых единоборств, Хулиган, студенты, посещаемость" />
+        <link rel="canonical" href="https://hooliganmma.ru/attendance-journal" />
       </Helmet>
       <Header
         showBlock={true}

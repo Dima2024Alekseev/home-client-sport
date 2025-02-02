@@ -12,6 +12,7 @@ const Grappling = () => {
                 <title>Грэпплинг - Академия боевых единоборств "Хулиган"</title>
                 <meta name="description" content="Узнайте больше о грэпплинге, его истории, техниках и тренировках в Академии боевых единоборств 'Хулиган'." />
                 <meta name="keywords" content="Грэпплинг, Академия боевых единоборств, Хулиган, боевые искусства, ММА, тренировки, спорт" />
+                <link rel="canonical" href="https://hooliganmma.ru/grappling" />
             </Helmet>
             <Header
                 videoBackgroundDirections={true}

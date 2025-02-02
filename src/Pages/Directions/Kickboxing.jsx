@@ -12,6 +12,7 @@ const Kickboxing = () => {
                 <title>Кикбоксинг - Академия боевых единоборств "Хулиган"</title>
                 <meta name="description" content="Узнайте больше о кикбоксинге, его истории, техниках и тренировках в Академии боевых единоборств 'Хулиган'." />
                 <meta name="keywords" content="Кикбоксинг, Академия боевых единоборств, Хулиган, боевые искусства, самооборона, тренировки, спорт" />
+                <link rel="canonical" href="https://hooliganmma.ru/kickboxing" />
             </Helmet>
             <Header
                 videoBackgroundDirections={true}

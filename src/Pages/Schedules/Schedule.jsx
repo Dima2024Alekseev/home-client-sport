@@ -112,6 +112,7 @@ const Schedule = () => {
         <title>Расписание - Академия боевых единоборств "Хулиган"</title>
         <meta name="description" content="Узнайте расписание тренировок в Академии боевых единоборств 'Хулиган'." />
         <meta name="keywords" content="Расписание, Академия боевых единоборств, Хулиган, тренировки, спорт" />
+        <link rel="canonical" href="https://hooliganmma.ru/schedule" />
       </Helmet>
       <Header
         showGradient={true}

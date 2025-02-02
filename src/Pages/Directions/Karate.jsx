@@ -12,6 +12,7 @@ const Karate = () => {
                 <title>Каратэ - Академия боевых единоборств "Хулиган"</title>
                 <meta name="description" content="Узнайте больше о каратэ, его истории, техниках и тренировках в Академии боевых единоборств 'Хулиган'." />
                 <meta name="keywords" content="Каратэ, Академия боевых единоборств, Хулиган, боевые искусства, самооборона, тренировки, спорт" />
+                <link rel="canonical" href="https://hooliganmma.ru/karate" />
             </Helmet>
             <Header
                 videoBackgroundDirections={true}

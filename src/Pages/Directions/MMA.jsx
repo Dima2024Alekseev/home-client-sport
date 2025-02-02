@@ -12,6 +12,8 @@ const Mma = () => {
                 <title>MMA - Академия боевых единоборств "Хулиган"</title>
                 <meta name="description" content="Узнайте больше о смешанных единоборствах (MMA), их истории, техниках и тренировках в Академии боевых единоборств 'Хулиган'." />
                 <meta name="keywords" content="MMA, Академия боевых единоборств, Хулиган, боевые искусства, самооборона, тренировки, спорт" />
+                <link rel="canonical" href="https://hooliganmma.ru/kickboxing" />
+                <link rel="canonical" href="https://hooliganmma.ru/mma" />
             </Helmet>
             <Header
                 showBlock={true}

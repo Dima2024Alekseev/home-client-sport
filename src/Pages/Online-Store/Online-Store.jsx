@@ -44,6 +44,7 @@ const Store = () => {
                 <title>Интернет-магазин - Академия боевых единоборств "Хулиган"</title>
                 <meta name="description" content="Посетите наш интернет-магазин и приобретите товары для боевых единоборств в Академии 'Хулиган'." />
                 <meta name="keywords" content="Интернет-магазин, Академия боевых единоборств, Хулиган, боевые искусства, товары, спорт" />
+                <link rel="canonical" href="https://hooliganmma.ru/online-store" />
             </Helmet>
             <Header
                 showGradient={true}

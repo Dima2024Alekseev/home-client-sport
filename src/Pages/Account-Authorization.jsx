@@ -51,6 +51,7 @@ const Authorization = () => {
         <title>Авторизация - Академия боевых единоборств "Хулиган"</title>
         <meta name="description" content="Авторизуйтесь для доступа к административной панели Академии боевых единоборств 'Хулиган'." />
         <meta name="keywords" content="Авторизация, Академия боевых единоборств, Хулиган, административная панель, вход" />
+        <link rel="canonical" href="https://hooliganmma.ru/authorization-account" />
       </Helmet>
       <Header />
       <main className="form-authorization">

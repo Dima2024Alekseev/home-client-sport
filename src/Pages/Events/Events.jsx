@@ -12,6 +12,7 @@ const Events = () => {
                 <title>События - Академия боевых единоборств "Хулиган"</title>
                 <meta name="description" content="Узнайте о предстоящих событиях и мероприятиях в Академии боевых единоборств 'Хулиган'." />
                 <meta name="keywords" content="События, Академия боевых единоборств, Хулиган, боевые искусства, мероприятия, спорт" />
+                <link rel="canonical" href="https://hooliganmma.ru/events" />
             </Helmet>
             <Header
                 showBlock={true}
