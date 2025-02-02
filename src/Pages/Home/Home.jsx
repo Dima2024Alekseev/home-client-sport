@@ -6,7 +6,7 @@ import NewsBlock from "../../Components/News-Block/News-Block";
 import StoreBlock from "../../Components/Store-Block/Store-Block";
 import Contact from "../../Components/Contact-Information/Contact-Information";
 import Footer from "../../Components/Footer/Footer";
-import axios from "axios";
+import postsData from "../../data/posts.json";
 import home_page_video from "../../video/club_3.mp4";
 
 const Home = () => {
@@ -15,8 +15,7 @@ const Home = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get('/api/posts');
-                setPosts(response.data);
+                setPosts(postsData);
             } catch (error) {
                 console.error('Ошибка при получении данных:', error);
             }
