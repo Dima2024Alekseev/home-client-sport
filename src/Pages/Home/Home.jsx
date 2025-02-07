@@ -6,7 +6,6 @@ import NewsBlock from "../../Components/News-Block/News-Block";
 import StoreBlock from "../../Components/Store-Block/Store-Block";
 import Contact from "../../Components/Contact-Information/Contact-Information";
 import Footer from "../../Components/Footer/Footer";
-import postsData from "../../data/posts.json";
 import home_page_video from "../../video/club_3.mp4";
 
 const Home = () => {
@@ -15,7 +14,12 @@ const Home = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                setPosts(postsData);
+                const response = await fetch('/api/posts');
+                const data = await response.json();
+
+                // Сортировка постов по убыванию идентификаторов
+                const sortedPosts = data.sort((a, b) => b.id - a.id);
+                setPosts(sortedPosts);
             } catch (error) {
                 console.error('Ошибка при получении данных:', error);
             }

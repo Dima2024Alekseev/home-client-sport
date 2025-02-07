@@ -20,7 +20,7 @@ class NewsBlock extends Component {
     };
 
     truncateText = (text, maxLength) => {
-        // Remove the hashtag #наши победы
+        // Удаление хэштега #наши победы
         const cleanedText = text.replace(/#нашипобеды|#афиша/g, '').trim();
 
         if (cleanedText.length <= maxLength) {
@@ -81,6 +81,10 @@ class NewsBlock extends Component {
             post.text && post.text.includes('#нашипобеды')
         );
 
+        // Ограничение до 5 новостей
+        const limitedFilteredPosts = filteredPosts.slice(0, 5);
+        const limitedVictoryPosts = victoryPosts.slice(0, 5);
+
         return (
             <section className="news-and-victory">
                 <nav className="news_button">
@@ -102,12 +106,12 @@ class NewsBlock extends Component {
                 <div className="content">
                     {this.state.activeButton === 'club' && (
                         <section className="container-news">
-                            {this.renderSwiper(filteredPosts)}
+                            {this.renderSwiper(limitedFilteredPosts)}
                         </section>
                     )}
                     {this.state.activeButton === 'victory' && (
                         <section className="container-victory">
-                            {this.renderSwiper(victoryPosts)}
+                            {this.renderSwiper(limitedVictoryPosts)}
                         </section>
                     )}
                     <div className="button-all">
