@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    background-color: #f8f9fa;
+    color: #727e89;
+}
+
+.title {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.message {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    font-size: 1.25rem;
+    color: #fff;
+    background-color: #e3070e;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button:hover{
+    color: white;
+}

@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import "./styles/config.css";
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Home from "./Pages/Home/Home";
@@ -24,10 +23,12 @@ import AttendanceJournal from './Pages/AttendanceJournal';
 import AdminPrice from "./Pages/Admin/AdminPrice/AdminPrice";
 import EditProduct from './Pages/Admin/AdminProduct/EditProduct';
 import Price from "./Pages/Price/Price";
+import NotFoundPage from './Pages/NoutFoundPages/NoutFoundPages';
 import logo_title from "./img/log-club.png";
 import useTitle from './Components/UseTitle';
 import ScrollTop from './Components/ScrollTop';
 import { NotificationProvider } from './Components/NotificationContext';
+import "./styles/config.css";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -88,6 +89,7 @@ const AnimatedRoutes = () => {
               path="/admin-products"
               element={isAuthenticated() && isAdmin() ? <EditProduct /> : <Navigate to="/authorization-account" />}
             />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>
       </CSSTransition>
