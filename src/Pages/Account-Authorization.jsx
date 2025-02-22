@@ -61,7 +61,7 @@ const Authorization = () => {
           title_button='Войти'
           onSubmit={handleSubmit}
         />
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {/* {error && <p style={{ color: 'red' }}>{error}</p>} */}
       </main>
       <Footer />
     </div>
