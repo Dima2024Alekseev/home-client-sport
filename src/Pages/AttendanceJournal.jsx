@@ -228,7 +228,7 @@ const AttendanceJournal = () => {
           <thead>
             <tr>
               <th>№</th>
-              <th className='text-left'>ФИО</th>
+              <th className='text-left sticky-column'>ФИО</th>
               {daysToDisplay.map((day) => (
                 <th key={day} className='element-center'>
                   {day}
@@ -241,7 +241,7 @@ const AttendanceJournal = () => {
             {attendanceData.map((entry, index) => (
               <tr key={entry._id}>
                 <td className='element-center'>{index + 1}</td>
-                <td className='text-left'>
+                <td className='text-left sticky-column'>
                   {isAdmin ? (
                     <input
                       value={entry.studentName}
