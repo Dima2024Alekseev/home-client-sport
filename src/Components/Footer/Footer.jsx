@@ -13,7 +13,7 @@ class Footer extends React.Component {
                     <nav className="tipe-sport">
                         <ul className="kinds-of-sports">
                             <li>
-                                <Link to="/home" className="type-of-fight">Академия</Link>
+                                <Link to="/" className="type-of-fight">Академия</Link>
                             </li>
                             <li>
                                 <Link to="/about" className="type-of-fight">Об Академии</Link>
