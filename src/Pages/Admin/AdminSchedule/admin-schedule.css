@@ -91,6 +91,6 @@
         overflow-x: auto;
     }
     .schedule-editor-content input{
-        width: auto;
+        width: 150px;
     }
 }
