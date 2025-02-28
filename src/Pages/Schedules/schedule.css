@@ -18,6 +18,14 @@
     display: none;
 }
 
+.sticky-column-time {
+    position: sticky;
+    background: white;
+    border: 1px solid #ccc;
+    left: -2px;
+    z-index: 1;
+}
+
 .schedule-mounth {
     display: flex;
     align-items: center;

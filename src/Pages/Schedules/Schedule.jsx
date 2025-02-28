@@ -63,7 +63,7 @@ const ScheduleTable = ({ scheduleData, selectedDay, selectedCategory }) => {
       <tbody>
         {filteredScheduleData.map((row, index) => (
           <tr key={index}>
-            <td><strong>{row.time}</strong></td>
+            <td className="sticky-column-time"><strong>{row.time}</strong></td>
             {selectedDay === "all" ? days.map(day => (
               <td key={day}>
                 {selectedCategory === "Выберите" ? row[day] : (row[day] && row[day].includes(selectedCategory) ? row[day] : '')}

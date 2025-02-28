@@ -67,7 +67,7 @@ const ScheduleEditor = () => {
           <table>
             <tbody>
               <tr>
-                <th>Время</th>
+                <th className="sticky-column-time">Время</th>
                 <th>ПН</th>
                 <th>ВТ</th>
                 <th>СР</th>

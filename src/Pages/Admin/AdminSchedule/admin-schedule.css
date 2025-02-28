@@ -80,6 +80,12 @@
     border-radius: 8px 8px 0 0;
 }
 
+.sticky-column-time {
+    position: sticky;
+    left: -2px;
+    z-index: 1;
+}
+
 @media (max-width: 768px) {
     .schedule-editor-content .table-container {
         overflow-x: auto;
