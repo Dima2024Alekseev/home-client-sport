@@ -77,7 +77,7 @@ const ScheduleEditor = () => {
               </tr>
               {scheduleData.map((row, index) => (
                 <tr key={index}>
-                  <td><input value={row.time} onChange={(e) => handleChange(index, 'time', e.target.value)} /></td>
+                  <td className="sticky-column-time"><input value={row.time} onChange={(e) => handleChange(index, 'time', e.target.value)} /></td>
                   <td><input value={row.pn} onChange={(e) => handleChange(index, 'pn', e.target.value)} /></td>
                   <td><input value={row.vt} onChange={(e) => handleChange(index, 'vt', e.target.value)} /></td>
                   <td><input value={row.sr} onChange={(e) => handleChange(index, 'sr', e.target.value)} /></td>
