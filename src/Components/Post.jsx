@@ -20,7 +20,7 @@ const Posts = ({ filterTag }) => {
         setLoading(true);
         axios.get('/api/posts')
             .then(response => {
-                const sortedPosts = response.data.sort((a, b) => a.id - b.id);
+                const sortedPosts = response.data.sort((a, b) => b.id - a.id);
                 const filteredPosts = sortedPosts.filter(post => {
                     return post.photoUrls && post.photoUrls.length > 0 &&
                         post.text &&
