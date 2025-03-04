@@ -20,7 +20,8 @@ const Posts = ({ filterTag }) => {
         setLoading(true);
         axios.get('/api/posts')
             .then(response => {
-                const filteredPosts = response.data.filter(post => {
+                const sortedPosts = response.data.sort((a, b) => b.id - a.id);
+                const filteredPosts = sortedPosts.filter(post => {
                     return post.photoUrls && post.photoUrls.length > 0 &&
                         post.text &&
                         (!post.attachments || !post.attachments.some(attachment => attachment.type === 'video')) &&
