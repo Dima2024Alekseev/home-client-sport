@@ -16,6 +16,11 @@ const Posts = ({ filterTag }) => {
     const navigate = useNavigate();
     const mainRef = useRef(null);
 
+    const removeLinksFromText = (text) => {
+        if (!text) return text;
+        return text.replace(/\[club\d+\|([^\]]+)\]/g, '$1').replace(/\[id\d+\|([^\]]+)\]/g, '$1');
+    };
+
     const fetchPosts = useCallback(() => {
         setLoading(true);
         axios.get('/api/posts')
@@ -29,7 +34,7 @@ const Posts = ({ filterTag }) => {
                 });
                 const modifiedPosts = filteredPosts.map(post => ({
                     ...post,
-                    text: post.text.replace(/#нашипобеды|#афиша/g, '').trim()
+                    text: removeLinksFromText(post.text).replace(/#нашипобеды|#афиша/g, '').trim()
                 }));
                 setPosts(modifiedPosts);
                 setLoading(false);
