@@ -19,9 +19,14 @@ class NewsBlock extends Component {
         this.setState({ activeButton: button });
     };
 
+    removeLinksFromText = (text) => {
+        if (!text) return text;
+        return text.replace(/\[club\d+\|([^\]]+)\]/g, '$1').replace(/\[id\d+\|([^\]]+)\]/g, '$1');
+    };
+
     truncateText = (text, maxLength) => {
         // Удаление хэштега #наши победы
-        const cleanedText = text.replace(/#нашипобеды|#афиша/g, '').trim();
+        const cleanedText = this.removeLinksFromText(text).replace(/#нашипобеды|#афиша/g, '').trim();
 
         if (cleanedText.length <= maxLength) {
             return cleanedText;
