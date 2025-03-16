@@ -149,6 +149,7 @@ const AdminPrice = () => {
                 showGradient={true}
                 showBlock={true}
                 innerTitle='Редактирование прайс-листа'
+                homeRoute="/admin-dashboard"
                 linkText='Редактирование прайс-листа'
             />
             <main className="admin-price-main">
