@@ -23,25 +23,7 @@ const Authorization = () => {
       navigate('/admin-dashboard');
     } catch (error) {
       setError(error.response?.data?.error || '');
-      showNotification('Ошибка авторизации', 'error');
-    }
-  };
-
-  const refreshAccessToken = async () => {
-    const refreshToken = localStorage.getItem('refreshToken');
-    if (!refreshToken) {
-      showNotification('Ошибка обновления токена', 'error');
-      return;
-    }
-
-    try {
-      const response = await axios.post('/api/admin/refresh-token', { refreshToken });
-      const { token, refreshToken: newRefreshToken } = response.data;
-      localStorage.setItem('token', token);
-      localStorage.setItem('refreshToken', newRefreshToken);
-      showNotification('Токен обновлен', 'success');
-    } catch (error) {
-      showNotification('Ошибка обновления токена', 'error');
+      showNotification('Неверный логин или пароль', 'error');
     }
   };
 
@@ -51,7 +33,6 @@ const Authorization = () => {
         <title>Авторизация - Академия боевых единоборств "Хулиган"</title>
         <meta name="description" content="Авторизуйтесь для доступа к административной панели Академии боевых единоборств 'Хулиган'." />
         <meta name="keywords" content="Авторизация, Академия боевых единоборств, Хулиган, административная панель, вход" />
-        <link rel="canonical" href="https://hooliganmma.ru/authorization-account" />
       </Helmet>
       <Header />
       <main className="form-authorization">
@@ -61,7 +42,6 @@ const Authorization = () => {
           title_button='Войти'
           onSubmit={handleSubmit}
         />
-        {/* {error && <p style={{ color: 'red' }}>{error}</p>} */}
       </main>
       <Footer />
     </div>

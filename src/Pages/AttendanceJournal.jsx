@@ -93,8 +93,8 @@ const AttendanceJournal = () => {
       });
       showNotification('Журнал посещаемости обновлен', 'success');
     } catch (error) {
-      console.error('Ошибка при обновлении журнала посещаемости:', error);
-      showNotification('Ошибка при обновлении журнала посещаемости', 'error');
+      console.error('Ваша сессия истекла', error);
+      showNotification('Ваша сессия истекла', 'error');
     }
   };
 

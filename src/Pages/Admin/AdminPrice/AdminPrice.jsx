@@ -19,7 +19,16 @@ const AdminPrice = () => {
     useEffect(() => {
         const fetchPrices = async () => {
             try {
-                const response = await axios.get('/api/prices');
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    toast.error('Требуется авторизация');
+                    return;
+                }
+                const response = await axios.get('/api/prices', {
+                    headers: {
+                        'Authorization': token
+                    }
+                });
                 setPriceData(response.data);
             } catch (error) {
                 console.error('Ошибка при получении цен:', error);
@@ -41,10 +50,22 @@ const AdminPrice = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/api/prices', { prices: [newPrice] });
+            const token = localStorage.getItem('token');
+            if (!token) {
+                toast.error('Требуется авторизация');
+                return;
+            }
+            const response = await axios.post('/api/prices', { prices: [newPrice] }, {
+                headers: {
+                    'Authorization': token
+                }
+            });
             console.log('Данные успешно добавлены:', response.data);
-            // Обновляем данные после добавления новой записи
-            const updatedPriceData = await axios.get('/api/prices');
+            const updatedPriceData = await axios.get('/api/prices', {
+                headers: {
+                    'Authorization': token
+                }
+            });
             setPriceData(updatedPriceData.data);
             setNewPrice({
                 category: '',
@@ -62,24 +83,45 @@ const AdminPrice = () => {
     const handleUpdate = async (index) => {
         const updatedPrice = priceData[index];
         try {
-            const response = await axios.put('/api/prices', { price: updatedPrice });
+            const token = localStorage.getItem('token');
+            if (!token) {
+                toast.error('Требуется авторизация');
+                return;
+            }
+            const response = await axios.put('/api/prices', { price: updatedPrice }, {
+                headers: {
+                    'Authorization': token
+                }
+            });
             console.log('Данные успешно обновлены:', response.data);
             const updatedPriceData = [...priceData];
             updatedPriceData[index] = response.data.price;
             setPriceData(updatedPriceData);
             toast.success('Прайс-лист успешно обновлен');
         } catch (error) {
-            console.error('Ошибка при обновлении данных:', error);
-            toast.error('Ошибка при обновлении данных');
+            console.error('Ваша сессия истекла', error);
+            toast.error('Ваша сессия истекла');
         }
     };
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.delete(`/api/prices/${id}`);
+            const token = localStorage.getItem('token');
+            if (!token) {
+                toast.error('Требуется авторизация');
+                return;
+            }
+            const response = await axios.delete(`/api/prices/${id}`, {
+                headers: {
+                    'Authorization': token
+                }
+            });
             console.log('Данные успешно удалены:', response.data);
-            // Обновляем данные после удаления записи
-            const updatedPriceData = await axios.get('/api/prices');
+            const updatedPriceData = await axios.get('/api/prices', {
+                headers: {
+                    'Authorization': token
+                }
+            });
             setPriceData(updatedPriceData.data);
             toast.success('Прайс-лист успешно удален');
         } catch (error) {
@@ -107,7 +149,6 @@ const AdminPrice = () => {
                 showGradient={true}
                 showBlock={true}
                 innerTitle='Редактирование прайс-листа'
-                homeRoute="/admin-dashboard"
                 linkText='Редактирование прайс-листа'
             />
             <main className="admin-price-main">

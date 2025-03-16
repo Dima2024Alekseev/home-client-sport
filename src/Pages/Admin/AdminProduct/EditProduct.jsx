@@ -16,10 +16,17 @@ const EditorProduct = () => {
     const [newProductPrice, setNewProductPrice] = useState('');
     const [newProductFile, setNewProductFile] = useState(null);
 
+    // Получаем токен из localStorage
+    const token = localStorage.getItem('token');
+
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('/api/products');
+                const response = await axios.get('/api/products', {
+                    headers: {
+                        'Authorization': token // Добавляем токен в заголовок
+                    }
+                });
                 setProducts(response.data);
             } catch (error) {
                 console.error('Ошибка при получении продуктов:', error);
@@ -28,7 +35,7 @@ const EditorProduct = () => {
         };
 
         fetchProducts();
-    }, []);
+    }, [token]);
 
     const handleEditClick = (productId, name, price) => {
         setEditingProductId(productId);
@@ -47,11 +54,16 @@ const EditorProduct = () => {
 
             await axios.put(`/api/products/${productId}`, formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': token // Добавляем токен в заголовок
                 }
             });
 
-            const response = await axios.get('/api/products');
+            const response = await axios.get('/api/products', {
+                headers: {
+                    'Authorization': token // Добавляем токен в заголовок
+                }
+            });
             setProducts(response.data);
             setEditingProductId(null);
             setSelectedFile(null);
@@ -64,8 +76,17 @@ const EditorProduct = () => {
 
     const handleDeleteClick = async (productId) => {
         try {
-            await axios.delete(`/api/products/${productId}`);
-            const response = await axios.get('/api/products');
+            await axios.delete(`/api/products/${productId}`, {
+                headers: {
+                    'Authorization': token // Добавляем токен в заголовок
+                }
+            });
+
+            const response = await axios.get('/api/products', {
+                headers: {
+                    'Authorization': token // Добавляем токен в заголовок
+                }
+            });
             setProducts(response.data);
             toast.success('Продукт успешно удален');
         } catch (error) {
@@ -85,11 +106,16 @@ const EditorProduct = () => {
 
             await axios.post('/api/products', formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': token // Добавляем токен в заголовок
                 }
             });
 
-            const response = await axios.get('/api/products');
+            const response = await axios.get('/api/products', {
+                headers: {
+                    'Authorization': token // Добавляем токен в заголовок
+                }
+            });
             setProducts(response.data); // Обновляем список продуктов
             setNewProductName('');
             setNewProductPrice('');
@@ -120,7 +146,6 @@ const EditorProduct = () => {
                 showGradient={true}
                 showBlock={true}
                 innerTitle='Редактирование интернет-магазина'
-                homeRoute="/admin-dashboard"
                 linkText='Редактирование интернет-магазина' />
             <div className="product-grid">
                 {products.map((product, index) => (

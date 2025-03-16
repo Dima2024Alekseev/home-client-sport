@@ -20,8 +20,8 @@ const ScheduleEditor = () => {
         });
         setScheduleData(response.data);
       } catch (error) {
-        console.error('Ошибка при получении расписания:', error);
-        toast.error('Ошибка при получении расписания');
+        console.error('Ваша сессия истекла', error);
+        toast.error('Ваша сессия истекла');
       }
     };
 
