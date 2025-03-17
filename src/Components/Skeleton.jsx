@@ -1,7 +1,7 @@
 import React from "react";
 import ContentLoader from "react-content-loader";
 
-const PostLoader = (props) => (
+const PostLoader = () => (
   <ContentLoader
     speed={2}
     width={1200} // Ширина карточки
@@ -9,7 +9,6 @@ const PostLoader = (props) => (
     viewBox="0 0 1200 250"
     backgroundColor="#f3f3f3"
     foregroundColor="#ecebeb"
-    {...props}
   >
     {/* Изображение */}
     <rect x="10" y="10" rx="5" ry="5" width="350" height="250" />
@@ -25,7 +24,7 @@ const PostLoader = (props) => (
   </ContentLoader>
 );
 
-const PostsLoader = (props) => (
+const PostsLoader = () => (
   <div>
     <PostLoader />
     <PostLoader />

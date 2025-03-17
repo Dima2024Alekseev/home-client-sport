@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Pagination from './Pagination/Pagination';
 import Modal from './Modal Window/Modal';
+import PostsLoader from './Skeleton';
 
 const Posts = ({ filterTag }) => {
     const [posts, setPosts] = useState([]);
@@ -13,6 +14,7 @@ const Posts = ({ filterTag }) => {
     const [itemsPerPage] = useState(5);
     const [modalActive, setModalActive] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
+      const [isPageLoading, setIsPageLoading] = useState(false);
     const navigate = useNavigate();
     const mainRef = useRef(null);
 
@@ -68,10 +70,16 @@ const Posts = ({ filterTag }) => {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = posts.slice(indexOfFirstItem, indexOfLastItem);
 
-    const paginate = pageNumber => {
+    const paginate = (pageNumber) => {
+        setIsPageLoading(true); // Активируем загрузку
         setCurrentPage(pageNumber);
         mainRef.current.scrollIntoView({ behavior: 'smooth' });
-    };
+    
+        // Имитируем задержку загрузки данных
+        setTimeout(() => {
+          setIsPageLoading(false); // Деактивируем загрузку
+        }, 1000); // Задержка в 500 мс
+      };
 
     const openModal = (imageSrc) => {
         setSelectedImage(imageSrc);
@@ -94,24 +102,28 @@ const Posts = ({ filterTag }) => {
             ) : (
                 <>
                     <main ref={mainRef}>
-                        {currentItems.map(post => (
-                            <article className='news' key={post.id}>
-                                <div className='news-text-container'>
-                                    <h2 className='news-title'>{post.title}</h2>
-                                    <pre className='news-text'>{post.text}</pre>
-                                </div>
-                                {post.photoUrls && (
-                                    <figure className='news-image-container'>
-                                        <img
-                                            src={post.photoUrls[0]}
-                                            alt={`Image for post ${post.id}`}
-                                            onClick={() => openModal(post.photoUrls[0])}
-                                        />
-                                    </figure>
-                                )}
-                            </article>
-                        ))}
-                    </main>
+            {isPageLoading ? ( // Показываем скелетон, если страница загружается
+              <PostsLoader />
+            ) : (
+              currentItems.map(post => (
+                <article className='news' key={post.id}>
+                  <div className='news-text-container'>
+                    <h2 className='news-title'>{post.title}</h2>
+                    <pre className='news-text'>{post.text}</pre>
+                  </div>
+                  {post.photoUrls && (
+                    <figure className='news-image-container'>
+                      <img
+                        src={post.photoUrls[0]}
+                        alt={`Illustration for "${post.title}"`}
+                        onClick={() => openModal(post.photoUrls[0])}
+                      />
+                    </figure>
+                  )}
+                </article>
+              ))
+            )}
+          </main>
                     <Pagination
                         itemsPerPage={itemsPerPage}
                         totalItems={posts.length}
