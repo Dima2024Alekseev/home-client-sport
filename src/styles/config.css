@@ -22,7 +22,7 @@ html {
 .content {
     display: flex;
     flex-direction: column;
-    padding: 7%;
+    padding: 12% 5%;
     max-width: 100%;
 }
 
