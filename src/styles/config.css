@@ -22,7 +22,7 @@ html {
 .content {
     display: flex;
     flex-direction: column;
-    padding: 12% 5%;
+    padding: 7%;
     max-width: 100%;
 }
 
@@ -81,4 +81,10 @@ img {
 ::-webkit-scrollbar-thumb {
     background: black;
     height: 350px;
+}
+
+@media (max-width: 480px) {
+    .content {
+        padding: 12% 5%;
+    }
 }
