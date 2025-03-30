@@ -326,6 +326,7 @@ const AttendanceJournal = () => {
       <Header
         showBlock={true}
         innerTitle="Журнал посещаемости"
+        homeRoute="/admin-dashboard"
         linkText="Журнал посещаемости"
         showGradient={true}
         onLogout={handleLogout}
