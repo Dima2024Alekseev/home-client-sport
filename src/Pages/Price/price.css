@@ -1,37 +1,85 @@
-.training {
-    display: grid;
-    gap: 20px;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    justify-content: center;
-    padding: 30px;
+.price-container {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.subscription {
+.price-grid {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
+.price-card {
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
     color: white;
-    width: auto;
-    height: 250px;
-    border-radius: 5px;
-    padding: 30px;
-    font-size: 20px;
+    border-radius: 10px;
+    padding: 40px;
+    font-size: 18px;
     background: linear-gradient(130deg, #000000 30%, rgba(125, 186, 232, 0) 100%), url('../../img/black-red.png') top right, #121212;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
 }
 
-#head-price {
+.price-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.price-title-wrapper {
     display: flex;
     justify-content: space-between;
-}
-
-#head-price h4 {
-    background-color: rgba(192, 192, 192, 0.47);
-    padding: 10px;
-    border: 5px;
-}
-
-#month-price {
-    display: flex;
-    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 15px;
     gap: 10px;
+}
+
+.price-category {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    backdrop-filter: blur(5px);
+    white-space: nowrap;
+}
+
+.price-duration {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    backdrop-filter: blur(5px);
+    margin-left: auto;
+    /* Прижимает к правому краю */
+}
+
+.price-amount {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.price-description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.price-description p {
+    margin: 8px 0;
+}
+
+@media (max-width: 768px) {
+    .price-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .price-card {
+        padding: 25px;
+    }
 }
