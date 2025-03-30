@@ -1,6 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import {
+    FaCalendarAlt,
+    FaClipboardList,
+    FaMoneyBillWave,
+    FaShoppingCart
+} from 'react-icons/fa';
 import Header from "../../../Components/Header";
 import Footer from "../../../Components/Footer/Footer";
 import "./admin-dashboard.css";
@@ -13,35 +19,65 @@ const AdminDashboard = () => {
                 <meta name="description" content="Панель администратора для управления расписанием, журналом посещаемости, прайс-листом и интернет-магазином Академии боевых единоборств 'Хулиган'." />
                 <meta name="keywords" content="Панель администратора, Академия боевых единоборств, Хулиган, управление, расписание, журнал посещаемости, прайс-лист, интернет-магазин" />
                 <meta name="robots" content="noindex, nofollow" />
-
             </Helmet>
+
             <Header
                 showBlock={true}
                 innerTitle="Панель администратора"
-                homeRoute="/"
                 linkText="Панель администратора"
                 showGradient={true}
             />
-            <main className="admin-dashboard-content">
-                <section className="admin-dashboard-section">
-                    <h2>Расписание занятий</h2>
-                    <Link to="/schedule-editor" className="admin-dashboard-link">Редактировать расписание</Link>
-                </section>
-                <section className="admin-dashboard-section">
-                    <h2>Журнал посещаемости</h2>
-                    <Link to="/admin/attendance-journal" className="admin-dashboard-link">Редактировать журнал</Link>
-                </section>
-                <section className="admin-dashboard-section">
-                    <h2>Прайс-лист</h2>
-                    <Link to="/admin-price" className="admin-dashboard-link">Редактировать прайс-лист</Link>
-                </section>
-                <section className="admin-dashboard-section">
-                    <h2>Интернет-магазин</h2>
-                    <Link to="/admin-products" className="admin-dashboard-link">Редактировать интернет-магазин</Link>
-                </section>
+
+            <main className="admin-dashboard-container">
+                <div className="admin-dashboard-grid">
+                    <DashboardCard
+                        title="Расписание занятий"
+                        description="Управление графиком тренировок"
+                        linkText="Редактировать расписание"
+                        to="/schedule-editor"
+                        icon={<FaCalendarAlt className="card-icon" />}
+                    />
+
+                    <DashboardCard
+                        title="Журнал посещаемости"
+                        description="Контроль посещаемости студентов и статистика"
+                        linkText="Открыть журнал"
+                        to="/admin/attendance-journal"
+                        icon={<FaClipboardList className="card-icon" />}
+                    />
+
+                    <DashboardCard
+                        title="Прайс-лист"
+                        description="Управление абонементами"
+                        linkText="Редактировать цены"
+                        to="/admin-price"
+                        icon={<FaMoneyBillWave className="card-icon" />}
+                    />
+
+                    <DashboardCard
+                        title="Интернет-магазин"
+                        description="Управление товарами"
+                        linkText="Перейти в магазин"
+                        to="/admin-products"
+                        icon={<FaShoppingCart className="card-icon" />}
+                    />
+                </div>
             </main>
             <Footer />
         </>
+    );
+};
+
+const DashboardCard = ({ title, description, linkText, to, icon }) => {
+    return (
+        <div className="dashboard-card">
+            <div className="icon-container">{icon}</div>
+            <h3>{title}</h3>
+            <p>{description}</p>
+            <Link to={to} className="card-button">
+                {linkText}
+            </Link>
+        </div>
     );
 };
 
