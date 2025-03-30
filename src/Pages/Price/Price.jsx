@@ -32,6 +32,7 @@ const UserPrice = () => {
         showGradient={true}
         showBlock={true}
         innerTitle='Абонемент'
+        homeRoute="/"
         linkText='Цены'
       />
       <main className="price-container">
