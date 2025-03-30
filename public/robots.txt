@@ -1,7 +1,7 @@
 User-agent: *
 Disallow: /admin-dashboard
 Disallow: /schedule-editor
-Disallow: /attendance-journal
+Disallow: /admin/attendance-journal
 Disallow: /admin-price
 Disallow: /admin-products
 Sitemap: https://www.hooliganmma.ru/sitemap.xml
