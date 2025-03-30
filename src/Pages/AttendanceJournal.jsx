@@ -5,30 +5,52 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer/Footer";
 import "../styles/attendance-journal.css";
 import { useNotification } from '../Components/NotificationContext';
+import { 
+  FaSave, 
+  FaCopy, 
+  FaTrash, 
+  FaEdit, 
+  FaCheck, 
+  FaPlus, 
+  FaUserPlus,
+  FaUsers,
+  FaCalendarAlt,
+  FaCalendarPlus,
+  FaTimes
+} from 'react-icons/fa';
 
 const AttendanceJournal = () => {
   const { showNotification } = useNotification();
   const [attendanceData, setAttendanceData] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
   const [newEntry, setNewEntry] = useState({ studentName: '', month: new Date().getMonth() + 1, attendance: {}, days: [] });
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1); // Текущий месяц по умолчанию
-  const [selectedGroup, setSelectedGroup] = useState(''); // Текущая группа по умолчанию
-  const [daysToDisplay, setDaysToDisplay] = useState([]); // Начальные числа месяца
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+  const [selectedGroup, setSelectedGroup] = useState('');
+  const [daysToDisplay, setDaysToDisplay] = useState([]);
   const [newDay, setNewDay] = useState('');
-  const [groups, setGroups] = useState([]); // Список групп
-  const [newGroup, setNewGroup] = useState(''); // Новая группа
-  const [editingGroup, setEditingGroup] = useState(null); // Редактируемая группа
+  const [groups, setGroups] = useState([]);
+  const [newGroup, setNewGroup] = useState('');
+  const [editingGroup, setEditingGroup] = useState(null);
+
+  const monthNames = [
+    'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+    'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+  ];
+  
+  const monthNamesGenitive = [
+    'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+    'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
+  ];
 
   const fetchAttendanceData = useCallback(async () => {
     try {
-      const response = await axios.get('/api/attendance', {
+      const response = await axios.get('http://localhost:5000/api/attendance', {
         params: { month: selectedMonth, group: selectedGroup }
       });
       const data = response.data;
       const days = data.flatMap(entry => entry.days);
-      setDaysToDisplay([...new Set(days)].sort((a, b) => a - b)); // Удаление дубликатов и сортировка
-      setAttendanceData(data.sort((a, b) => a.studentName.localeCompare(b.studentName))); // Сортировка по алфавиту
-      console.log('Загруженные данные:', data);
+      setDaysToDisplay([...new Set(days)].sort((a, b) => a - b));
+      setAttendanceData(data.sort((a, b) => a.studentName.localeCompare(b.studentName)));
     } catch (error) {
       console.error('Ошибка при получении данных посещаемости:', error);
       showNotification('Ошибка при получении данных посещаемости', 'error');
@@ -37,10 +59,10 @@ const AttendanceJournal = () => {
 
   const fetchGroups = useCallback(async () => {
     try {
-      const response = await axios.get('/api/groups');
+      const response = await axios.get('http://localhost:5000/api/groups');
       setGroups(response.data);
       if (response.data.length > 0) {
-        setSelectedGroup(response.data[0]._id); // Устанавливаем первую группу по умолчанию
+        setSelectedGroup(response.data[0]._id);
       }
     } catch (error) {
       console.error('Ошибка при получении групп:', error);
@@ -58,12 +80,12 @@ const AttendanceJournal = () => {
     };
 
     checkAdmin();
-    fetchGroups(); // Сначала загружаем группы
+    fetchGroups();
   }, [fetchGroups]);
 
   useEffect(() => {
     if (selectedGroup) {
-      fetchAttendanceData(); // Загружаем данные посещаемости после установки группы
+      fetchAttendanceData();
     }
   }, [selectedGroup, fetchAttendanceData]);
 
@@ -75,7 +97,7 @@ const AttendanceJournal = () => {
     } else {
       newAttendanceData[index][field] = value;
     }
-    setAttendanceData(newAttendanceData.sort((a, b) => a.studentName.localeCompare(b.studentName))); // Сортировка по алфавиту
+    setAttendanceData(newAttendanceData.sort((a, b) => a.studentName.localeCompare(b.studentName)));
   };
 
   const handleSave = async () => {
@@ -84,17 +106,17 @@ const AttendanceJournal = () => {
       const updatedEntries = attendanceData.map(entry => ({
         ...entry,
         month: selectedMonth,
-        days: daysToDisplay // Добавьте дни к каждой записи
+        days: daysToDisplay
       }));
-      await axios.put('/api/attendance', { attendance: updatedEntries }, {
+      await axios.put('http://localhost:5000/api/attendance', { attendance: updatedEntries }, {
         headers: {
           'Authorization': token
         }
       });
       showNotification('Журнал посещаемости обновлен', 'success');
     } catch (error) {
-      console.error('Ваша сессия истекла', error);
-      showNotification('Ваша сессия истекла', 'error');
+      console.error('Ошибка при сохранении:', error);
+      showNotification('Ошибка при сохранении', 'error');
     }
   };
 
@@ -104,19 +126,16 @@ const AttendanceJournal = () => {
       const newEntryWithMonth = {
         ...newEntry,
         month: parseInt(newEntry.month, 10),
-        days: daysToDisplay // Добавьте дни к новой записи
+        days: daysToDisplay
       };
-      console.log('Новая запись:', newEntryWithMonth);
-      const response = await axios.post('/api/attendance', newEntryWithMonth, {
+      const response = await axios.post('http://localhost:5000/api/attendance', newEntryWithMonth, {
         headers: {
           'Authorization': token
         },
-        params: { group: selectedGroup } // Передаем группу в query параметрах
+        params: { group: selectedGroup }
       });
-      console.log('Ответ сервера:', response.data);
       setNewEntry({ studentName: '', month: new Date().getMonth() + 1, attendance: {}, days: [] });
       showNotification('Запись добавлена', 'success');
-      // Обновление данных после добавления новой записи
       fetchAttendanceData();
     } catch (error) {
       console.error('Ошибка при добавлении записи:', error);
@@ -127,7 +146,7 @@ const AttendanceJournal = () => {
   const handleDeleteEntry = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`/api/attendance/${id}`, {
+      await axios.delete(`http://localhost:5000/api/attendance/${id}`, {
         headers: {
           'Authorization': token
         }
@@ -145,7 +164,6 @@ const AttendanceJournal = () => {
     if (day && day >= 1 && day <= 31 && !daysToDisplay.includes(day)) {
       setDaysToDisplay([...daysToDisplay, day].sort((a, b) => a - b));
       setNewDay('');
-      console.log('Добавлен новый день:', day);
     } else {
       showNotification('Пожалуйста, введите число от 1 до 31.', 'error');
     }
@@ -153,13 +171,12 @@ const AttendanceJournal = () => {
 
   const handleRemoveDay = (day) => {
     setDaysToDisplay(daysToDisplay.filter(d => d !== day).sort((a, b) => a - b));
-    console.log('Удален день:', day);
   };
 
   const handleCopyAttendance = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post('/api/attendance/copy', { month: selectedMonth }, {
+      await axios.post('http://localhost:5000/api/attendance/copy', { month: selectedMonth }, {
         headers: {
           'Authorization': token
         }
@@ -174,7 +191,7 @@ const AttendanceJournal = () => {
   const handleAddGroup = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post('/api/groups', { name: newGroup }, {
+      await axios.post('http://localhost:5000/api/groups', { name: newGroup }, {
         headers: {
           'Authorization': token
         }
@@ -191,14 +208,14 @@ const AttendanceJournal = () => {
   const handleUpdateGroup = async (id, name) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`/api/groups/${id}`, { name }, {
+      await axios.put(`http://localhost:5000/api/groups/${id}`, { name }, {
         headers: {
           'Authorization': token
         }
       });
       fetchGroups();
       showNotification('Группа обновлена', 'success');
-      setEditingGroup(null); // Сброс состояния редактирования
+      setEditingGroup(null);
     } catch (error) {
       console.error('Ошибка при обновлении группы:', error);
       showNotification('Ошибка при обновлении группы', 'error');
@@ -208,7 +225,7 @@ const AttendanceJournal = () => {
   const handleDeleteGroup = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`/api/groups/${id}`, {
+      await axios.delete(`http://localhost:5000/api/groups/${id}`, {
         headers: {
           'Authorization': token
         }
@@ -221,76 +238,78 @@ const AttendanceJournal = () => {
     }
   };
 
+  const getWeekday = (month, day) => {
+    const year = new Date().getFullYear();
+    const date = new Date(year, month - 1, day);
+    const weekdays = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+    return weekdays[date.getDay()];
+  };
+
   const renderAttendanceTable = () => {
     return (
-      <article className="table-container">
-        <table>
+      <div className="table-responsive">
+        <table className="attendance-table">
           <thead>
             <tr>
-              <th>№</th>
-              <th className='text-left sticky-column'>ФИО</th>
+              <th className="serial-number">№</th>
+              <th className="student-name">ФИО</th>
               {daysToDisplay.map((day) => (
-                <th key={day} className='element-center'>
-                  {day}
+                <th key={day} className="day-header">
+                  <div className="day-number">{day}</div>
+                  <div className="day-weekday">{getWeekday(selectedMonth, day)}</div>
                 </th>
               ))}
-              {isAdmin && <th>Действия</th>}
+              {isAdmin && <th className="actions">Действия</th>}
             </tr>
           </thead>
           <tbody>
             {attendanceData.map((entry, index) => (
-              <tr key={entry._id}>
-                <td className='element-center'>{index + 1}</td>
-                <td className='text-left sticky-column'>
+              <tr key={entry._id} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
+                <td className="serial-number">{index + 1}</td>
+                <td className="student-name">
                   {isAdmin ? (
                     <input
+                      type="text"
                       value={entry.studentName}
                       onChange={(e) => handleChange(index, 'studentName', e.target.value)}
+                      className="name-input"
                     />
                   ) : (
                     entry.studentName
                   )}
                 </td>
                 {daysToDisplay.map((day) => (
-                  <td key={day} className='element-center'>
+                  <td key={day} className="attendance-cell">
                     {isAdmin ? (
-                      <input
-                        type="checkbox"
-                        checked={entry.attendance[day] || false}
-                        onChange={(e) => handleChange(index, `attendance.${day}`, e.target.checked)}
-                      />
+                      <label className="attendance-checkbox">
+                        <input
+                          type="checkbox"
+                          checked={entry.attendance[day] || false}
+                          onChange={(e) => handleChange(index, `attendance.${day}`, e.target.checked)}
+                        />
+                        <span className="checkmark"></span>
+                      </label>
                     ) : (
-                      entry.attendance[day] ? '✔' : ''
+                      entry.attendance[day] ? '✔' : '✖'
                     )}
                   </td>
                 ))}
                 {isAdmin && (
-                  <td className='element-center'>
-                    <button onClick={() => handleDeleteEntry(entry._id)}>Удалить</button>
+                  <td className="actions">
+                    <button 
+                      onClick={() => handleDeleteEntry(entry._id)}
+                      className="delete-button"
+                    >
+                      <FaTrash className="button-icon" /> Удалить
+                    </button>
                   </td>
                 )}
               </tr>
             ))}
           </tbody>
         </table>
-      </article>
+      </div>
     );
-  };
-
-  const getMonthName = (month) => {
-    const months = [
-      'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-      'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
-    ];
-    return months[month - 1];
-  };
-
-  const getMonthNameGenitive = (month) => {
-    const monthsGenitive = [
-      'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
-      'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
-    ];
-    return monthsGenitive[month - 1];
   };
 
   const handleLogout = () => {
@@ -303,149 +322,183 @@ const AttendanceJournal = () => {
         <title>Журнал посещаемости - Академия боевых единоборств "Хулиган"</title>
         <meta name="description" content="Журнал посещаемости студентов Академии боевых единоборств 'Хулиган'." />
         <meta name="keywords" content="Журнал посещаемости, Академия боевых единоборств, Хулиган, студенты, посещаемость" />
-        <link rel="canonical" href="https://hooliganmma.ru/attendance-journal" />
       </Helmet>
       <Header
         showBlock={true}
-        homeRoute="/"
         innerTitle="Журнал посещаемости"
         linkText="Журнал посещаемости"
         showGradient={true}
         onLogout={handleLogout}
       />
-      <main className="attendance-journal-content">
-        <section className="attendance-journal-section">
-          <h1>Журнал посещаемости</h1>
-          <div className='month-and-group'>
-            <div className='group'>
-              <label>Выберите группу: </label>
-              <select value={selectedGroup} onChange={(e) => setSelectedGroup(e.target.value)}>
+      <main className="attendance-journal-container">
+        <section className="attendance-section">
+          <div className="controls-row">
+            <div className="control-group">
+              <label className="control-label"><FaUsers className="control-icon" /> Группа:</label>
+              <select 
+                value={selectedGroup} 
+                onChange={(e) => setSelectedGroup(e.target.value)}
+                className="control-select"
+              >
                 {groups.map(group => (
                   <option key={group._id} value={group._id}>{group.name}</option>
                 ))}
               </select>
             </div>
-            <div className='month'>
-              <label>Выберите месяц: </label>
-              <select value={selectedMonth} onChange={(e) => setSelectedMonth(e.target.value)}>
-                <option value="1">Январь</option>
-                <option value="2">Февраль</option>
-                <option value="3">Март</option>
-                <option value="4">Апрель</option>
-                <option value="5">Май</option>
-                <option value="6">Июнь</option>
-                <option value="7">Июль</option>
-                <option value="8">Август</option>
-                <option value="9">Сентябрь</option>
-                <option value="10">Октябрь</option>
-                <option value="11">Ноябрь</option>
-                <option value="12">Декабрь</option>
+            
+            <div className="control-group">
+              <label className="control-label"><FaCalendarAlt className="control-icon" /> Месяц:</label>
+              <select 
+                value={selectedMonth} 
+                onChange={(e) => setSelectedMonth(e.target.value)}
+                className="control-select"
+              >
+                {monthNames.map((month, index) => (
+                  <option key={index} value={index + 1}>{month}</option>
+                ))}
               </select>
             </div>
           </div>
-          <h1 className="current-month">{getMonthName(selectedMonth)}</h1>
+          
+          <h2 className="current-month-title">
+            <FaCalendarAlt className="month-icon" /> {monthNames[selectedMonth - 1]} {new Date().getFullYear()}
+          </h2>
+          
           {renderAttendanceTable()}
+          
           {isAdmin && (
-            <div className="attendance-journal-add-entry">
-              <h3>Добавить запись</h3>
-              <div className='create-an-entry'>
-                <div>
+            <>
+              <div className="admin-section">
+                <h3 className="admin-section-title"><FaUserPlus /> Добавить запись</h3>
+                <div className="add-entry-form">
                   <input
                     type="text"
-                    placeholder="ФИО"
+                    placeholder="ФИО студента"
                     value={newEntry.studentName}
                     onChange={(e) => setNewEntry({ ...newEntry, studentName: e.target.value })}
+                    className="form-input"
                   />
-                </div>
-                <div className='create-student-group-month'>
-                  <div>
-                    <select value={newEntry.month} onChange={(e) => setNewEntry({ ...newEntry, month: e.target.value })}>
-                      <option value="1">Январь</option>
-                      <option value="2">Февраль</option>
-                      <option value="3">Март</option>
-                      <option value="4">Апрель</option>
-                      <option value="5">Май</option>
-                      <option value="6">Июнь</option>
-                      <option value="7">Июль</option>
-                      <option value="8">Август</option>
-                      <option value="9">Сентябрь</option>
-                      <option value="10">Октябрь</option>
-                      <option value="11">Ноябрь</option>
-                      <option value="12">Декабрь</option>
-                    </select>
-                  </div>
-                </div>
-                <div>
-                  <button className='create' onClick={handleAddEntry}>Добавить</button>
+                  <button 
+                    onClick={handleAddEntry}
+                    className="form-button primary"
+                  >
+                    <FaPlus className="button-icon" /> Добавить студента
+                  </button>
                 </div>
               </div>
-              <div>
-                <h3>Добавить дни</h3>
-                <div className='create-a-day'>
+              
+              <div className="admin-section">
+                <h3 className="admin-section-title"><FaCalendarPlus /> Управление днями</h3>
+                <div className="days-controls">
                   <input
                     type="number"
-                    placeholder="Добавить число"
+                    placeholder="День месяца (1-31)"
                     value={newDay}
                     onChange={(e) => setNewDay(e.target.value)}
                     min="1"
                     max="31"
+                    className="form-input small"
                   />
-                  <div>
-                    <button className='create-days' onClick={handleAddDay}>Добавить</button>
-                  </div>
+                  <button 
+                    onClick={handleAddDay}
+                    className="form-button secondary"
+                  >
+                    <FaPlus className="button-icon" /> Добавить день
+                  </button>
                 </div>
-                <ul className="days-list">
+                
+                <div className="days-list">
                   {daysToDisplay.map((day) => (
-                    <li key={day}>
-                      {day} {getMonthNameGenitive(selectedMonth)} <button onClick={() => handleRemoveDay(day)}>Удалить</button>
-                    </li>
+                    <div key={day} className="day-tag">
+                      <span>{day} {monthNamesGenitive[selectedMonth - 1]}</span>
+                      <button 
+                        onClick={() => handleRemoveDay(day)}
+                        className="remove-day-button"
+                      >
+                        <FaTimes />
+                      </button>
+                    </div>
                   ))}
-                </ul>
-              </div>
-            </div>
-          )}
-          {isAdmin && (
-            <div className="attendance-journal-manage-groups">
-              <h3>Управление группами</h3>
-              <div className='create-a-group'>
-                <input
-                  type="text"
-                  placeholder="Новая группа"
-                  value={newGroup}
-                  onChange={(e) => setNewGroup(e.target.value)}
-                />
-                <div>
-                  <button onClick={handleAddGroup}>Добавить группу</button>
                 </div>
               </div>
-              <ul className="groups-list">
-                {groups.map(group => (
-                  <li key={group._id}>
-                    {editingGroup === group._id ? (
-                      <input
-                        type="text"
-                        value={group.name}
-                        onChange={(e) => setGroups(groups.map(g => g._id === group._id ? { ...g, name: e.target.value } : g))}
-                      />
-                    ) : (
-                      group.name
-                    )}
-                    {editingGroup === group._id ? (
-                      <button onClick={() => handleUpdateGroup(group._id, group.name)}>Сохранить</button>
-                    ) : (
-                      <button onClick={() => setEditingGroup(group._id)}>Редактировать</button>
-                    )}
-                    <button onClick={() => handleDeleteGroup(group._id)}>Удалить</button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          {isAdmin && (
-            <div className="attendance-journal-save-all">
-              <button onClick={handleSave}>Сохранить все изменения</button>
-              <button onClick={handleCopyAttendance}>Копировать данные на следующий месяц</button>
-            </div>
+              
+              <div className="admin-section">
+                <h3 className="admin-section-title"><FaUsers /> Управление группами</h3>
+                <div className="groups-controls">
+                  <input
+                    type="text"
+                    placeholder="Название новой группы"
+                    value={newGroup}
+                    onChange={(e) => setNewGroup(e.target.value)}
+                    className="form-input"
+                  />
+                  <button 
+                    onClick={handleAddGroup}
+                    className="form-button primary"
+                  >
+                    <FaPlus className="button-icon" /> Добавить группу
+                  </button>
+                </div>
+                
+                <div className="groups-list">
+                  {groups.map(group => (
+                    <div key={group._id} className="group-item">
+                      {editingGroup === group._id ? (
+                        <>
+                          <input
+                            type="text"
+                            value={group.name}
+                            onChange={(e) => setGroups(groups.map(g => 
+                              g._id === group._id ? { ...g, name: e.target.value } : g
+                            ))}
+                            className="form-input small"
+                          />
+                          <button 
+                            onClick={() => handleUpdateGroup(group._id, group.name)}
+                            className="form-button secondary"
+                          >
+                            <FaCheck className="button-icon" /> Сохранить
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <span className="group-name">{group.name}</span>
+                          <div className="group-actions">
+                            <button 
+                              onClick={() => setEditingGroup(group._id)}
+                              className="form-button small"
+                            >
+                              <FaEdit className="button-icon" /> Редактировать
+                            </button>
+                            <button 
+                              onClick={() => handleDeleteGroup(group._id)}
+                              className="form-button small danger"
+                            >
+                              <FaTrash className="button-icon" /> Удалить
+                            </button>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="admin-actions">
+                <button 
+                  onClick={handleSave}
+                  className="action-button save"
+                >
+                  <FaSave className="button-icon" /> Сохранить все изменения
+                </button>
+                <button 
+                  onClick={handleCopyAttendance}
+                  className="action-button copy"
+                >
+                  <FaCopy className="button-icon" /> Копировать на следующий месяц
+                </button>
+              </div>
+            </>
           )}
         </section>
       </main>
