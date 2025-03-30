@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Helmet } from "react-helmet";
-import Header from "../Components/Header";
-import Footer from "../Components/Footer/Footer";
-import "../styles/attendance-journal.css";
-import { useNotification } from '../Components/NotificationContext';
-import { 
-  FaSave, 
-  FaCopy, 
-  FaTrash, 
-  FaEdit, 
-  FaCheck, 
-  FaPlus, 
+import Header from "../../../Components/Header";
+import Footer from "../../../Components/Footer/Footer";
+import "./admin-attendanceJournal.css";
+import { useNotification } from '../../../Components/NotificationContext';
+import {
+  FaSave,
+  FaCopy,
+  FaTrash,
+  FaEdit,
+  FaCheck,
+  FaPlus,
   FaUserPlus,
   FaUsers,
   FaCalendarAlt,
@@ -19,10 +19,9 @@ import {
   FaTimes
 } from 'react-icons/fa';
 
-const AttendanceJournal = () => {
+const AdminAttendanceJournal = () => {
   const { showNotification } = useNotification();
   const [attendanceData, setAttendanceData] = useState([]);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [newEntry, setNewEntry] = useState({ studentName: '', month: new Date().getMonth() + 1, attendance: {}, days: [] });
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   const [selectedGroup, setSelectedGroup] = useState('');
@@ -36,7 +35,7 @@ const AttendanceJournal = () => {
     'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
     'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
   ];
-  
+
   const monthNamesGenitive = [
     'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
     'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
@@ -44,8 +43,12 @@ const AttendanceJournal = () => {
 
   const fetchAttendanceData = useCallback(async () => {
     try {
+      const token = localStorage.getItem('token');
       const response = await axios.get('/api/attendance', {
-        params: { month: selectedMonth, group: selectedGroup }
+        params: { month: selectedMonth, group: selectedGroup },
+        headers: {
+          'Authorization': token
+        }
       });
       const data = response.data;
       const days = data.flatMap(entry => entry.days);
@@ -59,7 +62,12 @@ const AttendanceJournal = () => {
 
   const fetchGroups = useCallback(async () => {
     try {
-      const response = await axios.get('/api/groups');
+      const token = localStorage.getItem('token');
+      const response = await axios.get('/api/groups', {
+        headers: {
+          'Authorization': token
+        }
+      });
       setGroups(response.data);
       if (response.data.length > 0) {
         setSelectedGroup(response.data[0]._id);
@@ -71,15 +79,6 @@ const AttendanceJournal = () => {
   }, [showNotification]);
 
   useEffect(() => {
-    const checkAdmin = () => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        const decodedToken = JSON.parse(atob(token.split('.')[1]));
-        setIsAdmin(decodedToken.role === 'admin');
-      }
-    };
-
-    checkAdmin();
     fetchGroups();
   }, [fetchGroups]);
 
@@ -259,7 +258,7 @@ const AttendanceJournal = () => {
                   <div className="day-weekday">{getWeekday(selectedMonth, day)}</div>
                 </th>
               ))}
-              {isAdmin && <th className="actions">Действия</th>}
+              <th className="actions">Действия</th>
             </tr>
           </thead>
           <tbody>
@@ -267,43 +266,33 @@ const AttendanceJournal = () => {
               <tr key={entry._id} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
                 <td className="serial-number">{index + 1}</td>
                 <td className="student-name">
-                  {isAdmin ? (
-                    <input
-                      type="text"
-                      value={entry.studentName}
-                      onChange={(e) => handleChange(index, 'studentName', e.target.value)}
-                      className="name-input"
-                    />
-                  ) : (
-                    entry.studentName
-                  )}
+                  <input
+                    type="text"
+                    value={entry.studentName}
+                    onChange={(e) => handleChange(index, 'studentName', e.target.value)}
+                    className="name-input"
+                  />
                 </td>
                 {daysToDisplay.map((day) => (
                   <td key={day} className="attendance-cell">
-                    {isAdmin ? (
-                      <label className="attendance-checkbox">
-                        <input
-                          type="checkbox"
-                          checked={entry.attendance[day] || false}
-                          onChange={(e) => handleChange(index, `attendance.${day}`, e.target.checked)}
-                        />
-                        <span className="checkmark"></span>
-                      </label>
-                    ) : (
-                      entry.attendance[day] ? '✔' : '✖'
-                    )}
+                    <label className="attendance-checkbox">
+                      <input
+                        type="checkbox"
+                        checked={entry.attendance[day] || false}
+                        onChange={(e) => handleChange(index, `attendance.${day}`, e.target.checked)}
+                      />
+                      <span className="checkmark"></span>
+                    </label>
                   </td>
                 ))}
-                {isAdmin && (
-                  <td className="actions">
-                    <button 
-                      onClick={() => handleDeleteEntry(entry._id)}
-                      className="delete-button"
-                    >
-                      <FaTrash className="button-icon" /> Удалить
-                    </button>
-                  </td>
-                )}
+                <td className="actions">
+                  <button
+                    onClick={() => handleDeleteEntry(entry._id)}
+                    className="delete-button"
+                  >
+                    <FaTrash className="button-icon" /> Удалить
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -313,21 +302,22 @@ const AttendanceJournal = () => {
   };
 
   const handleLogout = () => {
-    setIsAdmin(false);
+    localStorage.removeItem('token');
+    window.location.reload();
   };
 
   return (
     <>
       <Helmet>
-        <title>Журнал посещаемости - Академия боевых единоборств "Хулиган"</title>
-        <meta name="description" content="Журнал посещаемости студентов Академии боевых единоборств 'Хулиган'." />
-        <meta name="keywords" content="Журнал посещаемости, Академия боевых единоборств, Хулиган, студенты, посещаемость" />
+        <title>Администрирование журнала посещаемости - Академия боевых единоборств "Хулиган"</title>
+        <meta name="description" content="Администрирование журнала посещаемости студентов Академии боевых единоборств 'Хулиган'." />
+        <meta name="keywords" content="Администрирование, Журнал посещаемости, Академия боевых единоборств, Хулиган" />
       </Helmet>
       <Header
         showBlock={true}
-        innerTitle="Журнал посещаемости"
+        innerTitle="Администрирование журнала посещаемости"
         homeRoute="/admin-dashboard"
-        linkText="Журнал посещаемости"
+        linkText="Администрирование журнала"
         showGradient={true}
         onLogout={handleLogout}
       />
@@ -336,8 +326,8 @@ const AttendanceJournal = () => {
           <div className="controls-row">
             <div className="control-group">
               <label className="control-label"><FaUsers className="control-icon" /> Группа:</label>
-              <select 
-                value={selectedGroup} 
+              <select
+                value={selectedGroup}
                 onChange={(e) => setSelectedGroup(e.target.value)}
                 className="control-select"
               >
@@ -346,11 +336,11 @@ const AttendanceJournal = () => {
                 ))}
               </select>
             </div>
-            
+
             <div className="control-group">
               <label className="control-label"><FaCalendarAlt className="control-icon" /> Месяц:</label>
-              <select 
-                value={selectedMonth} 
+              <select
+                value={selectedMonth}
                 onChange={(e) => setSelectedMonth(e.target.value)}
                 className="control-select"
               >
@@ -360,147 +350,143 @@ const AttendanceJournal = () => {
               </select>
             </div>
           </div>
-          
+
           <h2 className="current-month-title">
             <FaCalendarAlt className="month-icon" /> {monthNames[selectedMonth - 1]} {new Date().getFullYear()}
           </h2>
-          
+
           {renderAttendanceTable()}
-          
-          {isAdmin && (
-            <>
-              <div className="admin-section">
-                <h3 className="admin-section-title"><FaUserPlus /> Добавить запись</h3>
-                <div className="add-entry-form">
-                  <input
-                    type="text"
-                    placeholder="ФИО студента"
-                    value={newEntry.studentName}
-                    onChange={(e) => setNewEntry({ ...newEntry, studentName: e.target.value })}
-                    className="form-input"
-                  />
-                  <button 
-                    onClick={handleAddEntry}
-                    className="form-button primary"
+
+          <div className="admin-section">
+            <h3 className="admin-section-title"><FaUserPlus /> Добавить запись</h3>
+            <div className="add-entry-form">
+              <input
+                type="text"
+                placeholder="ФИО студента"
+                value={newEntry.studentName}
+                onChange={(e) => setNewEntry({ ...newEntry, studentName: e.target.value })}
+                className="form-input"
+              />
+              <button
+                onClick={handleAddEntry}
+                className="form-button primary"
+              >
+                <FaPlus className="button-icon" /> Добавить студента
+              </button>
+            </div>
+          </div>
+
+          <div className="admin-section">
+            <h3 className="admin-section-title"><FaCalendarPlus /> Управление днями</h3>
+            <div className="days-controls">
+              <input
+                type="number"
+                placeholder="День месяца (1-31)"
+                value={newDay}
+                onChange={(e) => setNewDay(e.target.value)}
+                min="1"
+                max="31"
+                className="form-input small"
+              />
+              <button
+                onClick={handleAddDay}
+                className="form-button secondary"
+              >
+                <FaPlus className="button-icon" /> Добавить день
+              </button>
+            </div>
+
+            <div className="days-list">
+              {daysToDisplay.map((day) => (
+                <div key={day} className="day-tag">
+                  <span>{day} {monthNamesGenitive[selectedMonth - 1]}</span>
+                  <button
+                    onClick={() => handleRemoveDay(day)}
+                    className="remove-day-button"
                   >
-                    <FaPlus className="button-icon" /> Добавить студента
+                    <FaTimes />
                   </button>
                 </div>
-              </div>
-              
-              <div className="admin-section">
-                <h3 className="admin-section-title"><FaCalendarPlus /> Управление днями</h3>
-                <div className="days-controls">
-                  <input
-                    type="number"
-                    placeholder="День месяца (1-31)"
-                    value={newDay}
-                    onChange={(e) => setNewDay(e.target.value)}
-                    min="1"
-                    max="31"
-                    className="form-input small"
-                  />
-                  <button 
-                    onClick={handleAddDay}
-                    className="form-button secondary"
-                  >
-                    <FaPlus className="button-icon" /> Добавить день
-                  </button>
-                </div>
-                
-                <div className="days-list">
-                  {daysToDisplay.map((day) => (
-                    <div key={day} className="day-tag">
-                      <span>{day} {monthNamesGenitive[selectedMonth - 1]}</span>
-                      <button 
-                        onClick={() => handleRemoveDay(day)}
-                        className="remove-day-button"
+              ))}
+            </div>
+          </div>
+
+          <div className="admin-section">
+            <h3 className="admin-section-title"><FaUsers /> Управление группами</h3>
+            <div className="groups-controls">
+              <input
+                type="text"
+                placeholder="Название новой группы"
+                value={newGroup}
+                onChange={(e) => setNewGroup(e.target.value)}
+                className="form-input"
+              />
+              <button
+                onClick={handleAddGroup}
+                className="form-button primary"
+              >
+                <FaPlus className="button-icon" /> Добавить группу
+              </button>
+            </div>
+
+            <div className="groups-list">
+              {groups.map(group => (
+                <div key={group._id} className="group-item">
+                  {editingGroup === group._id ? (
+                    <>
+                      <input
+                        type="text"
+                        value={group.name}
+                        onChange={(e) => setGroups(groups.map(g =>
+                          g._id === group._id ? { ...g, name: e.target.value } : g
+                        ))}
+                        className="form-input small"
+                      />
+                      <button
+                        onClick={() => handleUpdateGroup(group._id, group.name)}
+                        className="form-button secondary"
                       >
-                        <FaTimes />
+                        <FaCheck className="button-icon" /> Сохранить
                       </button>
-                    </div>
-                  ))}
+                    </>
+                  ) : (
+                    <>
+                      <span className="group-name">{group.name}</span>
+                      <div className="group-actions">
+                        <button
+                          onClick={() => setEditingGroup(group._id)}
+                          className="form-button small"
+                        >
+                          <FaEdit className="button-icon" /> Редактировать
+                        </button>
+                        <button
+                          onClick={() => handleDeleteGroup(group._id)}
+                          className="form-button small danger"
+                        >
+                          <FaTrash className="button-icon" /> Удалить
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
-              </div>
-              
-              <div className="admin-section">
-                <h3 className="admin-section-title"><FaUsers /> Управление группами</h3>
-                <div className="groups-controls">
-                  <input
-                    type="text"
-                    placeholder="Название новой группы"
-                    value={newGroup}
-                    onChange={(e) => setNewGroup(e.target.value)}
-                    className="form-input"
-                  />
-                  <button 
-                    onClick={handleAddGroup}
-                    className="form-button primary"
-                  >
-                    <FaPlus className="button-icon" /> Добавить группу
-                  </button>
-                </div>
-                
-                <div className="groups-list">
-                  {groups.map(group => (
-                    <div key={group._id} className="group-item">
-                      {editingGroup === group._id ? (
-                        <>
-                          <input
-                            type="text"
-                            value={group.name}
-                            onChange={(e) => setGroups(groups.map(g => 
-                              g._id === group._id ? { ...g, name: e.target.value } : g
-                            ))}
-                            className="form-input small"
-                          />
-                          <button 
-                            onClick={() => handleUpdateGroup(group._id, group.name)}
-                            className="form-button secondary"
-                          >
-                            <FaCheck className="button-icon" /> Сохранить
-                          </button>
-                        </>
-                      ) : (
-                        <>
-                          <span className="group-name">{group.name}</span>
-                          <div className="group-actions">
-                            <button 
-                              onClick={() => setEditingGroup(group._id)}
-                              className="form-button small"
-                            >
-                              <FaEdit className="button-icon" /> Редактировать
-                            </button>
-                            <button 
-                              onClick={() => handleDeleteGroup(group._id)}
-                              className="form-button small danger"
-                            >
-                              <FaTrash className="button-icon" /> Удалить
-                            </button>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              <div className="admin-actions">
-                <button 
-                  onClick={handleSave}
-                  className="action-button save"
-                >
-                  <FaSave className="button-icon" /> Сохранить все изменения
-                </button>
-                <button 
-                  onClick={handleCopyAttendance}
-                  className="action-button copy"
-                >
-                  <FaCopy className="button-icon" /> Копировать на следующий месяц
-                </button>
-              </div>
-            </>
-          )}
+              ))}
+            </div>
+          </div>
+
+          <div className="admin-actions">
+            <button
+              onClick={handleSave}
+              className="action-button save"
+            >
+              <FaSave className="button-icon" /> Сохранить все изменения
+            </button>
+            <button
+              onClick={handleCopyAttendance}
+              className="action-button copy"
+            >
+              <FaCopy className="button-icon" /> Копировать на следующий месяц
+            </button>
+          </div>
         </section>
       </main>
       <Footer />
@@ -508,4 +494,4 @@ const AttendanceJournal = () => {
   );
 };
 
-export default AttendanceJournal;
+export default AdminAttendanceJournal;

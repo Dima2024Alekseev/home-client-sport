@@ -22,7 +22,8 @@ import Authorization from './Pages/Account-Authorization';
 import Waiting from './Pages/Waiting-List';
 import ScheduleEditor from './Pages/Admin/AdminSchedule/ScheduleEditor';
 import AdminDashboard from './Pages/Admin/AdminDashboard/AdminDashboard';
-import AttendanceJournal from './Pages/AttendanceJournal';
+import AdminAttendanceJournal from './Pages/Admin/AdminAttendanceJournal/AdminAttendanceJournal';
+import AttendanceJournal from './Pages/AttendanceJournal/AttendanceJournal';
 import AdminPrice from "./Pages/Admin/AdminPrice/AdminPrice";
 import EditProduct from './Pages/Admin/AdminProduct/EditProduct';
 import Price from "./Pages/Price/Price";
@@ -107,7 +108,14 @@ const AppContent = () => {
               element={isAuthenticated() && isAdmin() ? <AdminDashboard /> : <Navigate to="/authorization-account" />}
             />
             <Route
-              path="/attendance-journal" element={<AttendanceJournal />}
+              path="/attendance-journal"
+              element={<AttendanceJournal />}
+            />
+            <Route
+              path="/admin/attendance-journal"
+              element={
+                isAuthenticated() && isAdmin() ? <AdminAttendanceJournal /> : <Navigate to="/authorization-account" />
+              }
             />
             <Route
               path="/admin-price"

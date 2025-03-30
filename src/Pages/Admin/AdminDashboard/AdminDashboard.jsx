@@ -29,7 +29,7 @@ const AdminDashboard = () => {
                 </section>
                 <section className="admin-dashboard-section">
                     <h2>Журнал посещаемости</h2>
-                    <Link to="/attendance-journal" className="admin-dashboard-link">Редактировать журнал</Link>
+                    <Link to="/admin/attendance-journal" className="admin-dashboard-link">Редактировать журнал</Link>
                 </section>
                 <section className="admin-dashboard-section">
                     <h2>Прайс-лист</h2>
