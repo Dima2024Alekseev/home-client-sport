@@ -44,7 +44,7 @@ const AttendanceJournal = () => {
 
   const fetchAttendanceData = useCallback(async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/attendance', {
+      const response = await axios.get('/api/attendance', {
         params: { month: selectedMonth, group: selectedGroup }
       });
       const data = response.data;
@@ -59,7 +59,7 @@ const AttendanceJournal = () => {
 
   const fetchGroups = useCallback(async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/groups');
+      const response = await axios.get('/api/groups');
       setGroups(response.data);
       if (response.data.length > 0) {
         setSelectedGroup(response.data[0]._id);
@@ -108,7 +108,7 @@ const AttendanceJournal = () => {
         month: selectedMonth,
         days: daysToDisplay
       }));
-      await axios.put('http://localhost:5000/api/attendance', { attendance: updatedEntries }, {
+      await axios.put('/api/attendance', { attendance: updatedEntries }, {
         headers: {
           'Authorization': token
         }
@@ -128,7 +128,7 @@ const AttendanceJournal = () => {
         month: parseInt(newEntry.month, 10),
         days: daysToDisplay
       };
-      const response = await axios.post('http://localhost:5000/api/attendance', newEntryWithMonth, {
+      const response = await axios.post('/api/attendance', newEntryWithMonth, {
         headers: {
           'Authorization': token
         },
@@ -146,7 +146,7 @@ const AttendanceJournal = () => {
   const handleDeleteEntry = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/attendance/${id}`, {
+      await axios.delete(`/api/attendance/${id}`, {
         headers: {
           'Authorization': token
         }
@@ -176,7 +176,7 @@ const AttendanceJournal = () => {
   const handleCopyAttendance = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/attendance/copy', { month: selectedMonth }, {
+      await axios.post('/api/attendance/copy', { month: selectedMonth }, {
         headers: {
           'Authorization': token
         }
@@ -191,7 +191,7 @@ const AttendanceJournal = () => {
   const handleAddGroup = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/groups', { name: newGroup }, {
+      await axios.post('/api/groups', { name: newGroup }, {
         headers: {
           'Authorization': token
         }
@@ -208,7 +208,7 @@ const AttendanceJournal = () => {
   const handleUpdateGroup = async (id, name) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:5000/api/groups/${id}`, { name }, {
+      await axios.put(`/api/groups/${id}`, { name }, {
         headers: {
           'Authorization': token
         }
@@ -225,7 +225,7 @@ const AttendanceJournal = () => {
   const handleDeleteGroup = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/groups/${id}`, {
+      await axios.delete(`/api/groups/${id}`, {
         headers: {
           'Authorization': token
         }
