@@ -28,7 +28,7 @@ const AdminPrice = () => {
                     toast.error('Требуется авторизация');
                     return;
                 }
-                const response = await axios.get('http://localhost:5000/api/prices', {
+                const response = await axios.get('/api/prices', {
                     headers: {
                         'Authorization': token
                     }
@@ -63,7 +63,7 @@ const AdminPrice = () => {
                 return;
             }
 
-            const response = await axios.post('http://localhost:5000/api/prices', { prices: [newPrice] }, {
+            const response = await axios.post('/api/prices', { prices: [newPrice] }, {
                 headers: {
                     'Authorization': token
                 }
@@ -96,7 +96,7 @@ const AdminPrice = () => {
             }
 
             const priceToUpdate = priceData.find(item => item._id === id);
-            await axios.put('http://localhost:5000/api/prices', { price: priceToUpdate }, {
+            await axios.put('/api/prices', { price: priceToUpdate }, {
                 headers: {
                     'Authorization': token
                 }
@@ -123,7 +123,7 @@ const AdminPrice = () => {
                 return;
             }
 
-            await axios.delete(`http://localhost:5000/api/prices/${id}`, {
+            await axios.delete(`/api/prices/${id}`, {
                 headers: {
                     'Authorization': token
                 }
