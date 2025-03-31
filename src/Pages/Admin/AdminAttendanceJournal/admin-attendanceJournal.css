@@ -97,7 +97,6 @@
 }
 
 .name-input {
-    width: 100%;
     padding: 6px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -233,7 +232,6 @@
 }
 
 .form-input.small {
-    min-width: 100px;
     max-width: 120px;
 }
 
@@ -383,6 +381,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 15px;
 }
 
 .delete-button:hover {
@@ -472,11 +471,11 @@
     .attendance-table th,
     .attendance-table td {
         padding: 6px 2px;
-        font-size: 12px;
+        font-size: 15px;
     }
 
     .day-number {
-        font-size: 12px;
+        font-size: 15px;
     }
 
     .day-weekday {
