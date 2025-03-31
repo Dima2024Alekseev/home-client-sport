@@ -18,6 +18,9 @@
     height: auto;
     display: flex;
     flex-direction: column;
+    background: black;
+    align-items: center;
+    padding: 30px 0px;
 }
 
 .content-store {

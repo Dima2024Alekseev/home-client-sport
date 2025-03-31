@@ -67,6 +67,7 @@ const Store = () => {
                 showGradient={true}
                 showBlock={true}
                 innerTitle="Интернет-магазин"
+                homeRoute="/"
                 linkText="Интернет-магазин"
             />
 
@@ -118,7 +119,7 @@ const Store = () => {
                                         )}
                                     </div>
                                     <button className="store-order-button" onClick={OrderClick}>
-                                        <FaShoppingCart className="store-icon" /> В корзину
+                                        <FaShoppingCart className="store-icon" /> Заказать
                                     </button>
                                 </section>
                             </article>
