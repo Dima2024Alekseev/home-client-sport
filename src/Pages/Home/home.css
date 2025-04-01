@@ -181,6 +181,7 @@ header .logo-header {
         display: flex;
         flex-direction: row-reverse;
         align-items: center;
+        gap: 15px;
     }
 
     .mobile-header-contact {
@@ -235,6 +236,8 @@ header .logo-header {
         font-weight: 700;
     }
 
+
+
     .news_button {
         margin-top: 30px;
     }
@@ -246,6 +249,7 @@ header .logo-header {
         font-size: 12px;
         font-weight: 600;
     }
+
 
     .button-all {
         margin: 0;
