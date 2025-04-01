@@ -98,7 +98,9 @@
     color: #333;
 }
 
-.action-buttons button {
+.action-buttons button,
+.actions-cell button,
+.add-row-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
