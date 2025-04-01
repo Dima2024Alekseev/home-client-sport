@@ -41,6 +41,7 @@
   cursor: pointer;
   z-index: 3;
   transition: transform var(--contact-transition);
+  border: none;
 }
 
 .contact-circle.open {
@@ -58,16 +59,29 @@
 }
 
 @keyframes shake-pause {
-  0%, 23.08% {
+
+  0%,
+  23.08% {
     transform: translateX(0);
   }
-  2.31%, 6.92%, 11.54%, 16.15%, 20.77% {
+
+  2.31%,
+  6.92%,
+  11.54%,
+  16.15%,
+  20.77% {
     transform: translateX(-1px);
   }
-  4.62%, 9.23%, 13.85%, 18.46% {
+
+  4.62%,
+  9.23%,
+  13.85%,
+  18.46% {
     transform: translateX(1px);
   }
-  23.08%, 100% {
+
+  23.08%,
+  100% {
     transform: translateX(0);
   }
 }
@@ -132,6 +146,7 @@ address,
   .info-contact {
     padding: 7%;
   }
+
   .contact {
     width: 80%;
     bottom: 100px;
@@ -142,6 +157,7 @@ address,
   .contact-circle {
     display: none;
   }
+
   .contact {
     opacity: 1;
     transform: translateY(0);

@@ -98,7 +98,7 @@
     color: #333;
 }
 
-button {
+.action-buttons button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -143,10 +143,14 @@ button {
 }
 
 .add-row-btn {
+    display: flex;
     margin-top: 20px;
     background-color: #17a2b8;
     color: white;
     padding: 10px 16px;
+    border: none;
+    align-items: center;
+    gap: 10px;
 }
 
 .add-row-btn:hover {
