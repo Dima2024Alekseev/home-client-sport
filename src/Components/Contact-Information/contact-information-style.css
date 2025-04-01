@@ -2,22 +2,25 @@
   --contact-width: 30%;
   --contact-bg-color: black;
   --contact-text-color: white;
-  --contact-border-radius: 5px;
+  --contact-border-radius: 10px;
   --contact-transition: 0.3s ease-in-out;
   --contact-circle-size: 50px;
   --contact-circle-bg-color: black;
   --contact-circle-transform: scale(1.2);
   --contact-icon-size: 25px;
   --contact-icon-color: white;
-  --contact-padding: 8%;
-  --contact-line-height: 30px;
-  --contact-title-font-weight: 600;
-  --contact-title-font-size: 17px;
-  --contact-number-font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  --contact-number-font-weight: 500;
-  --contact-number-font-size: 20px;
-  --contact-address-font-weight: 500;
-  --contact-address-font-size: 15px;
+  --contact-padding: 1.5rem;
+  --contact-line-height: 1.5;
+  --contact-title-font-weight: 700;
+  --contact-title-font-size: 1.25rem;
+  --contact-number-font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --contact-number-font-weight: 600;
+  --contact-number-font-size: 1.3rem;
+  --contact-address-font-weight: 400;
+  --contact-address-font-size: 0.95rem;
+  --contact-schedule-highlight: #F00;
+  --contact-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  --icon-margin: 0.5rem;
 }
 
 .contact-information {
@@ -30,7 +33,6 @@
   width: var(--contact-circle-size);
   height: var(--contact-circle-size);
   background: var(--contact-circle-bg-color);
-  border: none;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -42,6 +44,8 @@
   z-index: 3;
   transition: transform var(--contact-transition);
   border: none;
+  outline: none;
+  box-shadow: var(--contact-box-shadow);
 }
 
 .contact-circle.open {
@@ -99,6 +103,8 @@
   transform: translateY(20px);
   transition: opacity var(--contact-transition), transform var(--contact-transition);
   pointer-events: none;
+  box-shadow: var(--contact-box-shadow);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .contact.fade-in {
@@ -122,17 +128,32 @@
 .operating-mode {
   font-weight: var(--contact-title-font-weight);
   font-size: var(--contact-title-font-size);
-  margin-top: 10px;
+  margin: 0 0 1rem 0;
+  color: var(--contact-schedule-highlight);
+  display: flex;
+  align-items: center;
+}
+
+.title-icon {
+  margin-right: var(--icon-margin);
+  font-size: 1.4rem;
 }
 
 .contact-number-club {
   font-family: var(--contact-number-font-family);
   font-weight: var(--contact-number-font-weight);
   font-size: var(--contact-number-font-size);
+  margin: 0 0 1rem 0;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
 }
 
 .address {
-  margin-top: 10px;
+  margin: 0 0 1.5rem 0;
+  font-style: normal;
+  display: flex;
+  align-items: flex-start;
 }
 
 address,
@@ -142,14 +163,58 @@ address,
   font-size: var(--contact-address-font-size);
 }
 
+.info-icon {
+  margin-right: var(--icon-margin);
+  min-width: 1.5rem;
+  font-size: 1.2rem;
+  color: var(--contact-schedule-highlight);
+}
+
+.schedule-container {
+  margin-top: 1rem;
+}
+
+.mon-schedule,
+.sun-schedule {
+  margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.mon-schedule span,
+.sun-schedule span {
+  color: var(--contact-schedule-highlight);
+  font-weight: 500;
+  margin-left: 0.3rem;
+}
+
 @media (min-width: 320px) and (max-width: 1200px) {
   .info-contact {
-    padding: 7%;
+    padding: 1.2rem;
   }
 
   .contact {
     width: 80%;
     bottom: 100px;
+  }
+
+  .contact-title,
+  .operating-mode {
+    font-size: 1.1rem;
+  }
+
+  .contact-number-club {
+    font-size: 1.2rem;
+  }
+
+  address,
+  .mon-schedule,
+  .sun-schedule {
+    font-size: 0.9rem;
+  }
+
+  .info-icon {
+    font-size: 1rem;
   }
 }
 

@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./contact-information-style.css";
-import { MdContactSupport } from "react-icons/md";
+import {
+  MdContactSupport,
+  MdPhone,
+  MdLocationOn,
+  MdAccessTime,
+  MdSchedule
+} from "react-icons/md";
 
 const Contact = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,12 +52,26 @@ const Contact = () => {
       )}
       <div className={`contact ${isOpen || !isMobile ? "fade-in" : "fade-out"}`}>
         <section className="info-contact">
-          <h2 className="contact-title">Контакты</h2>
-          <p className="contact-number-club">+7 (999) 445-12-03</p>
-          <address className="address">Адрес: г. Канск, улица 40 лет Октября, 62 ст 4, 2 этаж</address>
-          <h2 className="operating-mode">Режим работы Академии</h2>
-          <p className="mon-schedule">Понедельник - Суббота: с 7:00 до 24:00</p>
-          <p className="sun-schedule">Воскресенье: с 9:00 до 22:00</p>
+          <h2 className="contact-title">
+            <MdContactSupport className="title-icon" /> Контакты
+          </h2>
+          <p className="contact-number-club">
+            <MdPhone className="info-icon" /> +7 (999) 445-12-03
+          </p>
+          <address className="address">
+            <MdLocationOn className="info-icon" /> Адрес: г. Канск, улица 40 лет Октября, 62 ст 4, 2 этаж
+          </address>
+          <h2 className="operating-mode">
+            <MdSchedule className="title-icon" /> Режим работы Академии
+          </h2>
+          <div className="schedule-container">
+            <p className="mon-schedule">
+              Понедельник - Суббота: <span>7:00 – 24:00</span>
+            </p>
+            <p className="sun-schedule">
+              Воскресенье: <span>9:00 – 22:00</span>
+            </p>
+          </div>
         </section>
       </div>
     </section>
