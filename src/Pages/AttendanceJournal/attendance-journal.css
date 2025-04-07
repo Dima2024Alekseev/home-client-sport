@@ -41,7 +41,7 @@
 .attendance-table th,
 .attendance-table td {
   padding: 12px 8px;
-  text-align: center;
+  text-align: -webkit-center;
   border: 1px solid #e0e0e0;
 }
 
@@ -86,14 +86,15 @@
   font-weight: bold;
 }
 
-.student-name {
-  min-width: 200px;
+/* Стиль для заголовка столбца ФИО (по центру) */
+.attendance-table th.student-name-header {
+  text-align: center;
+}
+
+/* Стиль для ячеек с ФИО (по левому краю) */
+.attendance-table td.student-name {
   text-align: left;
-  padding-left: 15px !important;
-  position: sticky;
-  left: 0;
-  background: inherit;
-  z-index: 1;
+  padding-left: 15px;
 }
 
 .attendance-cell {
