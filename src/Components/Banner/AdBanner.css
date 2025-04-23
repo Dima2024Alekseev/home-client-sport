@@ -1,0 +1,211 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(3px);
+}
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 380px;
+    max-width: 95%;
+    max-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.3s ease-out;
+}
+
+
+.modal-close-button {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.countdown-circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform: rotate(-90deg);
+}
+
+.countdown-circle-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.3);
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+@keyframes countdown {
+    from {
+        stroke-dashoffset: 0;
+        stroke: rgba(255, 255, 255, 0.8);
+    }
+
+    to {
+        stroke-dashoffset: 100;
+        stroke: #ff5252;
+    }
+}
+
+.close-icon {
+    position: relative;
+    color: white;
+    font-size: 20px;
+    line-height: 1;
+    z-index: 1;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 12px 15px;
+    background: linear-gradient(135deg, #7c839c, #786f84);
+    flex-shrink: 0;
+    color: white;
+}
+
+.modal-scroll-container {
+    overflow-y: auto;
+    max-height: calc(90vh - 150px);
+    padding: 0 15px;
+}
+
+.modal-body {
+    padding: 15px 0;
+}
+
+.modal-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    transition: transform 0.3s;
+}
+
+.modal-image:hover {
+    transform: scale(1.02);
+}
+
+.modal-text h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 20px;
+}
+
+.modal-text p {
+    margin: 0 0 15px 0;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.event-details {
+    text-align: left;
+    margin-top: 15px;
+}
+
+.event-details h4 {
+    color: #444;
+    margin: 15px 0 8px 0;
+    font-size: 16px;
+}
+
+.event-details ul {
+    padding-left: 20px;
+    margin: 0 0 15px 0;
+}
+
+.event-details li {
+    margin-bottom: 5px;
+    color: #555;
+    font-size: 14px;
+}
+
+.modal-footer {
+    padding: 15px;
+    background: #f8f9fa;
+    border-top: 1px solid #eee;
+    flex-shrink: 0;
+}
+
+.modal-button {
+    padding: 12px 30px;
+    background: linear-gradient(135deg, #ff5f5f, #eb4545);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(255, 126, 95, 0.4);
+    transition: all 0.3s;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.modal-button:hover {
+    background: linear-gradient(135deg, #eb4545, #ff5f5f);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 126, 95, 0.6);
+}
+
+.modal-footer small {
+    color: #999;
+    font-size: 12px;
+    display: block;
+}
+
+/* Стили для скроллбара */
+.modal-scroll-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-scroll-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.modal-scroll-container::-webkit-scrollbar-thumb {
+    background: silver;
+    border-radius: 3px;
+}
+
+.modal-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: silver;
+}
