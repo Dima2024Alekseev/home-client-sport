@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { NotificationProvider } from './Components/NotificationContext';
@@ -79,6 +79,15 @@ const AppContent = () => {
     return false;
   };
 
+  // Показать модальное окно при загрузке страницы
+  useEffect(() => {
+    // Показываем рекламу на главной странице или после перезагрузки
+    if (location.pathname === '/' || sessionStorage.getItem('showModal')) {
+      setShowModal(true);
+      sessionStorage.removeItem('showModal');
+    }
+  }, [location]);
+
   // Отслеживание перезагрузки страницы
   useEffect(() => {
     const handleBeforeUnload = () => {
@@ -90,15 +99,6 @@ const AppContent = () => {
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-  }, []);
-
-  // Показать модальное окно при загрузке страницы
-  useEffect(() => {
-    const shouldShowModal = sessionStorage.getItem('showModal');
-    if (shouldShowModal) {
-      setShowModal(true);
-      sessionStorage.removeItem('showModal');
-    }
   }, []);
 
   return (
@@ -140,7 +140,9 @@ const AppContent = () => {
               <Route
                 path="/admin/attendance-journal"
                 element={
-                  isAuthenticated() && isAdmin() ? <AdminAttendanceJournal /> : <Navigate to="/authorization-account" />
+                  isAuthenticated() && isAdmin()
+                    ? <AdminAttendanceJournal />
+                    : <Navigate to="/authorization-account" />
                 }
               />
               <Route
@@ -157,7 +159,6 @@ const AppContent = () => {
         </CSSTransition>
       </TransitionGroup>
     </>
-
   );
 };
 
