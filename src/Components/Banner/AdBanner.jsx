@@ -1,12 +1,12 @@
 import { useRef, useEffect } from "react";
 import "./AdBanner.css";
 
-const Modal = ({ onClose, imageUrl, buttonLink }) => {
+const Modal = ({ onClose, imageUrl }) => {
     const TOTAL_TIME = 20;
     const circleRef = useRef(null);
 
     const handleRedirect = () => {
-        window.open(buttonLink, '_blank');
+        window.open('https://qtickets.ru/event/156566', '_blank');
     };
 
     useEffect(() => {

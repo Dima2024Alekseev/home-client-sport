@@ -203,47 +203,6 @@ input:disabled+.slider {
     cursor: not-allowed;
 }
 
-/* edit-ad.css */
-.link-section {
-    margin-bottom: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.link-input-wrapper {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 0.5rem;
-}
-
-.link-input {
-    flex: 1;
-    padding: 0.75rem 1rem;
-    background-color: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
-    font-size: 1rem;
-}
-
-.update-button {
-    padding: 0.75rem 1.5rem;
-    background-color: #4299e1;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.2s;
-}
-
-.update-button:hover:not(:disabled) {
-    background-color: #3182ce;
-}
-
-.update-button:disabled {
-    background-color: #a0aec0;
-    cursor: not-allowed;
-}
 
 
 @media (max-width: 768px) {
