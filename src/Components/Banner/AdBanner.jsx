@@ -1,17 +1,23 @@
+// Components/Modal/Modal.js
 import { useRef, useEffect } from "react";
 import "./AdBanner.css";
 
-const Modal = ({ onClose, imageUrl }) => {
-    const TOTAL_TIME = 20;
+const Modal = ({ onClose, imageUrl, redirectUrl }) => {
+    const TOTAL_TIME = 20; // Общее время в секундах
     const circleRef = useRef(null);
 
     const handleRedirect = () => {
-        window.open('https://qtickets.ru/event/156566', '_blank');
+        if (redirectUrl) {
+            window.open(redirectUrl, '_blank');
+        } else {
+            console.error('Redirect URL is not provided');
+        }
     };
 
     useEffect(() => {
         const circle = circleRef.current;
         if (circle) {
+            // Устанавливаем начальное значение анимации
             circle.style.strokeDashoffset = '0';
             circle.style.animation = `countdown ${TOTAL_TIME}s linear forwards`;
         }
@@ -26,7 +32,7 @@ const Modal = ({ onClose, imageUrl }) => {
     }, [onClose]);
 
     if (!imageUrl) {
-        return null;
+        return null; // или возвращайте заглушку, если imageUrl не передан
     }
 
     return (

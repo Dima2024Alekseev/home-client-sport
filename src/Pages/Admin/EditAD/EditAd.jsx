@@ -5,11 +5,12 @@ import Header from '../../../Components/Header';
 import Footer from '../../../Components/Footer/Footer';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import { FiUpload, FiImage, FiToggleLeft, FiToggleRight } from 'react-icons/fi';
+import { FiUpload, FiImage, FiToggleLeft, FiToggleRight, FiLink } from 'react-icons/fi';
 import './edit-ad.css';
 
 const EditAd = () => {
     const [imageUrl, setImageUrl] = useState('');
+    const [redirectUrl, setRedirectUrl] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
     const [isAdActive, setIsAdActive] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -30,6 +31,7 @@ const EditAd = () => {
                     }
                 });
                 setImageUrl(response.data.imageUrl);
+                setRedirectUrl(response.data.redirectUrl);
                 setIsAdActive(response.data.isActive);
             } catch (error) {
                 console.error('Error fetching ad data:', error);
@@ -108,6 +110,30 @@ const EditAd = () => {
         }
     };
 
+    const handleUpdateRedirectUrl = async () => {
+        setIsLoading(true);
+        const token = localStorage.getItem('token');
+        if (!token) {
+            toast.error('Требуется авторизация');
+            setIsLoading(false);
+            return;
+        }
+
+        try {
+            await axios.post('/api/admin/update-ad-redirect-url', { redirectUrl }, {
+                headers: {
+                    'Authorization': token
+                }
+            });
+            toast.success('Ссылка рекламы успешно обновлена');
+        } catch (error) {
+            console.error('Error updating ad redirect URL:', error);
+            toast.error('Ошибка при обновлении ссылки');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <>
             <Helmet>
@@ -170,6 +196,28 @@ const EditAd = () => {
                             </button>
                         </div>
                         <p className="file-hint">Поддерживаемые форматы: JPG, PNG, GIF. Макс. размер: 5MB</p>
+                    </div>
+
+                    <div className="redirect-section">
+                        <h3 className="section-title">
+                            <FiLink className="section-icon" /> Ссылка для перехода
+                        </h3>
+                        <div className="redirect-input-wrapper">
+                            <input
+                                type="text"
+                                value={redirectUrl}
+                                onChange={(e) => setRedirectUrl(e.target.value)}
+                                className="redirect-input"
+                                placeholder="Введите ссылку"
+                            />
+                            <button
+                                onClick={handleUpdateRedirectUrl}
+                                className="update-button"
+                                disabled={isLoading}
+                            >
+                                {isLoading ? 'Обновление...' : 'Обновить ссылку'}
+                            </button>
+                        </div>
                     </div>
 
                     <div className="toggle-section">

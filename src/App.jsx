@@ -61,6 +61,7 @@ const AppContent = () => {
   const [showModal, setShowModal] = useState(false);
   const [isAdActive, setIsAdActive] = useState(false);
   const [adImageUrl, setAdImageUrl] = useState('');
+  const [redirectUrl, setRedirectUrl] = useState(''); // Добавлено состояние для redirectUrl
 
   // Инициализация перехватчика Axios
   useEffect(() => {
@@ -83,13 +84,14 @@ const AppContent = () => {
     return false;
   };
 
-  // Получение состояния рекламы и URL изображения
+  // Получение состояния рекламы, URL изображения и ссылки
   useEffect(() => {
     const fetchAdStatus = async () => {
       try {
         const response = await axios.get('/api/admin/ad-status');
         setIsAdActive(response.data.isActive);
         setAdImageUrl(response.data.imageUrl);
+        setRedirectUrl(response.data.redirectUrl); // Устанавливаем redirectUrl
       } catch (error) {
         console.error('Error fetching ad status:', error);
       }
@@ -122,7 +124,7 @@ const AppContent = () => {
 
   return (
     <>
-      {showModal && <Modal onClose={() => setShowModal(false)} imageUrl={adImageUrl} />}
+      {showModal && <Modal onClose={() => setShowModal(false)} imageUrl={adImageUrl} redirectUrl={redirectUrl} />}
       <TransitionGroup>
         <CSSTransition timeout={200} key={location.pathname} nodeRef={nodeRef} classNames="fade">
           <div ref={nodeRef}>
