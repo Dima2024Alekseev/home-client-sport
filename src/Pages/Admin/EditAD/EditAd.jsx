@@ -18,7 +18,17 @@ const EditAd = () => {
         const fetchAdData = async () => {
             setIsLoading(true);
             try {
-                const response = await axios.get('/api/admin/ad-status');
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    toast.error('Требуется авторизация');
+                    return;
+                }
+
+                const response = await axios.get('/api/admin/ad-status', {
+                    headers: {
+                        'Authorization': token
+                    }
+                });
                 setImageUrl(response.data.imageUrl);
                 setIsAdActive(response.data.isActive);
             } catch (error) {
@@ -45,6 +55,13 @@ const EditAd = () => {
         }
 
         setIsLoading(true);
+        const token = localStorage.getItem('token');
+        if (!token) {
+            toast.error('Требуется авторизация');
+            setIsLoading(false);
+            return;
+        }
+
         const formData = new FormData();
         formData.append('image', selectedFile);
 
@@ -52,7 +69,8 @@ const EditAd = () => {
             const response = await axios.post('/api/admin/upload-ad-image', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                },
+                    'Authorization': token
+                }
             });
             setImageUrl(response.data.imageUrl);
             setSelectedFile(null);
@@ -67,8 +85,19 @@ const EditAd = () => {
 
     const toggleAd = async () => {
         setIsLoading(true);
+        const token = localStorage.getItem('token');
+        if (!token) {
+            toast.error('Требуется авторизация');
+            setIsLoading(false);
+            return;
+        }
+
         try {
-            await axios.post('/api/admin/toggle-ad');
+            await axios.post('/api/admin/toggle-ad', {}, {
+                headers: {
+                    'Authorization': token
+                }
+            });
             setIsAdActive(prev => !prev);
             toast.success(`Реклама ${!isAdActive ? 'включена' : 'отключена'}`);
         } catch (error) {
