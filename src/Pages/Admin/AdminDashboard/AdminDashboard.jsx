@@ -1,12 +1,8 @@
+// AdminDashboard.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import {
-    FaCalendarAlt,
-    FaClipboardList,
-    FaMoneyBillWave,
-    FaShoppingCart
-} from 'react-icons/fa';
+import { FaCalendarAlt, FaClipboardList, FaMoneyBillWave, FaShoppingCart, FaAd } from 'react-icons/fa';
 import Header from "../../../Components/Header";
 import Footer from "../../../Components/Footer/Footer";
 import "./admin-dashboard.css";
@@ -25,7 +21,6 @@ const AdminDashboard = () => {
                 showBlock={true}
                 innerTitle="Панель администратора"
                 linkText="Панель администратора"
-                homeRoute="/"
                 showGradient={true}
             />
 
@@ -61,6 +56,14 @@ const AdminDashboard = () => {
                         linkText="Перейти в магазин"
                         to="/admin-products"
                         icon={<FaShoppingCart className="card-icon" />}
+                    />
+
+                    <DashboardCard
+                        title="Редактирование рекламы"
+                        description="Изменение изображения рекламы и управление состоянием"
+                        linkText="Редактировать рекламу"
+                        to="/edit-ad"
+                        icon={<FaAd className="card-icon" />}
                     />
                 </div>
             </main>

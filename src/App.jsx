@@ -1,3 +1,4 @@
+// AppContent.js
 import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -28,6 +29,7 @@ import AdminPrice from "./Pages/Admin/AdminPrice/AdminPrice";
 import EditProduct from './Pages/Admin/AdminProduct/EditProduct';
 import Price from "./Pages/Price/Price";
 import NotFoundPage from './Pages/NoutFoundPages/NoutFoundPages';
+import EditAd from './Pages/Admin/EditAD/EditAd'; // Новая страница для редактирования рекламы
 import logo_title from "./img/log-club.png";
 import axios from 'axios';
 import "./styles/config.css";
@@ -57,6 +59,8 @@ const AppContent = () => {
   const nodeRef = useRef(null);
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
+  const [isAdActive, setIsAdActive] = useState(false);
+  const [adImageUrl, setAdImageUrl] = useState('');
 
   // Инициализация перехватчика Axios
   useEffect(() => {
@@ -79,14 +83,29 @@ const AppContent = () => {
     return false;
   };
 
+  // Получение состояния рекламы и URL изображения
+  useEffect(() => {
+    const fetchAdStatus = async () => {
+      try {
+        const response = await axios.get('/api/admin/ad-status');
+        setIsAdActive(response.data.isActive);
+        setAdImageUrl(response.data.imageUrl);
+      } catch (error) {
+        console.error('Error fetching ad status:', error);
+      }
+    };
+
+    fetchAdStatus();
+  }, []);
+
   // Показать модальное окно при загрузке страницы
   useEffect(() => {
     // Показываем рекламу на главной странице или после перезагрузки
-    if (location.pathname === '/' || sessionStorage.getItem('showModal')) {
+    if (isAdActive && (location.pathname === '/' || sessionStorage.getItem('showModal'))) {
       setShowModal(true);
       sessionStorage.removeItem('showModal');
     }
-  }, [location]);
+  }, [location, isAdActive]);
 
   // Отслеживание перезагрузки страницы
   useEffect(() => {
@@ -103,7 +122,7 @@ const AppContent = () => {
 
   return (
     <>
-      {showModal && <Modal onClose={() => setShowModal(false)} />}
+      {showModal && <Modal onClose={() => setShowModal(false)} imageUrl={adImageUrl} />}
       <TransitionGroup>
         <CSSTransition timeout={200} key={location.pathname} nodeRef={nodeRef} classNames="fade">
           <div ref={nodeRef}>
@@ -152,6 +171,10 @@ const AppContent = () => {
               <Route
                 path="/admin-products"
                 element={isAuthenticated() && isAdmin() ? <EditProduct /> : <Navigate to="/authorization-account" />}
+              />
+              <Route
+                path="/edit-ad"
+                element={isAuthenticated() && isAdmin() ? <EditAd /> : <Navigate to="/authorization-account" />}
               />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
