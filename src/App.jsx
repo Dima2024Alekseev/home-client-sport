@@ -1,4 +1,3 @@
-// AppContent.js
 import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -29,7 +28,7 @@ import AdminPrice from "./Pages/Admin/AdminPrice/AdminPrice";
 import EditProduct from './Pages/Admin/AdminProduct/EditProduct';
 import Price from "./Pages/Price/Price";
 import NotFoundPage from './Pages/NoutFoundPages/NoutFoundPages';
-import EditAd from './Pages/Admin/EditAD/EditAd'; // Новая страница для редактирования рекламы
+import EditAd from './Pages/Admin/EditAD/EditAd';
 import logo_title from "./img/log-club.png";
 import axios from 'axios';
 import "./styles/config.css";
@@ -61,7 +60,7 @@ const AppContent = () => {
   const [showModal, setShowModal] = useState(false);
   const [isAdActive, setIsAdActive] = useState(false);
   const [adImageUrl, setAdImageUrl] = useState('');
-  const [redirectUrl, setRedirectUrl] = useState(''); // Добавлено состояние для redirectUrl
+  const [redirectUrl, setRedirectUrl] = useState('');
 
   // Инициализация перехватчика Axios
   useEffect(() => {
@@ -84,7 +83,6 @@ const AppContent = () => {
     return false;
   };
 
-  // Получение состояния рекламы, URL изображения и ссылки
   useEffect(() => {
     const fetchAdStatus = async () => {
       try {
