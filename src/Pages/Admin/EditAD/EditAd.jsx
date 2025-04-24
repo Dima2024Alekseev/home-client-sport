@@ -5,11 +5,12 @@ import Header from '../../../Components/Header';
 import Footer from '../../../Components/Footer/Footer';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import { FiUpload, FiImage, FiToggleLeft, FiToggleRight } from 'react-icons/fi';
+import { FiUpload, FiImage, FiToggleLeft, FiToggleRight, FiLink } from 'react-icons/fi';
 import './edit-ad.css';
 
 const EditAd = () => {
     const [imageUrl, setImageUrl] = useState('');
+    const [buttonLink, setButtonLink] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
     const [isAdActive, setIsAdActive] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -30,6 +31,7 @@ const EditAd = () => {
                     }
                 });
                 setImageUrl(response.data.imageUrl);
+                setButtonLink(response.data.buttonLink);
                 setIsAdActive(response.data.isActive);
             } catch (error) {
                 console.error('Error fetching ad data:', error);
@@ -108,6 +110,30 @@ const EditAd = () => {
         }
     };
 
+    const updateButtonLink = async () => {
+        setIsLoading(true);
+        const token = localStorage.getItem('token');
+        if (!token) {
+            toast.error('Требуется авторизация');
+            setIsLoading(false);
+            return;
+        }
+
+        try {
+            await axios.post('/api/admin/update-ad-button-link', { buttonLink }, {
+                headers: {
+                    'Authorization': token
+                }
+            });
+            toast.success('Ссылка кнопки рекламы успешно обновлена');
+        } catch (error) {
+            console.error('Error updating ad button link:', error);
+            toast.error('Ошибка при обновлении ссылки кнопки рекламы');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <>
             <Helmet>
@@ -170,6 +196,28 @@ const EditAd = () => {
                             </button>
                         </div>
                         <p className="file-hint">Поддерживаемые форматы: JPG, PNG, GIF. Макс. размер: 5MB</p>
+                    </div>
+
+                    <div className="link-section">
+                        <h3 className="section-title">
+                            <FiLink className="section-icon" /> Ссылка кнопки
+                        </h3>
+                        <div className="link-input-wrapper">
+                            <input
+                                type="text"
+                                value={buttonLink}
+                                onChange={(e) => setButtonLink(e.target.value)}
+                                className="link-input"
+                                placeholder="Введите ссылку"
+                            />
+                            <button
+                                onClick={updateButtonLink}
+                                className="update-button"
+                                disabled={isLoading}
+                            >
+                                {isLoading ? 'Сохранение...' : 'Сохранить'}
+                            </button>
+                        </div>
                     </div>
 
                     <div className="toggle-section">
