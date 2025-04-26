@@ -15,8 +15,9 @@ const EditorProduct = () => {
     const [newProductName, setNewProductName] = useState('');
     const [newProductPrice, setNewProductPrice] = useState('');
     const [newProductFile, setNewProductFile] = useState(null);
+    const [uploadProgress, setUploadProgress] = useState(0);
+    const [isUploading, setIsUploading] = useState(false);
 
-    // Получаем токен из localStorage
     const token = localStorage.getItem('token');
 
     useEffect(() => {
@@ -24,7 +25,7 @@ const EditorProduct = () => {
             try {
                 const response = await axios.get('/api/products', {
                     headers: {
-                        'Authorization': token // Добавляем токен в заголовок
+                        'Authorization': token
                     }
                 });
                 setProducts(response.data);
@@ -41,50 +42,116 @@ const EditorProduct = () => {
         setEditingProductId(productId);
         setEditedName(name);
         setEditedPrice(price);
+        setUploadProgress(0); // Сброс прогресса при начале редактирования
     };
 
     const handleSaveClick = async (productId) => {
+        if (!selectedFile && !editedName && !editedPrice) {
+            toast.error('Нет изменений для сохранения');
+            return;
+        }
+
         try {
+            setIsUploading(true);
+            setUploadProgress(0);
+            
             const formData = new FormData();
-            formData.append('text', editedName);
-            formData.append('price', editedPrice);
-            if (selectedFile) {
-                formData.append('image', selectedFile);
-            }
+            if (editedName) formData.append('text', editedName);
+            if (editedPrice) formData.append('price', editedPrice);
+            if (selectedFile) formData.append('image', selectedFile);
 
             await axios.put(`/api/products/${productId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': token // Добавляем токен в заголовок
+                    'Authorization': token
+                },
+                onUploadProgress: (progressEvent) => {
+                    const percentCompleted = Math.round(
+                        (progressEvent.loaded * 100) / progressEvent.total
+                    );
+                    setUploadProgress(percentCompleted);
                 }
             });
 
             const response = await axios.get('/api/products', {
                 headers: {
-                    'Authorization': token // Добавляем токен в заголовок
+                    'Authorization': token
                 }
             });
             setProducts(response.data);
             setEditingProductId(null);
             setSelectedFile(null);
+            setUploadProgress(0);
+            setIsUploading(false);
             toast.success('Продукт успешно сохранен');
         } catch (error) {
             console.error('Ошибка при сохранении продукта:', error);
             toast.error('Ошибка при сохранении продукта');
+            setIsUploading(false);
+            setUploadProgress(0);
         }
     };
 
-    const handleDeleteClick = async (productId) => {
+    const handleAddProduct = async () => {
+        if (!newProductName || !newProductPrice || !newProductFile) {
+            toast.error('Пожалуйста, заполните все поля');
+            return;
+        }
+
         try {
-            await axios.delete(`/api/products/${productId}`, {
+            setIsUploading(true);
+            setUploadProgress(0);
+            
+            const formData = new FormData();
+            formData.append('text', newProductName);
+            formData.append('price', newProductPrice);
+            formData.append('image', newProductFile);
+
+            await axios.post('/api/products', formData, {
                 headers: {
-                    'Authorization': token // Добавляем токен в заголовок
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': token
+                },
+                onUploadProgress: (progressEvent) => {
+                    const percentCompleted = Math.round(
+                        (progressEvent.loaded * 100) / progressEvent.total
+                    );
+                    setUploadProgress(percentCompleted);
                 }
             });
 
             const response = await axios.get('/api/products', {
                 headers: {
-                    'Authorization': token // Добавляем токен в заголовок
+                    'Authorization': token
+                }
+            });
+            setProducts(response.data);
+            setNewProductName('');
+            setNewProductPrice('');
+            setNewProductFile(null);
+            setUploadProgress(0);
+            setIsUploading(false);
+            toast.success('Продукт успешно добавлен');
+        } catch (error) {
+            console.error('Ошибка при добавлении продукта:', error);
+            toast.error('Ошибка при добавлении продукта');
+            setIsUploading(false);
+            setUploadProgress(0);
+        }
+    };
+
+    // Остальные обработчики остаются без изменений
+    const handleDeleteClick = async (productId) => {
+        try {
+            await axios.delete(`/api/products/${productId}`, {
+                headers: {
+                    'Authorization': token
+                }
+            });
+
+            const response = await axios.get('/api/products', {
+                headers: {
+                    'Authorization': token
                 }
             });
             setProducts(response.data);
@@ -92,38 +159,6 @@ const EditorProduct = () => {
         } catch (error) {
             console.error('Ошибка при удалении продукта:', error);
             toast.error('Ошибка при удалении продукта');
-        }
-    };
-
-    const handleAddProduct = async () => {
-        try {
-            const formData = new FormData();
-            formData.append('text', newProductName);
-            formData.append('price', newProductPrice);
-            if (newProductFile) {
-                formData.append('image', newProductFile);
-            }
-
-            await axios.post('/api/products', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': token // Добавляем токен в заголовок
-                }
-            });
-
-            const response = await axios.get('/api/products', {
-                headers: {
-                    'Authorization': token // Добавляем токен в заголовок
-                }
-            });
-            setProducts(response.data); // Обновляем список продуктов
-            setNewProductName('');
-            setNewProductPrice('');
-            setNewProductFile(null);
-            toast.success('Продукт успешно добавлен');
-        } catch (error) {
-            console.error('Ошибка при добавлении продукта:', error);
-            toast.error('Ошибка при добавлении продукта');
         }
     };
 
@@ -146,14 +181,13 @@ const EditorProduct = () => {
                 showGradient={true}
                 showBlock={true}
                 innerTitle='Редактирование интернет-магазина'
-                homeRoute="/admin-dashboard"
                 linkText='Редактирование интернет-магазина' />
             <div className="product-grid">
-                {products.map((product, index) => (
+                {products.map((product) => (
                     <div key={product._id} className="product-card">
                         <div className={`product-image-wrapper ${editingProductId === product._id ? 'editing' : ''}`}>
                             <img
-                                src={product.image}
+                                src={`${product.image}`}
                                 alt={product.text}
                                 className="product-image"
                             />
@@ -161,10 +195,21 @@ const EditorProduct = () => {
                                 <span>Выбрать</span>
                             </div>
                             {editingProductId === product._id && (
-                                <div
-                                    className="click-overlay"
-                                    onClick={() => document.getElementById(`fileInput-${product._id}`).click()}
-                                ></div>
+                                <>
+                                    <div
+                                        className="click-overlay"
+                                        onClick={() => document.getElementById(`fileInput-${product._id}`).click()}
+                                    ></div>
+                                    {isUploading && editingProductId === product._id && (
+                                        <div className="upload-progress-container">
+                                            <div 
+                                                className="upload-progress-bar"
+                                                style={{ width: `${uploadProgress}%` }}
+                                            ></div>
+                                            <div className="upload-progress-text">{uploadProgress}%</div>
+                                        </div>
+                                    )}
+                                </>
                             )}
                             <input
                                 type="file"
@@ -196,7 +241,13 @@ const EditorProduct = () => {
                         </div>
                         <div className="button-group">
                             {editingProductId === product._id ? (
-                                <button className="save-button" onClick={() => handleSaveClick(product._id)}>Сохранить</button>
+                                <button 
+                                    className="save-button" 
+                                    onClick={() => handleSaveClick(product._id)}
+                                    disabled={isUploading}
+                                >
+                                    {isUploading ? 'Загрузка...' : 'Сохранить'}
+                                </button>
                             ) : (
                                 <button className="edit-button" onClick={() => handleEditClick(product._id, product.text, product.price)}>Изменить</button>
                             )}
@@ -209,6 +260,15 @@ const EditorProduct = () => {
                         <div className="image-overlay">
                             <span>Выберите файл</span>
                         </div>
+                        {isUploading && (
+                            <div className="upload-progress-container">
+                                <div 
+                                    className="upload-progress-bar"
+                                    style={{ width: `${uploadProgress}%` }}
+                                ></div>
+                                <div className="upload-progress-text">{uploadProgress}%</div>
+                            </div>
+                        )}
                         <div
                             className="click-overlay"
                             onClick={() => document.getElementById('newProductFileInput').click()}
@@ -238,7 +298,13 @@ const EditorProduct = () => {
                             />
                         </div>
                     </div>
-                    <button className="save-button" onClick={handleAddProduct}>Добавить</button>
+                    <button 
+                        className="save-button" 
+                        onClick={handleAddProduct}
+                        disabled={isUploading || !newProductName || !newProductPrice || !newProductFile}
+                    >
+                        {isUploading ? 'Добавление...' : 'Добавить'}
+                    </button>
                 </div>
             </div>
             <Footer />
