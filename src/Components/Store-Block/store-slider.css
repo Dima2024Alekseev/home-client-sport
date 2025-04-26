@@ -1,7 +1,7 @@
 :root {
     --content-store-img-width: 65%;
     --content-store-img-border-radius: 5px;
-    --content-store-p-width: 65%;
+    --content-store-p-width: 100%;
     --content-store-p-padding: 10px 0px;
     --content-store-p-line-height: 30px;
     --content-store-p-bottom: 12px;
@@ -11,6 +11,9 @@
     --swiper-pagination-bullet-opacity: 1;
     --swiper-pagination-bullet-store-active-bg: rgb(255, 255, 255);
     --swiper-navigation-size: 30px;
+    --product-image-size: 100%;
+    --product-image-ratio: 100%;
+    /* 1:1 соотношение */
 }
 
 .online-store {
@@ -20,25 +23,40 @@
     flex-direction: column;
     background: black;
     align-items: center;
-    padding: 30px 0px;
+    padding: 50px 0px;
 }
 
 .content-store {
-    width: 100%;
+    width: 80%;
     height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 0 15px;
+    box-sizing: border-box;
 }
 
-.content-store img {
-    width: var(--content-store-img-width);
+/* Стили для контейнера изображения товара */
+.product-image-wrapper {
+    width: var(--product-image-size);
+    padding-bottom: var(--product-image-ratio);
     position: relative;
-    height: auto;
+    margin-bottom: 10px;
+    overflow: hidden;
     border-radius: var(--content-store-img-border-radius);
-    transition: all 0.3s ease;
 }
+
+.product-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--content-store-img-border-radius);
+}
+
 
 .content-store p {
     background-color: white;
@@ -49,6 +67,7 @@
     text-align: center;
     position: relative;
     bottom: var(--content-store-p-bottom);
+    margin: 0;
 }
 
 .swiper {
@@ -56,6 +75,7 @@
     height: 100%;
     margin-left: auto;
     margin-right: auto;
+    padding: 10px 0;
 }
 
 .swiper-slide {
@@ -92,15 +112,42 @@
     background: var(--swiper-pagination-bullet-store-active-bg);
 }
 
+.store-button {
+    margin-top: 20px;
+}
+
+.store-button .button-style {
+    display: flex;
+    padding: 10px 20px;
+    background-color: #F00;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+
 @media (max-width: 768px) {
     :root {
-        --content-store-img-width: 60%;
-        --content-store-p-width: 60%;
+        --content-store-img-width: 90%;
+        --content-store-p-width: 100%;
         --content-store-p-line-height: 1.5;
+        --product-image-size: 90%;
     }
 
     .online-store .swiper-button-next,
     .online-store .swiper-button-prev {
         margin-top: calc(50px - (var(--swiper-navigation-size) / 2));
+    }
+
+    .swiper-slide {
+        padding: 0 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --content-store-img-width: 95%;
+        --content-store-p-width: 100%;
     }
 }

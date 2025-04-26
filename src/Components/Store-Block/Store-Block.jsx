@@ -37,7 +37,7 @@ const StoreBlock = () => {
                         slidesPerView: 3
                     }
                 }}
-                loop={hasEnoughSlides} // Включаем режим цикла только если достаточно слайдов
+                loop={hasEnoughSlides}
                 pagination={{
                     clickable: true,
                 }}
@@ -48,7 +48,13 @@ const StoreBlock = () => {
                 {items.map((item, index) => (
                     <SwiperSlide key={index}>
                         <article className='content-store'>
-                            <img src={item.image} alt={item.text} />
+                            <div className="product-image-wrapper">
+                                <img
+                                    src={`${item.image}`}
+                                    alt={item.text}
+                                    className="product-image"
+                                />
+                            </div>
                             <p>{item.text}<br /><strong>{item.price} ₽</strong></p>
                         </article>
                     </SwiperSlide>
