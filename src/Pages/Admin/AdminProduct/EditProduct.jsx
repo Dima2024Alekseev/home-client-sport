@@ -15,8 +15,12 @@ const EditorProduct = () => {
     const [newProductName, setNewProductName] = useState('');
     const [newProductPrice, setNewProductPrice] = useState('');
     const [newProductFile, setNewProductFile] = useState(null);
-    const [uploadProgress, setUploadProgress] = useState(0);
-    const [isUploading, setIsUploading] = useState(false);
+    
+    // Разделенные состояния для загрузки
+    const [editUploadProgress, setEditUploadProgress] = useState(0);
+    const [isEditingUploading, setIsEditingUploading] = useState(false);
+    const [addUploadProgress, setAddUploadProgress] = useState(0);
+    const [isAddingUploading, setIsAddingUploading] = useState(false);
 
     const token = localStorage.getItem('token');
 
@@ -42,7 +46,7 @@ const EditorProduct = () => {
         setEditingProductId(productId);
         setEditedName(name);
         setEditedPrice(price);
-        setUploadProgress(0); // Сброс прогресса при начале редактирования
+        setEditUploadProgress(0);
     };
 
     const handleSaveClick = async (productId) => {
@@ -52,8 +56,8 @@ const EditorProduct = () => {
         }
 
         try {
-            setIsUploading(true);
-            setUploadProgress(0);
+            setIsEditingUploading(true);
+            setEditUploadProgress(0);
             
             const formData = new FormData();
             if (editedName) formData.append('text', editedName);
@@ -69,7 +73,7 @@ const EditorProduct = () => {
                     const percentCompleted = Math.round(
                         (progressEvent.loaded * 100) / progressEvent.total
                     );
-                    setUploadProgress(percentCompleted);
+                    setEditUploadProgress(percentCompleted);
                 }
             });
 
@@ -81,14 +85,14 @@ const EditorProduct = () => {
             setProducts(response.data);
             setEditingProductId(null);
             setSelectedFile(null);
-            setUploadProgress(0);
-            setIsUploading(false);
+            setEditUploadProgress(0);
+            setIsEditingUploading(false);
             toast.success('Продукт успешно сохранен');
         } catch (error) {
             console.error('Ошибка при сохранении продукта:', error);
             toast.error('Ошибка при сохранении продукта');
-            setIsUploading(false);
-            setUploadProgress(0);
+            setIsEditingUploading(false);
+            setEditUploadProgress(0);
         }
     };
 
@@ -99,8 +103,8 @@ const EditorProduct = () => {
         }
 
         try {
-            setIsUploading(true);
-            setUploadProgress(0);
+            setIsAddingUploading(true);
+            setAddUploadProgress(0);
             
             const formData = new FormData();
             formData.append('text', newProductName);
@@ -116,7 +120,7 @@ const EditorProduct = () => {
                     const percentCompleted = Math.round(
                         (progressEvent.loaded * 100) / progressEvent.total
                     );
-                    setUploadProgress(percentCompleted);
+                    setAddUploadProgress(percentCompleted);
                 }
             });
 
@@ -129,18 +133,17 @@ const EditorProduct = () => {
             setNewProductName('');
             setNewProductPrice('');
             setNewProductFile(null);
-            setUploadProgress(0);
-            setIsUploading(false);
+            setAddUploadProgress(0);
+            setIsAddingUploading(false);
             toast.success('Продукт успешно добавлен');
         } catch (error) {
             console.error('Ошибка при добавлении продукта:', error);
             toast.error('Ошибка при добавлении продукта');
-            setIsUploading(false);
-            setUploadProgress(0);
+            setIsAddingUploading(false);
+            setAddUploadProgress(0);
         }
     };
 
-    // Остальные обработчики остаются без изменений
     const handleDeleteClick = async (productId) => {
         try {
             await axios.delete(`/api/products/${productId}`, {
@@ -200,13 +203,13 @@ const EditorProduct = () => {
                                         className="click-overlay"
                                         onClick={() => document.getElementById(`fileInput-${product._id}`).click()}
                                     ></div>
-                                    {isUploading && editingProductId === product._id && (
+                                    {isEditingUploading && editingProductId === product._id && (
                                         <div className="upload-progress-container">
                                             <div 
                                                 className="upload-progress-bar"
-                                                style={{ width: `${uploadProgress}%` }}
+                                                style={{ width: `${editUploadProgress}%` }}
                                             ></div>
-                                            <div className="upload-progress-text">{uploadProgress}%</div>
+                                            <div className="upload-progress-text">{editUploadProgress}%</div>
                                         </div>
                                     )}
                                 </>
@@ -244,9 +247,9 @@ const EditorProduct = () => {
                                 <button 
                                     className="save-button" 
                                     onClick={() => handleSaveClick(product._id)}
-                                    disabled={isUploading}
+                                    disabled={isEditingUploading}
                                 >
-                                    {isUploading ? 'Загрузка...' : 'Сохранить'}
+                                    {isEditingUploading ? 'Загрузка...' : 'Сохранить'}
                                 </button>
                             ) : (
                                 <button className="edit-button" onClick={() => handleEditClick(product._id, product.text, product.price)}>Изменить</button>
@@ -260,13 +263,13 @@ const EditorProduct = () => {
                         <div className="image-overlay">
                             <span>Выберите файл</span>
                         </div>
-                        {isUploading && (
+                        {isAddingUploading && (
                             <div className="upload-progress-container">
                                 <div 
                                     className="upload-progress-bar"
-                                    style={{ width: `${uploadProgress}%` }}
+                                    style={{ width: `${addUploadProgress}%` }}
                                 ></div>
-                                <div className="upload-progress-text">{uploadProgress}%</div>
+                                <div className="upload-progress-text">{addUploadProgress}%</div>
                             </div>
                         )}
                         <div
@@ -301,9 +304,9 @@ const EditorProduct = () => {
                     <button 
                         className="save-button" 
                         onClick={handleAddProduct}
-                        disabled={isUploading || !newProductName || !newProductPrice || !newProductFile}
+                        disabled={isAddingUploading || !newProductName || !newProductPrice || !newProductFile}
                     >
-                        {isUploading ? 'Добавление...' : 'Добавить'}
+                        {isAddingUploading ? 'Добавление...' : 'Добавить'}
                     </button>
                 </div>
             </div>
