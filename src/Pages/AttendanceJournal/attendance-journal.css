@@ -49,8 +49,6 @@
   background-color: #e3070e;
   color: white;
   font-weight: 500;
-  position: sticky;
-  top: 0;
 }
 
 .attendance-table tr.even-row {

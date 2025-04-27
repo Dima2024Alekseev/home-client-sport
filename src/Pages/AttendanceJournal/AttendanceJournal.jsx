@@ -72,7 +72,7 @@ const AttendanceJournal = () => {
           <thead>
             <tr>
               <th className="serial-number">№</th>
-              <th className="student-name-header">ФИО</th>
+              <th className="student-name">ФИО</th>
               {daysToDisplay.map((day) => (
                 <th key={day} className="day-header">
                   <div className="day-number">{day}</div>
