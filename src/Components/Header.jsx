@@ -93,7 +93,7 @@ const Header = ({ icon, innerTitle, linkText, showVideoHomePages, showGradient, 
     } : {}}>
       {videoBackgroundDirections && (
         <div>
-          <video className="background-video" autoPlay loop muted style={{
+          <video className="background-video" autoPlay loop muted playsInline style={{
             position: 'absolute',
             top: '50%',
             left: '50%',
