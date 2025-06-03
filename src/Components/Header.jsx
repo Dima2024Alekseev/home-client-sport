@@ -93,16 +93,33 @@ const Header = ({ icon, innerTitle, linkText, showVideoHomePages, showGradient, 
     } : {}}>
       {videoBackgroundDirections && (
         <div>
-          <video className="background-video" autoPlay loop muted playsInline style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            transform: 'translate(-50%, -50%)',
-            zIndex: -2
-          }}>
+          <video
+            className="background-video"
+            autoPlay
+            loop
+            muted
+            playsInline // Важно для iOS
+            disablePictureInPicture // Отключает PIP
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              transform: 'translate(-50%, -50%)',
+              zIndex: -2,
+              // Добавляем эти стили для скрытия элементов управления на iOS
+              WebkitTapHighlightColor: 'transparent',
+              WebkitTouchCallout: 'none',
+              WebkitUserSelect: 'none',
+              KhtmlUserSelect: 'none',
+              MozUserSelect: 'none',
+              msUserSelect: 'none',
+              userSelect: 'none',
+              outline: 'none'
+            }}
+          >
             <source src={videoSrc} type="video/mp4" />
           </video>
           <div className="overlay"></div>
@@ -110,7 +127,16 @@ const Header = ({ icon, innerTitle, linkText, showVideoHomePages, showGradient, 
       )}
       <header id={showVideoHomePages ? "video-container" : ""}>
         {showVideoHomePages && (
-          <video className="background-video" autoPlay loop playsInline muted>
+          <video className="background-video" autoPlay loop muted playsInline disablePictureInPicture style={{
+            WebkitTapHighlightColor: 'transparent',
+            WebkitTouchCallout: 'none',
+            WebkitUserSelect: 'none',
+            KhtmlUserSelect: 'none',
+            MozUserSelect: 'none',
+            msUserSelect: 'none',
+            userSelect: 'none',
+            outline: 'none'
+          }}>
             <source src={videoSrc} type="video/mp4" />
           </video>
         )}
