@@ -36,11 +36,15 @@ const ScrollTopButton = () => {
 
   // Плавный скролл наверх и скрытие кнопки
   const scrollToTop = () => {
-    setIsVisible(false);
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
+
+    // Добавляем задержку перед скрытием кнопки
+    setTimeout(() => {
+      setIsVisible(false);
+    }, 500); // Задержка в 500 мс
   };
 
   return (
