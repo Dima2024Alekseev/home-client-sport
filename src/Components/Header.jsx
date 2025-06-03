@@ -110,7 +110,7 @@ const Header = ({ icon, innerTitle, linkText, showVideoHomePages, showGradient, 
       )}
       <header id={showVideoHomePages ? "video-container" : ""}>
         {showVideoHomePages && (
-          <video className="background-video" autoPlay loop muted>
+          <video className="background-video" autoPlay loop playsInline muted>
             <source src={videoSrc} type="video/mp4" />
           </video>
         )}
