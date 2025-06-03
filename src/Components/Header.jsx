@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -9,7 +9,7 @@ import { TbUserSquareRounded, TbLogout } from "react-icons/tb";
 import { FaTelegram } from "react-icons/fa";
 import { FaVk } from "react-icons/fa6";
 import useTitle from './UseTitle';
-import blackRedImage from "../img/black-red.png";
+import blackRedImage from "../img/black-red.png"; // Импорт изображения
 
 const Header = ({ icon, innerTitle, linkText, showVideoHomePages, showGradient, showBlock, videoBackgroundDirections, videoSrc, onLogout, homeRoute }) => {
   useTitle(icon, innerTitle, linkText);
@@ -17,25 +17,18 @@ const Header = ({ icon, innerTitle, linkText, showVideoHomePages, showGradient, 
   const [nav, setNav] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated') === 'true');
   const location = useLocation();
-  const videoRefs = useRef([]);
-
-  // Добавляем видео элементы в ref
-  const addVideoToRef = (el) => {
-    if (el && !videoRefs.current.includes(el)) {
-      videoRefs.current.push(el);
-    }
-  };
 
   useEffect(() => {
     if (showGradient) {
       const inner = document.getElementById('inner');
       if (inner) {
         let angle = 50;
-        let direction = 1;
+        let direction = 1; // 1 для увеличения, -1 для уменьшения
 
         function updateGradient() {
           angle += direction;
 
+          // Изменяем направление, когда угол достигает 150 или 50 градусов
           if (angle >= 250) {
             direction = -0.5;
           } else if (angle <= 50) {
@@ -48,6 +41,7 @@ const Header = ({ icon, innerTitle, linkText, showVideoHomePages, showGradient, 
 
         updateGradient();
 
+        // Очистка анимации при размонтировании компонента
         return () => {
           cancelAnimationFrame(updateGradient);
         };
@@ -62,46 +56,11 @@ const Header = ({ icon, innerTitle, linkText, showVideoHomePages, showGradient, 
       document.body.style.overflowY = 'auto';
     }
 
+    // Возвращение вертикальной прокрутки при размонтировании компонента
     return () => {
       document.body.style.overflowY = 'auto';
     };
   }, [nav]);
-
-  // Убираем элементы управления у всех видео
-  useEffect(() => {
-    const handleVideoControls = () => {
-      videoRefs.current.forEach(video => {
-        if (video) {
-          // Удаляем стандартные элементы управления
-          video.removeAttribute('controls');
-
-          // Добавляем атрибуты для iOS
-          video.setAttribute('playsInline', '');
-          video.setAttribute('webkit-playsinline', '');
-
-          // Пытаемся запустить автовоспроизведение
-          const playPromise = video.play();
-          if (playPromise !== undefined) {
-            playPromise.catch(error => {
-              console.log('Autoplay prevented:', error);
-            });
-          }
-        }
-      });
-    };
-
-    handleVideoControls();
-
-    // Обработчик для случаев, когда видео может быть добавлено динамически
-    const observer = new MutationObserver(handleVideoControls);
-    document.querySelectorAll('video').forEach(video => {
-      observer.observe(video, { attributes: true });
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [showVideoHomePages, videoBackgroundDirections]);
 
   const handleLogout = () => {
     confirmAlert({
@@ -134,23 +93,16 @@ const Header = ({ icon, innerTitle, linkText, showVideoHomePages, showGradient, 
     } : {}}>
       {videoBackgroundDirections && (
         <div>
-          <video
-            ref={addVideoToRef}
-            className="background-video"
-            autoPlay
-            loop
-            muted
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              transform: 'translate(-50%, -50%)',
-              zIndex: -2
-            }}
-          >
+          <video className="background-video" autoPlay loop muted style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            transform: 'translate(-50%, -50%)',
+            zIndex: -2
+          }}>
             <source src={videoSrc} type="video/mp4" />
           </video>
           <div className="overlay"></div>
@@ -158,13 +110,7 @@ const Header = ({ icon, innerTitle, linkText, showVideoHomePages, showGradient, 
       )}
       <header id={showVideoHomePages ? "video-container" : ""}>
         {showVideoHomePages && (
-          <video
-            ref={addVideoToRef}
-            className="background-video"
-            autoPlay
-            loop
-            muted
-          >
+          <video className="background-video" autoPlay loop muted>
             <source src={videoSrc} type="video/mp4" />
           </video>
         )}
