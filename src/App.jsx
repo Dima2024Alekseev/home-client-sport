@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation, Navigate, useNavig
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { NotificationProvider } from './Components/NotificationContext';
 import ScrollTop from './Components/ScrollTop';
+import ScrollTopButton from './Components/ScrollTopButton/ScrollTopButton'; 
 import useTitle from './Components/UseTitle';
 import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
@@ -193,6 +194,7 @@ export default function App() {
       <Router>
         <ScrollTop />
         <AppContent />
+        <ScrollTopButton/>
       </Router>
     </NotificationProvider>
   );

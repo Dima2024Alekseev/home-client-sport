@@ -1,0 +1,58 @@
+.scroll-top-button {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #F00;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+}
+
+.scroll-top-button.visible {
+    opacity: 0.9;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.scroll-top-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+    opacity: 1;
+    background: #FF3333;
+}
+
+.scroll-top-icon {
+    font-size: 30px;
+}
+
+/* Скрываем на десктопах */
+@media (min-width: 1025px) {
+    .scroll-top-button {
+        display: none !important;
+    }
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+    .scroll-top-button {
+        width: 45px;
+        height: 45px;
+        bottom: 80px;
+        right: 20px;
+    }
+    
+    .scroll-top-icon {
+        font-size: 18px;
+    }
+}
