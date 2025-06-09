@@ -32,6 +32,8 @@ const AttendanceJournal = () => {
     } catch (error) {
       console.error('Ошибка при получении данных посещаемости:', error);
       showNotification('Ошибка при получении данных посещаемости', 'error');
+      setAttendanceData([]);
+      setDaysToDisplay([]);
     }
   }, [selectedMonth, selectedGroup, showNotification]);
 
@@ -82,19 +84,27 @@ const AttendanceJournal = () => {
             </tr>
           </thead>
           <tbody>
-            {attendanceData.map((entry, index) => (
-              <tr key={entry._id} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
-                <td className="serial-number">{index + 1}</td>
-                <td className="student-name">
-                  {entry.studentName}
-                </td>
-                {daysToDisplay.map((day) => (
-                  <td key={day} className="attendance-cell">
-                    {entry.attendance[day] ? '✔' : '✖'}
+            {attendanceData.length > 0 ? (
+              attendanceData.map((entry, index) => (
+                <tr key={entry._id} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
+                  <td className="serial-number">{index + 1}</td>
+                  <td className="student-name">
+                    {entry.studentName}
                   </td>
-                ))}
+                  {daysToDisplay.map((day) => (
+                    <td key={day} className="attendance-cell">
+                      {entry.attendance[day] ? '✔' : '✖'}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            ) : (
+              <tr className="no-data-row">
+                <td colSpan={daysToDisplay.length + 2} className="no-data-cell">
+                  Нет данных для отображения
+                </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

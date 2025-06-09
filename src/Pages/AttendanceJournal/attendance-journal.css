@@ -94,7 +94,6 @@
   text-align: left;
   padding-left: 15px;
 }
-
 .attendance-cell {
   min-width: 50px;
 }
@@ -136,6 +135,18 @@
 
 .month-icon {
   margin-right: 10px;
+}
+
+.no-data-row {
+  background-color: #f9f9f9;
+}
+
+.no-data-cell {
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+  color: #666;
+  font-style: italic;
 }
 
 /* Адаптивные стили */

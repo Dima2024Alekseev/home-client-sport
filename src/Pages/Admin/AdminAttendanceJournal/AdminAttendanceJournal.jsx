@@ -5,13 +5,13 @@ import Header from "../../../Components/Header";
 import Footer from "../../../Components/Footer/Footer";
 import "./admin-attendanceJournal.css";
 import { useNotification } from '../../../Components/NotificationContext';
-import {
-  FaSave,
-  FaCopy,
-  FaTrash,
-  FaEdit,
-  FaCheck,
-  FaPlus,
+import { 
+  FaSave, 
+  FaCopy, 
+  FaTrash, 
+  FaEdit, 
+  FaCheck, 
+  FaPlus, 
   FaUserPlus,
   FaUsers,
   FaCalendarAlt,
@@ -35,7 +35,7 @@ const AdminAttendanceJournal = () => {
     'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
     'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
   ];
-
+  
   const monthNamesGenitive = [
     'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
     'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
@@ -57,6 +57,8 @@ const AdminAttendanceJournal = () => {
     } catch (error) {
       console.error('Ошибка при получении данных посещаемости:', error);
       showNotification('Ошибка при получении данных посещаемости', 'error');
+      setAttendanceData([]);
+      setDaysToDisplay([]);
     }
   }, [selectedMonth, selectedGroup, showNotification]);
 
@@ -262,39 +264,47 @@ const AdminAttendanceJournal = () => {
             </tr>
           </thead>
           <tbody>
-            {attendanceData.map((entry, index) => (
-              <tr key={entry._id} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
-                <td className="serial-number">{index + 1}</td>
-                <td className="student-name">
-                  <input
-                    type="text"
-                    value={entry.studentName}
-                    onChange={(e) => handleChange(index, 'studentName', e.target.value)}
-                    className="name-input"
-                  />
-                </td>
-                {daysToDisplay.map((day) => (
-                  <td key={day} className="attendance-cell">
-                    <label className="attendance-checkbox">
-                      <input
-                        type="checkbox"
-                        checked={entry.attendance[day] || false}
-                        onChange={(e) => handleChange(index, `attendance.${day}`, e.target.checked)}
-                      />
-                      <span className="checkmark"></span>
-                    </label>
+            {attendanceData.length > 0 ? (
+              attendanceData.map((entry, index) => (
+                <tr key={entry._id} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
+                  <td className="serial-number">{index + 1}</td>
+                  <td className="student-name">
+                    <input
+                      type="text"
+                      value={entry.studentName}
+                      onChange={(e) => handleChange(index, 'studentName', e.target.value)}
+                      className="name-input"
+                    />
                   </td>
-                ))}
-                <td className="actions">
-                  <button
-                    onClick={() => handleDeleteEntry(entry._id)}
-                    className="delete-button"
-                  >
-                    <FaTrash className="button-icon" /> Удалить
-                  </button>
+                  {daysToDisplay.map((day) => (
+                    <td key={day} className="attendance-cell">
+                      <label className="attendance-checkbox">
+                        <input
+                          type="checkbox"
+                          checked={entry.attendance[day] || false}
+                          onChange={(e) => handleChange(index, `attendance.${day}`, e.target.checked)}
+                        />
+                        <span className="checkmark"></span>
+                      </label>
+                    </td>
+                  ))}
+                  <td className="actions">
+                    <button 
+                      onClick={() => handleDeleteEntry(entry._id)}
+                      className="delete-button"
+                    >
+                      <FaTrash className="button-icon" /> Удалить
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr className="no-data-row">
+                <td colSpan={daysToDisplay.length + 3} className="no-data-cell">
+                  Нет данных для отображения
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
@@ -326,8 +336,8 @@ const AdminAttendanceJournal = () => {
           <div className="controls-row">
             <div className="control-group">
               <label className="control-label"><FaUsers className="control-icon" /> Группа:</label>
-              <select
-                value={selectedGroup}
+              <select 
+                value={selectedGroup} 
                 onChange={(e) => setSelectedGroup(e.target.value)}
                 className="control-select"
               >
@@ -336,11 +346,11 @@ const AdminAttendanceJournal = () => {
                 ))}
               </select>
             </div>
-
+            
             <div className="control-group">
               <label className="control-label"><FaCalendarAlt className="control-icon" /> Месяц:</label>
-              <select
-                value={selectedMonth}
+              <select 
+                value={selectedMonth} 
                 onChange={(e) => setSelectedMonth(e.target.value)}
                 className="control-select"
               >
@@ -350,13 +360,13 @@ const AdminAttendanceJournal = () => {
               </select>
             </div>
           </div>
-
+          
           <h2 className="current-month-title">
             <FaCalendarAlt className="month-icon" /> {monthNames[selectedMonth - 1]} {new Date().getFullYear()}
           </h2>
-
+          
           {renderAttendanceTable()}
-
+          
           <div className="admin-section">
             <h3 className="admin-section-title"><FaUserPlus /> Добавить запись</h3>
             <div className="add-entry-form">
@@ -367,7 +377,7 @@ const AdminAttendanceJournal = () => {
                 onChange={(e) => setNewEntry({ ...newEntry, studentName: e.target.value })}
                 className="form-input"
               />
-              <button
+              <button 
                 onClick={handleAddEntry}
                 className="form-button primary"
               >
@@ -375,7 +385,7 @@ const AdminAttendanceJournal = () => {
               </button>
             </div>
           </div>
-
+          
           <div className="admin-section">
             <h3 className="admin-section-title"><FaCalendarPlus /> Управление днями</h3>
             <div className="days-controls">
@@ -388,19 +398,19 @@ const AdminAttendanceJournal = () => {
                 max="31"
                 className="form-input small"
               />
-              <button
+              <button 
                 onClick={handleAddDay}
                 className="form-button secondary"
               >
                 <FaPlus className="button-icon" /> Добавить день
               </button>
             </div>
-
+            
             <div className="days-list">
               {daysToDisplay.map((day) => (
                 <div key={day} className="day-tag">
                   <span>{day} {monthNamesGenitive[selectedMonth - 1]}</span>
-                  <button
+                  <button 
                     onClick={() => handleRemoveDay(day)}
                     className="remove-day-button"
                   >
@@ -410,7 +420,7 @@ const AdminAttendanceJournal = () => {
               ))}
             </div>
           </div>
-
+          
           <div className="admin-section">
             <h3 className="admin-section-title"><FaUsers /> Управление группами</h3>
             <div className="groups-controls">
@@ -421,14 +431,14 @@ const AdminAttendanceJournal = () => {
                 onChange={(e) => setNewGroup(e.target.value)}
                 className="form-input"
               />
-              <button
+              <button 
                 onClick={handleAddGroup}
                 className="form-button primary"
               >
                 <FaPlus className="button-icon" /> Добавить группу
               </button>
             </div>
-
+            
             <div className="groups-list">
               {groups.map(group => (
                 <div key={group._id} className="group-item">
@@ -437,12 +447,12 @@ const AdminAttendanceJournal = () => {
                       <input
                         type="text"
                         value={group.name}
-                        onChange={(e) => setGroups(groups.map(g =>
+                        onChange={(e) => setGroups(groups.map(g => 
                           g._id === group._id ? { ...g, name: e.target.value } : g
                         ))}
                         className="form-input small"
                       />
-                      <button
+                      <button 
                         onClick={() => handleUpdateGroup(group._id, group.name)}
                         className="form-button secondary"
                       >
@@ -453,13 +463,13 @@ const AdminAttendanceJournal = () => {
                     <>
                       <span className="group-name">{group.name}</span>
                       <div className="group-actions">
-                        <button
+                        <button 
                           onClick={() => setEditingGroup(group._id)}
                           className="form-button small"
                         >
                           <FaEdit className="button-icon" /> Редактировать
                         </button>
-                        <button
+                        <button 
                           onClick={() => handleDeleteGroup(group._id)}
                           className="form-button small danger"
                         >
@@ -472,15 +482,15 @@ const AdminAttendanceJournal = () => {
               ))}
             </div>
           </div>
-
+          
           <div className="admin-actions">
-            <button
+            <button 
               onClick={handleSave}
               className="action-button save"
             >
               <FaSave className="button-icon" /> Сохранить все изменения
             </button>
-            <button
+            <button 
               onClick={handleCopyAttendance}
               className="action-button copy"
             >
