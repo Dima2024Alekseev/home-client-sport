@@ -14,13 +14,40 @@ const Posts = ({ filterTag }) => {
     const [itemsPerPage] = useState(5);
     const [modalActive, setModalActive] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
-      const [isPageLoading, setIsPageLoading] = useState(false);
+    const [isPageLoading, setIsPageLoading] = useState(false);
     const navigate = useNavigate();
     const mainRef = useRef(null);
 
+    // Функция для удаления VK-специфичных ссылок
     const removeLinksFromText = (text) => {
         if (!text) return text;
         return text.replace(/\[club\d+\|([^\]]+)\]/g, '$1').replace(/\[id\d+\|([^\]]+)\]/g, '$1');
+    };
+
+    // Функция для преобразования URL в кликабельные ссылки
+    const makeLinksClickable = (text) => {
+        if (!text) return text;
+        
+        // Регулярное выражение для поиска URL
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        
+        // Разбиваем текст на части и преобразуем URL в ссылки
+        return text.split(urlRegex).map((part, index) => {
+            if (part.match(urlRegex)) {
+                return (
+                    <a 
+                        key={index} 
+                        href={part} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        style={{ color: '#0066cc', textDecoration: 'underline' }}
+                    >
+                        {part}
+                    </a>
+                );
+            }
+            return part;
+        });
     };
 
     const fetchPosts = useCallback(() => {
@@ -71,15 +98,14 @@ const Posts = ({ filterTag }) => {
     const currentItems = posts.slice(indexOfFirstItem, indexOfLastItem);
 
     const paginate = (pageNumber) => {
-        setIsPageLoading(true); // Активируем загрузку
+        setIsPageLoading(true);
         setCurrentPage(pageNumber);
         mainRef.current.scrollIntoView({ behavior: 'smooth' });
     
-        // Имитируем задержку загрузки данных
         setTimeout(() => {
-          setIsPageLoading(false); // Деактивируем загрузку
-        }, 1000); // Задержка в 500 мс
-      };
+            setIsPageLoading(false);
+        }, 1000);
+    };
 
     const openModal = (imageSrc) => {
         setSelectedImage(imageSrc);
@@ -102,28 +128,30 @@ const Posts = ({ filterTag }) => {
             ) : (
                 <>
                     <main ref={mainRef}>
-            {isPageLoading ? ( // Показываем скелетон, если страница загружается
-              <PostsLoader />
-            ) : (
-              currentItems.map(post => (
-                <article className='news' key={post.id}>
-                  <div className='news-text-container'>
-                    <h2 className='news-title'>{post.title}</h2>
-                    <pre className='news-text'>{post.text}</pre>
-                  </div>
-                  {post.photoUrls && (
-                    <figure className='news-image-container'>
-                      <img
-                        src={post.photoUrls[0]}
-                        alt={`Illustration for "${post.title}"`}
-                        onClick={() => openModal(post.photoUrls[0])}
-                      />
-                    </figure>
-                  )}
-                </article>
-              ))
-            )}
-          </main>
+                        {isPageLoading ? (
+                            <PostsLoader />
+                        ) : (
+                            currentItems.map(post => (
+                                <article className='news' key={post.id}>
+                                    <div className='news-text-container'>
+                                        <h2 className='news-title'>{post.title}</h2>
+                                        <pre className='news-text'>
+                                            {makeLinksClickable(post.text)}
+                                        </pre>
+                                    </div>
+                                    {post.photoUrls && (
+                                        <figure className='news-image-container'>
+                                            <img
+                                                src={post.photoUrls[0]}
+                                                alt={`Illustration for "${post.title}"`}
+                                                onClick={() => openModal(post.photoUrls[0])}
+                                            />
+                                        </figure>
+                                    )}
+                                </article>
+                            ))
+                        )}
+                    </main>
                     <Pagination
                         itemsPerPage={itemsPerPage}
                         totalItems={posts.length}

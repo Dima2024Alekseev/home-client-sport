@@ -12,7 +12,7 @@ const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
   }
 
   // Определяем диапазон страниц для отображения
-  const maxPagesToShow = 5;
+  const maxPagesToShow = 4;
   let startPage = Math.max(1, Math.floor((currentPage - 1) / maxPagesToShow) * maxPagesToShow + 1);
   let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
 

@@ -42,8 +42,12 @@
     padding: 10px;
     background: #f9f9f9;
     border-radius: 5px;
+    /* Добавленные свойства */
+    width: 100%;
+    overflow: hidden;
+    word-break: break-word;
+    hyphens: auto;
 }
-
 .news-image-container {
     width: 350px;
     height: 350px;
@@ -123,8 +127,11 @@
     }
 
     .news-text {
-        background: none;
+        /* Убедимся, что на мобильных текст не выходит за границы */
+        max-width: 100%;
+        box-sizing: border-box;
         padding: 15px 20px;
+        background: none;
     }
 
     .news-image-container {
@@ -134,4 +141,5 @@
     .news img {
         width: 90%;
     }
+
 }
