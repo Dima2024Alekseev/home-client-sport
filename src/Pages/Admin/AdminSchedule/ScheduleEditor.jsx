@@ -81,6 +81,7 @@ const ScheduleEditor = () => {
       <Header
         showBlock={true}
         innerTitle="Редактирование расписания"
+        homeRoute="/admin-dashboard"
         linkText="Редактирование расписания"
         showGradient={true} />
       <main className="schedule-editor-content">

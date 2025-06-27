@@ -145,6 +145,7 @@ const EditAd = () => {
             <Header
                 showBlock={true}
                 innerTitle="Редактирование рекламы"
+                homeRoute="/admin-dashboard"
                 linkText="Редактирование рекламы"
                 showGradient={true}
             />
