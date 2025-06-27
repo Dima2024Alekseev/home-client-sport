@@ -200,13 +200,13 @@ const Header = ({ icon, innerTitle, linkText, showVideoHomePages, showGradient, 
             </div>
             {isAuthenticated && location.pathname === '/admin-dashboard' && (
               <button className="personal-area" onClick={handleLogout} aria-label="Logout">
-                <TbLogout className="profile-icon" size={45} color="white" />
+                <TbLogout className="profile-icon" size={45} />
               </button>
             )}
             {isAuthenticated && location.pathname !== '/admin-dashboard' && (
               <Link to="/admin-dashboard" aria-label="Admin Dashboard">
                 <div className="personal-area">
-                  <TbUserSquareRounded className="profile-icon" size={45} color="white" />
+                  <TbUserSquareRounded className="profile-icon" size={45} />
                 </div>
               </Link>
             )}
