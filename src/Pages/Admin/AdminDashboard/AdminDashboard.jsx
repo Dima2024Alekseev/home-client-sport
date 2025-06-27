@@ -21,6 +21,7 @@ const AdminDashboard = () => {
                 showBlock={true}
                 innerTitle="Панель администратора"
                 linkText="Панель администратора"
+                homeRoute="/"
                 showGradient={true}
             />
 
