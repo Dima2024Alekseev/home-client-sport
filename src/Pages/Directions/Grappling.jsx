@@ -44,6 +44,7 @@ const Grappling = () => {
                     videoSrc={grappling_video}
                     showBlock={true}
                     innerTitle="Грэпплинг"
+                    homeRoute="/"
                     linkText="Грэпплинг"
                 />
             

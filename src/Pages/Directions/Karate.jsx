@@ -43,6 +43,7 @@ const Karate = () => {
                 videoSrc={karate_video}
                 showBlock={true}
                 innerTitle="Каратэ"
+                homeRoute="/"
                 linkText="Каратэ"
             />
             <main className="content_directions">

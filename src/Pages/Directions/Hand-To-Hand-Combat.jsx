@@ -42,6 +42,7 @@ const Hand = () => {
                     showGradient={true}
                     showBlock={true}
                     innerTitle="Рукопашный бой"
+                    homeRoute="/"
                     linkText="Рукопашный бой"
                 />
             

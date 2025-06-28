@@ -42,6 +42,7 @@ const Women = () => {
                     showGradient={true}
                     showBlock={true}
                     innerTitle="Женская самооборона"
+                    homeRoute="/"
                     linkText="Женская самооборона"
                 />
             

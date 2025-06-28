@@ -44,6 +44,7 @@ const Mma = () => {
                     showBlock={true}
                     innerTitle="Смешанные единоборства (MMA)"
                     linkText="MMA"
+                    homeRoute="/"
                     videoBackgroundDirections={true}
                     videoSrc={mmaVideo}
                 />

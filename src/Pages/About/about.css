@@ -243,6 +243,25 @@ blockquote {
     font-size: 1.1rem;
 }
 
+/* Добавьте это в ваш about.css */
+.position-title-photo,
+.philosophy-container {
+    will-change: transform, opacity;
+}
+
+.philosophy-icon,
+.quote-block {
+    transition: transform 0.3s ease;
+}
+
+.philosophy-icon:hover {
+    transform: scale(1.1);
+}
+
+.quote-block:hover {
+    transform: translateY(-3px);
+}
+
 @media (max-width: 768px) {
     .philosophy-container {
         padding: 25px;
