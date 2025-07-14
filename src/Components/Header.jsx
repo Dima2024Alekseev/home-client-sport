@@ -6,7 +6,7 @@ import logo from "../img/header-icon.png";
 import Navbar from "./Navbar/Navbar";
 import MobileMenu from "./MobileMenu";
 import { TbUserSquareRounded, TbLogout } from "react-icons/tb";
-import { FaTelegram } from "react-icons/fa";
+import { FaTelegram, FaYoutube } from "react-icons/fa";
 import { FaVk } from "react-icons/fa6";
 import useTitle from './UseTitle';
 import blackRedImage from "../img/black-red.png";
@@ -195,6 +195,9 @@ const Header = ({ icon, innerTitle, linkText, showVideoHomePages, showGradient, 
                 </a>
                 <a className="header-icons_1" target="_blank" rel="noopener noreferrer" href="https://t.me/mmakansk" aria-label="Telegram">
                   <FaTelegram className="social-network" size={24} />
+                </a>
+                <a className="header-icons_1" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@hooliganfc24" aria-label="Youtube">
+                  <FaYoutube className="social-network" size={27} />
                 </a>
               </div>
             </div>
