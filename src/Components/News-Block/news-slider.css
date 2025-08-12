@@ -178,9 +178,9 @@
     .container-victory .swiper-button-next {
         position: absolute;
         top: var(--swiper-navigation-top-offset);
-        width: calc(var(--swiper-navigation-size) / 100);
+        /* width: calc(var(--swiper-navigation-size) / 100); */
         height: var(--swiper-navigation-size);
-        color: black;
+        color: rgb(75, 73, 73);
     }
 
     .content-news img {
