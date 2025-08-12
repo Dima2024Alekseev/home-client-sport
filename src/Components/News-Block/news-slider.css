@@ -168,7 +168,7 @@
 
 @media (min-width: 320px) and (max-width: 1200px) {
     :root {
-        --swiper-navigation-top-offset: 25%;
+        --swiper-navigation-top-offset: 27%;
         --swiper-navigation-size: 25px;
     }
 
