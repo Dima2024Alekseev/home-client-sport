@@ -23,8 +23,6 @@
     animation: fadeInUp 0.8s ease-out;
 }
 
-
-
 .message {
     font-size: 1.5rem;
     margin-bottom: 3rem;
@@ -34,7 +32,9 @@
 }
 
 .button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     padding: 1rem 2.5rem;
     font-size: 1.25rem;
     color: #fff;
@@ -71,6 +71,10 @@
 
 .button:hover::before {
     left: 100%;
+}
+
+.icon-nout_found_page {
+    flex-shrink: 0;
 }
 
 @keyframes fadeIn {

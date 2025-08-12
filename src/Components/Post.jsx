@@ -118,11 +118,29 @@ const Posts = ({ filterTag }) => {
                 <ContentLoader />
             ) : error ? (
                 <section className='error'>
+                    <div className="error-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ff4d4f" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </div>
                     <h2>Произошла ошибка</h2>
-                    <p>Пожалуйста, попробуйте снова или перейдите на главную страницу.</p>
-                    <div className='position-error-button'>
-                        <button onClick={handleGoHome} aria-label="Go to Home">На главную</button>
-                        <button onClick={handleReload} aria-label="Reload Page">Попробовать снова</button>
+                    <p className="error-description">К сожалению, при загрузке данных произошла непредвиденная ошибка.</p>
+                    <div className='error-actions'>
+                        <button className="error-button primary" onClick={handleReload} aria-label="Reload Page">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M21.5 2v6h-6M2.5 22v-6h6M22 11.5a10 10 0 0 1-10 10 10 10 0 0 1-10-10 10 10 0 0 1 10-10 10 10 0 0 1 10 10z"></path>
+                            </svg>
+                            Попробовать снова
+                        </button>
+                        <button className="error-button secondary" onClick={handleGoHome} aria-label="Go to Home">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                            </svg>
+                            На главную
+                        </button>
                     </div>
                 </section>
             ) : (
