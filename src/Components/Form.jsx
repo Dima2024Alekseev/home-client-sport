@@ -14,6 +14,7 @@ const Form = ({ showFields, formTitle, title_button, onSubmit, recaptchaSiteKey 
   });
 
   const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false); // Новое состояние для управления видимостью пароля
 
   useEffect(() => {
     if (showFields.phone) {
@@ -27,18 +28,15 @@ const Form = ({ showFields, formTitle, title_button, onSubmit, recaptchaSiteKey 
   const handleChange = (e) => {
     const { id, value } = e.target;
 
-    // Проверка на ввод цифр для полей "Имя" и "Фамилия"
     if (id === 'name' || id === 'lastname') {
       if (!/^[а-яА-ЯёЁa-zA-Z]*$/.test(value)) {
         return;
       }
-      // Проверка на ввод более 30 символов для полей "Имя" и "Фамилия"
       if (value.length > 30) {
         return;
       }
     }
 
-    // Проверка на ввод более двух цифр для поля "Возраст"
     if (id === 'age' && value.length > 2) {
       return;
     }
@@ -48,7 +46,6 @@ const Form = ({ showFields, formTitle, title_button, onSubmit, recaptchaSiteKey 
       [id]: value,
     }));
 
-    // Удаляем ошибки при изменении значения поля
     setErrors((prevErrors) => ({
       ...prevErrors,
       [id]: '',
@@ -86,6 +83,11 @@ const Form = ({ showFields, formTitle, title_button, onSubmit, recaptchaSiteKey 
       login: '',
       password: '',
     });
+  };
+
+  // Функция для переключения видимости пароля
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -138,7 +140,17 @@ const Form = ({ showFields, formTitle, title_button, onSubmit, recaptchaSiteKey 
                 }
               }}
             >
-              {(inputProps) => <input {...inputProps} id="phone" type="tel" placeholder="+7" required aria-label="Телефон" aria-describedby="phone-description" />}
+              {(inputProps) => (
+                <input
+                  {...inputProps}
+                  id="phone"
+                  type="tel"
+                  placeholder="+7"
+                  required
+                  aria-label="Телефон"
+                  aria-describedby="phone-description"
+                />
+              )}
             </InputMask>
             <span>Телефон</span>
             {errors.phone && <p className="error">{errors.phone}</p>}
@@ -197,10 +209,10 @@ const Form = ({ showFields, formTitle, title_button, onSubmit, recaptchaSiteKey 
           </label>
         )}
         {showFields.password && (
-          <label>
+          <label className="password-container">
             <input
               id="password"
-              type="password"
+              type={showPassword ? 'text' : 'password'} // Переключаем тип поля
               placeholder=""
               required
               value={formData.password}
@@ -209,6 +221,14 @@ const Form = ({ showFields, formTitle, title_button, onSubmit, recaptchaSiteKey 
               aria-describedby="password-description"
             />
             <span>Пароль</span>
+            <button
+              type="button"
+              className="password-toggle"
+              onClick={togglePasswordVisibility}
+              aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
+            >
+              <span className={showPassword ? 'eye-icon eye-icon--open' : 'eye-icon eye-icon--closed'}></span>
+            </button>
           </label>
         )}
         {recaptchaSiteKey && (

@@ -208,6 +208,88 @@ option {
   }
 }
 
+/* Стили для контейнера поля пароля */
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+}
+
+/* Стили для кнопки переключения видимости пароля */
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+/* Стили для иконки глаза */
+.eye-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Иконка закрытого глаза (пароль скрыт) */
+.eye-icon--closed {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94'/%3E%3Cpath d='M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24'/%3E%3Cline x1='1' y1='1' x2='23' y2='23'/%3E%3C/svg%3E");
+}
+
+/* Иконка открытого глаза (пароль виден) */
+.eye-icon--open {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E");
+}
+
+/* Ховер-эффект для кнопки */
+.password-toggle:hover .eye-icon {
+  opacity: 0.8;
+}
+
+/* Сброс стилей фокуса, валидности и placeholder для полей ввода */
+form label input:focus,
+form label input:valid,
+form label input:placeholder-shown {
+  background-color: var(--input-background);
+  border-color: var(--input-border);
+  outline: none;
+}
+
+/* Стили для типа text (когда пароль виден) */
+form label input[type="text"] {
+  background-color: var(--input-background);
+}
+
+/* Переопределение стилей автозаполнения браузера */
+form label input:-webkit-autofill,
+form label input:-webkit-autofill:hover,
+form label input:-webkit-autofill:focus,
+form label input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--input-background) inset; /* Перекрываем фон автозаполнения */
+  -webkit-text-fill-color: var(--text-color); /* Цвет текста */
+  border: 1px solid var(--input-border); /* Сохраняем обводку */
+  outline: none; /* Убираем обводку */
+}
+
+/* Поддержка для Firefox (если требуется) */
+form label input:-moz-autofill,
+form label input:-moz-autofill-preview {
+  background-color: var(--input-background) !important;
+  color: var(--text-color) !important;
+}
+
 @media(max-width:768px) {
   .content-registration {
     display: flex;
@@ -231,5 +313,17 @@ option {
 
   .submit {
     padding: var(--submit-padding-mobile);
+  }
+
+  /* Адаптация для кнопки переключения пароля на мобильных устройствах */
+  .password-toggle {
+    right: 5px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .eye-icon {
+    width: 18px;
+    height: 18px;
   }
 }

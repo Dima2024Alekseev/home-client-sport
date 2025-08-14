@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import logo from "../img/header-icon.png";
@@ -17,6 +17,7 @@ const Header = ({ icon, innerTitle, linkText, showVideoHomePages, showGradient, 
   const [nav, setNav] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated') === 'true');
   const location = useLocation();
+  const navigate = useNavigate();
   const videoRefs = useRef([]);
 
   // Добавляем видео элементы в ref
@@ -117,6 +118,7 @@ const Header = ({ icon, innerTitle, linkText, showVideoHomePages, showGradient, 
             if (onLogout) {
               onLogout();
             }
+            navigate('/authorization-account');
           }
         },
         {
