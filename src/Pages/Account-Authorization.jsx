@@ -9,7 +9,7 @@ import Form from "../Components/Form";
 import Footer from "../Components/Footer/Footer";
 
 const Authorization = () => {
-  const [error, setError] = useState(null);
+  const [setError] = useState(null);
   const { showNotification } = useNotification();
   const navigate = useNavigate();
 
