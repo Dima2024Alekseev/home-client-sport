@@ -46,6 +46,22 @@ const Posts = ({ filterTag }) => {
         });
     };
 
+    // Функция для форматирования Unix timestamp в читаемый формат
+    const formatDate = (unixTimestamp) => {
+        if (!unixTimestamp) return 'Дата не указана';
+        try {
+            const date = new Date(unixTimestamp * 1000); // VK API возвращает timestamp в секундах
+            return new Intl.DateTimeFormat('ru-RU', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+            }).format(date);
+        } catch (error) {
+            console.error('Ошибка форматирования даты:', error);
+            return 'Дата не указана';
+        }
+    };
+
     // Функция для проверки загрузки изображений
     const loadImage = (src) => {
         return new Promise((resolve, reject) => {
@@ -174,6 +190,7 @@ const Posts = ({ filterTag }) => {
                                         <h2 className='news-title'>{post.title}</h2>
                                         <pre className='news-text'>
                                             {makeLinksClickable(post.text)}
+                                            <p className='news-date'>{formatDate(post.date)}</p>
                                         </pre>
                                     </div>
                                     {post.photoUrls && (
