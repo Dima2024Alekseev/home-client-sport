@@ -27,18 +27,14 @@ const Posts = ({ filterTag }) => {
     // Функция для преобразования URL в кликабельные ссылки
     const makeLinksClickable = (text) => {
         if (!text) return text;
-        
-        // Регулярное выражение для поиска URL
         const urlRegex = /(https?:\/\/[^\s]+)/g;
-        
-        // Разбиваем текст на части и преобразуем URL в ссылки
         return text.split(urlRegex).map((part, index) => {
             if (part.match(urlRegex)) {
                 return (
-                    <a 
-                        key={index} 
-                        href={part} 
-                        target="_blank" 
+                    <a
+                        key={index}
+                        href={part}
+                        target="_blank"
                         rel="noopener noreferrer"
                         style={{ color: '#0066cc', textDecoration: 'underline' }}
                     >
@@ -50,10 +46,20 @@ const Posts = ({ filterTag }) => {
         });
     };
 
+    // Функция для проверки загрузки изображений
+    const loadImage = (src) => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.src = src;
+            img.onload = resolve;
+            img.onerror = reject;
+        });
+    };
+
     const fetchPosts = useCallback(() => {
         setLoading(true);
         axios.get('/api/posts')
-            .then(response => {
+            .then(async (response) => {
                 const sortedPosts = response.data.sort((a, b) => b.id - a.id);
                 const filteredPosts = sortedPosts.filter(post => {
                     return post.photoUrls && post.photoUrls.length > 0 &&
@@ -66,6 +72,17 @@ const Posts = ({ filterTag }) => {
                     text: removeLinksFromText(post.text).replace(/#нашипобеды|#афиша/g, '').trim()
                 }));
                 setPosts(modifiedPosts);
+
+                // Получаем изображения для текущей страницы
+                const indexOfLastItem = currentPage * itemsPerPage;
+                const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+                const currentItems = modifiedPosts.slice(indexOfFirstItem, indexOfLastItem);
+                const imagePromises = currentItems
+                    .filter(post => post.photoUrls && post.photoUrls[0])
+                    .map(post => loadImage(post.photoUrls[0]));
+
+                // Ждем, пока все изображения загрузятся
+                await Promise.all(imagePromises);
                 setLoading(false);
             })
             .catch(error => {
@@ -73,17 +90,11 @@ const Posts = ({ filterTag }) => {
                 setError(error.message);
                 setLoading(false);
             });
-    }, [filterTag]);
+    }, [filterTag, currentPage, itemsPerPage]);
 
     useEffect(() => {
         fetchPosts();
     }, [fetchPosts]);
-
-    useEffect(() => {
-        if (posts.length > itemsPerPage) {
-            setCurrentPage(1);
-        }
-    }, [posts, itemsPerPage]);
 
     const handleReload = () => {
         window.location.reload();
@@ -101,10 +112,18 @@ const Posts = ({ filterTag }) => {
         setIsPageLoading(true);
         setCurrentPage(pageNumber);
         mainRef.current.scrollIntoView({ behavior: 'smooth' });
-    
-        setTimeout(() => {
+
+        // Загружаем изображения для новой страницы
+        const newItems = posts.slice((pageNumber - 1) * itemsPerPage, pageNumber * itemsPerPage);
+        const imagePromises = newItems
+            .filter(post => post.photoUrls && post.photoUrls[0])
+            .map(post => loadImage(post.photoUrls[0]));
+
+        Promise.all(imagePromises).then(() => {
             setIsPageLoading(false);
-        }, 1000);
+        }).catch(() => {
+            setIsPageLoading(false);
+        });
     };
 
     const openModal = (imageSrc) => {
