@@ -27,7 +27,11 @@ const Posts = ({ filterTag }) => {
     // Функция для преобразования URL в кликабельные ссылки
     const makeLinksClickable = (text) => {
         if (!text) return text;
+
+        // Регулярное выражение для поиска URL
         const urlRegex = /(https?:\/\/[^\s]+)/g;
+
+        // Разбиваем текст на части и преобразуем URL в ссылки
         return text.split(urlRegex).map((part, index) => {
             if (part.match(urlRegex)) {
                 return (
@@ -46,36 +50,10 @@ const Posts = ({ filterTag }) => {
         });
     };
 
-    // Функция для форматирования Unix timestamp в читаемый формат
-    const formatDate = (unixTimestamp) => {
-        if (!unixTimestamp) return 'Дата не указана';
-        try {
-            const date = new Date(unixTimestamp * 1000); // VK API возвращает timestamp в секундах
-            return new Intl.DateTimeFormat('ru-RU', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric',
-            }).format(date);
-        } catch (error) {
-            console.error('Ошибка форматирования даты:', error);
-            return 'Дата не указана';
-        }
-    };
-
-    // Функция для проверки загрузки изображений
-    const loadImage = (src) => {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.src = src;
-            img.onload = resolve;
-            img.onerror = reject;
-        });
-    };
-
     const fetchPosts = useCallback(() => {
         setLoading(true);
         axios.get('/api/posts')
-            .then(async (response) => {
+            .then(response => {
                 const sortedPosts = response.data.sort((a, b) => b.id - a.id);
                 const filteredPosts = sortedPosts.filter(post => {
                     return post.photoUrls && post.photoUrls.length > 0 &&
@@ -88,17 +66,6 @@ const Posts = ({ filterTag }) => {
                     text: removeLinksFromText(post.text).replace(/#нашипобеды|#афиша/g, '').trim()
                 }));
                 setPosts(modifiedPosts);
-
-                // Получаем изображения для текущей страницы
-                const indexOfLastItem = currentPage * itemsPerPage;
-                const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-                const currentItems = modifiedPosts.slice(indexOfFirstItem, indexOfLastItem);
-                const imagePromises = currentItems
-                    .filter(post => post.photoUrls && post.photoUrls[0])
-                    .map(post => loadImage(post.photoUrls[0]));
-
-                // Ждем, пока все изображения загрузятся
-                await Promise.all(imagePromises);
                 setLoading(false);
             })
             .catch(error => {
@@ -106,11 +73,17 @@ const Posts = ({ filterTag }) => {
                 setError(error.message);
                 setLoading(false);
             });
-    }, [filterTag, currentPage, itemsPerPage]);
+    }, [filterTag]);
 
     useEffect(() => {
         fetchPosts();
     }, [fetchPosts]);
+
+    useEffect(() => {
+        if (posts.length > itemsPerPage) {
+            setCurrentPage(1);
+        }
+    }, [posts, itemsPerPage]);
 
     const handleReload = () => {
         window.location.reload();
@@ -129,17 +102,9 @@ const Posts = ({ filterTag }) => {
         setCurrentPage(pageNumber);
         mainRef.current.scrollIntoView({ behavior: 'smooth' });
 
-        // Загружаем изображения для новой страницы
-        const newItems = posts.slice((pageNumber - 1) * itemsPerPage, pageNumber * itemsPerPage);
-        const imagePromises = newItems
-            .filter(post => post.photoUrls && post.photoUrls[0])
-            .map(post => loadImage(post.photoUrls[0]));
-
-        Promise.all(imagePromises).then(() => {
+        setTimeout(() => {
             setIsPageLoading(false);
-        }).catch(() => {
-            setIsPageLoading(false);
-        });
+        }, 1000);
     };
 
     const openModal = (imageSrc) => {
@@ -190,7 +155,6 @@ const Posts = ({ filterTag }) => {
                                         <h2 className='news-title'>{post.title}</h2>
                                         <pre className='news-text'>
                                             {makeLinksClickable(post.text)}
-                                            <p className='news-date'>{formatDate(post.date)}</p>
                                         </pre>
                                     </div>
                                     {post.photoUrls && (
