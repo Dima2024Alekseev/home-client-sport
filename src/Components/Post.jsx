@@ -9,6 +9,7 @@ import PostsLoader from './Skeleton';
 const Posts = ({ filterTag }) => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [imagesLoaded, setImagesLoaded] = useState(false); // Новое состояние для изображений
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(5);
@@ -27,11 +28,7 @@ const Posts = ({ filterTag }) => {
     // Функция для преобразования URL в кликабельные ссылки
     const makeLinksClickable = (text) => {
         if (!text) return text;
-
-        // Регулярное выражение для поиска URL
         const urlRegex = /(https?:\/\/[^\s]+)/g;
-
-        // Разбиваем текст на части и преобразуем URL в ссылки
         return text.split(urlRegex).map((part, index) => {
             if (part.match(urlRegex)) {
                 return (
@@ -50,8 +47,23 @@ const Posts = ({ filterTag }) => {
         });
     };
 
+    // Функция для предварительной загрузки изображений
+    const preloadImages = (imageUrls) => {
+        return Promise.all(
+            imageUrls.map((url) => {
+                return new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.src = url;
+                    img.onload = () => resolve(url);
+                    img.onerror = () => reject(new Error(`Failed to load image: ${url}`));
+                });
+            })
+        );
+    };
+
     const fetchPosts = useCallback(() => {
         setLoading(true);
+        setImagesLoaded(false); // Сбрасываем состояние загрузки изображений
         axios.get('/api/posts')
             .then(response => {
                 const sortedPosts = response.data.sort((a, b) => b.id - a.id);
@@ -66,14 +78,35 @@ const Posts = ({ filterTag }) => {
                     text: removeLinksFromText(post.text).replace(/#нашипобеды|#афиша/g, '').trim()
                 }));
                 setPosts(modifiedPosts);
-                setLoading(false);
+
+                // Загружаем изображения для текущей страницы
+                const currentItems = modifiedPosts.slice(0, itemsPerPage);
+                const imageUrls = currentItems
+                    .filter(post => post.photoUrls && post.photoUrls.length > 0)
+                    .map(post => post.photoUrls[0]);
+
+                if (imageUrls.length > 0) {
+                    preloadImages(imageUrls)
+                        .then(() => {
+                            setImagesLoaded(true);
+                            setLoading(false);
+                        })
+                        .catch(error => {
+                            console.error('Ошибка при загрузке изображений:', error);
+                            setError(error.message);
+                            setLoading(false);
+                        });
+                } else {
+                    setImagesLoaded(true);
+                    setLoading(false);
+                }
             })
             .catch(error => {
                 console.error('Ошибка при получении данных:', error);
                 setError(error.message);
                 setLoading(false);
             });
-    }, [filterTag]);
+    }, [filterTag, itemsPerPage]);
 
     useEffect(() => {
         fetchPosts();
@@ -84,6 +117,35 @@ const Posts = ({ filterTag }) => {
             setCurrentPage(1);
         }
     }, [posts, itemsPerPage]);
+
+    // Обновляем изображения при смене страницы
+    useEffect(() => {
+        if (!loading && posts.length > 0) {
+            const indexOfLastItem = currentPage * itemsPerPage;
+            const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+            const currentItems = posts.slice(indexOfFirstItem, indexOfLastItem);
+            const imageUrls = currentItems
+                .filter(post => post.photoUrls && post.photoUrls.length > 0)
+                .map(post => post.photoUrls[0]);
+
+            if (imageUrls.length > 0) {
+                setImagesLoaded(false);
+                preloadImages(imageUrls)
+                    .then(() => {
+                        setImagesLoaded(true);
+                        setIsPageLoading(false);
+                    })
+                    .catch(error => {
+                        console.error('Ошибка при загрузке изображений:', error);
+                        setError(error.message);
+                        setIsPageLoading(false);
+                    });
+            } else {
+                setImagesLoaded(true);
+                setIsPageLoading(false);
+            }
+        }
+    }, [currentPage, posts, itemsPerPage]);
 
     const handleReload = () => {
         window.location.reload();
@@ -101,10 +163,6 @@ const Posts = ({ filterTag }) => {
         setIsPageLoading(true);
         setCurrentPage(pageNumber);
         mainRef.current.scrollIntoView({ behavior: 'smooth' });
-
-        setTimeout(() => {
-            setIsPageLoading(false);
-        }, 1000);
     };
 
     const openModal = (imageSrc) => {
@@ -114,7 +172,7 @@ const Posts = ({ filterTag }) => {
 
     return (
         <div>
-            {loading ? (
+            {loading || !imagesLoaded ? (
                 <ContentLoader />
             ) : error ? (
                 <section className='error'>
