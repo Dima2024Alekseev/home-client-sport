@@ -9,7 +9,7 @@ import PostsLoader from './Skeleton';
 const Posts = ({ filterTag }) => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [imagesLoaded, setImagesLoaded] = useState(false); // Новое состояние для изображений
+    const [imagesLoaded, setImagesLoaded] = useState(false);
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(5);
@@ -61,9 +61,20 @@ const Posts = ({ filterTag }) => {
         );
     };
 
+    // Функция для форматирования Unix timestamp в читаемую дату
+    const formatDate = (unixTimestamp) => {
+        if (!unixTimestamp) return null; // Возвращаем null, если дата отсутствует
+        const date = new Date(unixTimestamp * 1000); // Умножаем на 1000, так как timestamp в секундах
+        return date.toLocaleDateString('ru-RU', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
+        }); // Формат: ДД.ММ.ГГГГ
+    };
+
     const fetchPosts = useCallback(() => {
         setLoading(true);
-        setImagesLoaded(false); // Сбрасываем состояние загрузки изображений
+        setImagesLoaded(false);
         axios.get('/api/posts')
             .then(response => {
                 const sortedPosts = response.data.sort((a, b) => b.id - a.id);
@@ -211,9 +222,14 @@ const Posts = ({ filterTag }) => {
                                 <article className='news' key={post.id}>
                                     <div className='news-text-container'>
                                         <h2 className='news-title'>{post.title}</h2>
+
                                         <pre className='news-text'>
+                                            {formatDate(post.date) && ( // Условное отображение даты
+                                                <p className='news-date'>{formatDate(post.date)}</p>
+                                            )}
                                             {makeLinksClickable(post.text)}
                                         </pre>
+
                                     </div>
                                     {post.photoUrls && (
                                         <figure className='news-image-container'>
