@@ -2,11 +2,26 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { Parallax } from "react-parallax";
 import { useInView } from "react-intersection-observer";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "./about.css";
 import Header from "../../Components/Header";
 import photo_founder from "../../img/founder.jpg";
 import coach from "../../img/head-coach.jpg";
 import Footer from "../../Components/Footer/Footer";
+
+// Импорт изображений для слайдера
+import slide1 from "../../img/gym1.jpg";
+import slide2 from "../../img/gym2.jpg";
+import slide3 from "../../img/gym3.jpg";
+import slide4 from "../../img/gym4.jpg";
+import slide5 from "../../img/gym5.jpg";
+import slide6 from "../../img/gym6.jpg";
+
+// Импорт стилей Swiper
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 // Импорт иконок
 import { FaGraduationCap, FaUserTie, FaFistRaised, FaQuoteLeft } from "react-icons/fa";
@@ -19,23 +34,23 @@ import { BsGlobe } from "react-icons/bs";
 
 // Анимационный компонент
 const AnimatedSection = ({ children, delay = 0 }) => {
-  const [ref, inView] = useInView({
-    threshold: 0.1,
-    triggerOnce: true
-  });
+    const [ref, inView] = useInView({
+        threshold: 0.1,
+        triggerOnce: true
+    });
 
-  return (
-    <div
-      ref={ref}
-      style={{
-        opacity: inView ? 1 : 0,
-        transform: inView ? 'translateY(0)' : 'translateY(20px)',
-        transition: `opacity 0.6s ease-out ${delay}s, transform 0.6s ease-out ${delay}s`
-      }}
-    >
-      {children}
-    </div>
-  );
+    return (
+        <div
+            ref={ref}
+            style={{
+                opacity: inView ? 1 : 0,
+                transform: inView ? 'translateY(0)' : 'translateY(20px)',
+                transition: `opacity 0.6s ease-out ${delay}s, transform 0.6s ease-out ${delay}s`
+            }}
+        >
+            {children}
+        </div>
+    );
 };
 
 const About = () => {
@@ -47,16 +62,16 @@ const About = () => {
                 <meta name="keywords" content="Академия боевых единоборств, Хулиган, Сергей Бычков, Антон Бычков, ММА, карате, рукопашный бой" />
                 <link rel="canonical" href="https://hooliganmma.ru/about" />
             </Helmet>
-            
-                <Header
-                    title="Об Академии"
-                    showBlock={true}
-                    innerTitle="Об Академии"
-                    homeRoute="/"
-                    linkText="Об Академии"
-                    showGradient={true}
-                />
-            
+
+            <Header
+                title="Об Академии"
+                showBlock={true}
+                innerTitle="Об Академии"
+                homeRoute="/"
+                linkText="Об Академии"
+                showGradient={true}
+            />
+
             <main className="content_about_us">
                 {/* Секция философии с анимацией */}
                 <AnimatedSection>
@@ -111,7 +126,8 @@ const About = () => {
                     </section>
                 </AnimatedSection>
 
-                {/* Секция об основателе с параллаксом */}
+
+
                 <Parallax strength={100} bgStyle={{ height: 'auto' }}>
                     <AnimatedSection delay={0.3}>
                         <section className="about-section">
@@ -141,7 +157,6 @@ const About = () => {
                     </AnimatedSection>
                 </Parallax>
 
-                {/* Секция о тренере с параллаксом */}
                 <Parallax strength={100} bgStyle={{ height: 'auto' }}>
                     <AnimatedSection delay={0.4}>
                         <section className="about-section">
@@ -171,6 +186,66 @@ const About = () => {
                         </section>
                     </AnimatedSection>
                 </Parallax>
+                <AnimatedSection delay={0.25}>
+                    <section className="fullscreen-gallery">
+                        <div className="gallery-header">
+                            <h2>Наша академия</h2>
+                            <div className="divider"></div>
+                        </div>
+                        <Swiper
+                            modules={[Navigation, Pagination, Autoplay]}
+                            spaceBetween={0}
+                            slidesPerView={1}
+                            navigation={{
+                                nextEl: '.swiper-button-next',
+                                prevEl: '.swiper-button-prev',
+                            }}
+                            pagination={{
+                                clickable: true,
+                                el: '.swiper-pagination',
+                            }}
+                            autoplay={{ delay: 5000 }}
+                            loop={true}
+                            className="fullscreen-swiper"
+                        >
+                            <SwiperSlide>
+                                <div className="fullscreen-slide">
+                                    <img src={slide1} alt="Изображение зала" />
+                                </div>
+                            </SwiperSlide>
+                            <SwiperSlide>
+                                <div className="fullscreen-slide">
+                                    <img src={slide2} alt="Изображение зала" />
+                                </div>
+                            </SwiperSlide>
+                            <SwiperSlide>
+                                <div className="fullscreen-slide">
+                                    <img src={slide3} alt="Изображение зала" />
+                                </div>
+                            </SwiperSlide>
+                            <SwiperSlide>
+                                <div className="fullscreen-slide">
+                                    <img src={slide4} alt="Изображение зала" />
+                                </div>
+                            </SwiperSlide>
+                            <SwiperSlide>
+                                <div className="fullscreen-slide">
+                                    <img src={slide5} alt="Изображение зала" />
+                                </div>
+                            </SwiperSlide>
+                            <SwiperSlide>
+                                <div className="fullscreen-slide">
+                                    <img src={slide6} alt="Изображение зала" />
+                                </div>
+                            </SwiperSlide>
+
+                            {/* Кнопки навигации */}
+                            <div className="swiper-button-next"></div>
+                            <div className="swiper-button-prev"></div>
+                            <div className="swiper-pagination"></div>
+                        </Swiper>
+                    </section>
+                </AnimatedSection>
             </main>
             <Footer />
         </>

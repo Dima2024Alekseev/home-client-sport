@@ -262,6 +262,221 @@ blockquote {
     transform: translateY(-3px);
 }
 
+/* Стили для полноэкранного слайдера */
+.fullscreen-gallery {
+    width: 100%;
+    position: relative;
+    margin: 60px 0;
+    padding: 10px;
+}
+
+.gallery-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.gallery-header h2 {
+    color: #333;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.fullscreen-swiper {
+    width: 100%;
+    height: 80vh;
+    min-height: 500px;
+}
+
+.fullscreen-slide {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.fullscreen-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 10px;
+}
+
+.slide-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slide-caption {
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Стили для навигации на изображениях */
+.fullscreen-swiper .swiper-button-next,
+.fullscreen-swiper .swiper-button-prev {
+    color: white;
+    background: #e3070e;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fullscreen-swiper .swiper-button-next:after,
+.fullscreen-swiper .swiper-button-prev:after {
+    font-size: 1.0rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.fullscreen-swiper .swiper-button-next {
+    right: 30px;
+    left: auto;
+}
+
+.fullscreen-swiper .swiper-button-prev {
+    left: 30px;
+    right: auto;
+}
+
+/* Стили для пагинации */
+.fullscreen-swiper .swiper-pagination {
+    bottom: 50px;
+}
+
+.fullscreen-swiper .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background: white;
+    opacity: 0.7;
+    margin: 0 8px;
+}
+
+.fullscreen-swiper .swiper-pagination-bullet-active {
+    background: #e3070e;
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+/* Адаптивность для слайдера */
+@media (max-width: 1200px) {
+    .fullscreen-swiper {
+        height: 70vh;
+    }
+
+    .slide-caption {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .fullscreen-swiper {
+        height: 60vh;
+    }
+
+    .slide-caption {
+        font-size: 1.4rem;
+        padding: 0 15px;
+    }
+
+    .fullscreen-swiper .swiper-button-next,
+    .fullscreen-swiper .swiper-button-prev {
+        width: 50px;
+        height: 50px;
+        margin-top: -25px;
+    }
+
+    .fullscreen-swiper .swiper-button-next:after,
+    .fullscreen-swiper .swiper-button-prev:after {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .gallery-header h2 {
+        font-size: 2rem;
+    }
+
+    .fullscreen-swiper {
+        height: 50vh;
+        min-height: 400px;
+    }
+
+    .slide-caption {
+        font-size: 1.2rem;
+    }
+
+    .fullscreen-swiper .swiper-button-next,
+    .fullscreen-swiper .swiper-button-prev {
+        width: 40px;
+        height: 40px;
+        margin-top: -20px;
+    }
+
+    .fullscreen-swiper .swiper-button-next:after,
+    .fullscreen-swiper .swiper-button-prev:after {
+        font-size: 1.2rem;
+    }
+
+    .fullscreen-swiper .swiper-button-next {
+        right: 15px;
+    }
+
+    .fullscreen-swiper .swiper-button-prev {
+        left: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .fullscreen-gallery {
+        margin: 40px 0;
+    }
+
+    .fullscreen-swiper {
+        height: 40vh;
+        min-height: 300px;
+    }
+
+    .slide-overlay {
+        padding: 20px;
+    }
+
+    .slide-caption {
+        font-size: 1rem;
+    }
+
+    .fullscreen-swiper .swiper-button-next,
+    .fullscreen-swiper .swiper-button-prev {
+        display: none;
+    }
+
+    .fullscreen-swiper .swiper-pagination-bullet {
+        width: 6px;
+        height: 6px;
+    }
+}
+
 @media (max-width: 768px) {
     .philosophy-container {
         padding: 25px;
