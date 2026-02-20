@@ -6,4 +6,4 @@ Disallow: /admin/attendance-journal
 Disallow: /admin-price
 Disallow: /admin-products
 Disallow: /edit-ad
-Sitemap: https://www.hooliganmma.ru/sitemap.xml
+Sitemap: https://www.hooliganmma.pro/sitemap.xml

@@ -12,7 +12,7 @@ const Press = () => {
                 <title>Пресс-центр - Академия боевых единоборств "Хулиган"</title>
                 <meta name="description" content="Последние новости и обновления из Пресс-центра Академии боевых единоборств 'Хулиган'." />
                 <meta name="keywords" content="Пресс-центр, Академия боевых единоборств, Хулиган, новости, обновления, спорт" />
-                <link rel="canonical" href="https://hooliganmma.ru/press-center" />
+                <link rel="canonical" href="https://hooliganmma.pro/press-center" />
             </Helmet>
             <Header
                 showBlock={true}

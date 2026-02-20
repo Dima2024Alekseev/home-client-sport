@@ -11,7 +11,7 @@ const PageContact = () => {
                 <title>Контакты - Академия боевых единоборств "Хулиган"</title>
                 <meta name="description" content="Свяжитесь с нами для получения дополнительной информации о наших услугах и занятиях в Академии боевых единоборств 'Хулиган'." />
                 <meta name="keywords" content="Контакты, Академия боевых единоборств, Хулиган, боевые искусства, связь, информация" />
-                <link rel="canonical" href="https://hooliganmma.ru/contact" />
+                <link rel="canonical" href="https://hooliganmma.pro/contact" />
             </Helmet>
             <Header
                 showGradient={true}

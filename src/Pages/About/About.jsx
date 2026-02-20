@@ -60,7 +60,7 @@ const About = () => {
                 <title>Об Академии боевых единоборств "Хулиган"</title>
                 <meta name="description" content="Узнайте больше о основателе и тренерах Академии боевых единоборств 'Хулиган'." />
                 <meta name="keywords" content="Академия боевых единоборств, Хулиган, Сергей Бычков, Антон Бычков, ММА, карате, рукопашный бой" />
-                <link rel="canonical" href="https://hooliganmma.ru/about" />
+                <link rel="canonical" href="https://hooliganmma.pro/about" />
             </Helmet>
 
             <Header
